@@ -1,6 +1,7 @@
 // ==========================================================
 // EXPLORADORES DE LA LECTURA NICA
-// SCRIPT.JS - MISIÓN 1
+// SCRIPT.JS
+// MISIÓN 1 + MISIÓN 2
 // ==========================================================
 
 
@@ -12,7 +13,7 @@ const pantallas = document.querySelectorAll(".pantalla");
 
 
 // ==========================================================
-// 2. MOSTRAR UNA PANTALLA
+// 2. MOSTRAR PANTALLA
 // ==========================================================
 
 function mostrarPantalla(id) {
@@ -30,51 +31,21 @@ function mostrarPantalla(id) {
 
 
 // ==========================================================
-// 3. ELEMENTOS PRINCIPALES
+// 3. CONECTAR BOTONES DE FORMA SEGURA
 // ==========================================================
 
-const btnComenzar = document.getElementById("btnComenzar");
-const btnEntrar = document.getElementById("btnEntrar");
-const btnMapa = document.getElementById("btnMapa");
-const btnRivas = document.getElementById("btnRivas");
-const volverMenu = document.getElementById("volverMenu");
+function conectarBoton(id, funcion) {
 
-const btnComenzarLectura =
-    document.getElementById("btnComenzarLectura");
+    const boton = document.getElementById(id);
 
-const btnTerminarLectura =
-    document.getElementById("btnTerminarLectura");
-
-const btnComprobarReto1 =
-    document.getElementById("btnComprobarReto1");
-
-const btnContinuarReto2 =
-    document.getElementById("btnContinuarReto2");
-
-const btnChat =
-    document.getElementById("btnChat");
-
-const btnMeme =
-    document.getElementById("btnMeme");
-
-const btnEntregarChat =
-    document.getElementById("btnEntregarChat");
-
-const btnCrearMeme =
-    document.getElementById("btnCrearMeme");
-
-const btnComprobarReto3 =
-    document.getElementById("btnComprobarReto3");
-
-const btnVolverMapa =
-    document.getElementById("btnVolverMapa");
-
-const btnLeon =
-    document.getElementById("btnLeon");
+    if (boton) {
+        boton.addEventListener("click", funcion);
+    }
+}
 
 
 // ==========================================================
-// 4. REGISTRO DEL JUGADOR
+// 4. NOMBRE DEL JUGADOR
 // ==========================================================
 
 const nombreJugador =
@@ -88,7 +59,7 @@ const saludoJugador =
 // 5. COMENZAR
 // ==========================================================
 
-btnComenzar.addEventListener("click", function() {
+conectarBoton("btnComenzar", function() {
 
     mostrarPantalla("registro");
 
@@ -99,10 +70,11 @@ btnComenzar.addEventListener("click", function() {
 // 6. ENTRAR
 // ==========================================================
 
-btnEntrar.addEventListener("click", function() {
+conectarBoton("btnEntrar", function() {
 
-    const nombre =
-        nombreJugador.value.trim();
+    const nombre = nombreJugador
+        ? nombreJugador.value.trim()
+        : "";
 
     if (nombre === "") {
 
@@ -134,7 +106,7 @@ btnEntrar.addEventListener("click", function() {
 // 7. IR AL MAPA
 // ==========================================================
 
-btnMapa.addEventListener("click", function() {
+conectarBoton("btnMapa", function() {
 
     mostrarPantalla("mapa");
 
@@ -142,21 +114,10 @@ btnMapa.addEventListener("click", function() {
 
 
 // ==========================================================
-// 8. ENTRAR A RIVAS
+// 8. VOLVER AL MENÚ
 // ==========================================================
 
-btnRivas.addEventListener("click", function() {
-
-    mostrarPantalla("mision1");
-
-});
-
-
-// ==========================================================
-// 9. VOLVER AL MENÚ
-// ==========================================================
-
-volverMenu.addEventListener("click", function() {
+conectarBoton("volverMenu", function() {
 
     mostrarPantalla("menu");
 
@@ -164,10 +125,74 @@ volverMenu.addEventListener("click", function() {
 
 
 // ==========================================================
-// 10. COMENZAR LECTURA
+// 9. PROGRESO
 // ==========================================================
 
-btnComenzarLectura.addEventListener("click", function() {
+let mision1Completada =
+    localStorage.getItem("mision1Completada") === "true";
+
+let mision2Completada =
+    localStorage.getItem("mision2Completada") === "true";
+
+
+// ==========================================================
+// 10. ACTUALIZAR MAPA
+// ==========================================================
+
+function actualizarMapa() {
+
+    const btnLeon =
+        document.getElementById("btnLeon");
+
+    if (btnLeon) {
+
+        if (mision1Completada) {
+
+            btnLeon.disabled = false;
+            btnLeon.textContent = "🌺 León";
+
+        } else {
+
+            btnLeon.disabled = true;
+            btnLeon.textContent = "🔒 León";
+
+        }
+
+    }
+
+}
+
+
+// ==========================================================
+// 11. ACTUALIZAR AL CARGAR
+// ==========================================================
+
+actualizarMapa();
+
+
+// ==========================================================
+// ==========================================================
+// MISIÓN 1 — RIVAS
+// ==========================================================
+// ==========================================================
+
+
+// ==========================================================
+// 12. ENTRAR A RIVAS
+// ==========================================================
+
+conectarBoton("btnRivas", function() {
+
+    mostrarPantalla("tarjetaMision1");
+
+});
+
+
+// ==========================================================
+// 13. COMENZAR LECTURA 1
+// ==========================================================
+
+conectarBoton("btnComenzarLectura", function() {
 
     mostrarPantalla("lectura1");
 
@@ -175,64 +200,52 @@ btnComenzarLectura.addEventListener("click", function() {
 
 
 // ==========================================================
-// 11. TERMINAR LECTURA
+// 14. TERMINAR LECTURA 1
 // ==========================================================
 
-btnTerminarLectura.addEventListener("click", function() {
+conectarBoton("btnTerminarLectura", function() {
 
     mostrarPantalla("reto1");
 
 });
 
 
-// ==========================================================
-// 12. RETO 1 — SELECCIÓN MÚLTIPLE
+//// ==========================================================
+// 15. RETO 1 MISIÓN 1
 // ==========================================================
 
-btnComprobarReto1.addEventListener("click", function() {
+// ==========================================================
+// 15. RETO 1 MISIÓN 1 — SELECCIÓN MÚLTIPLE
+// ==========================================================
+
+conectarBoton("btnComprobarReto1", function() {
 
     const respuestasCorrectas = {
-
-        pregunta1: "b",
-        pregunta2: "b",
-        pregunta3: "b",
-        pregunta4: "a",
-        pregunta5: "a"
-
+        m1p1: "B",
+        m1p2: "B",
+        m1p3: "B",
+        m1p4: "A",
+        m1p5: "A"
     };
-
 
     let puntos = 0;
 
-
     for (const pregunta in respuestasCorrectas) {
 
-        const seleccion =
-            document.querySelector(
-                'input[name="' +
-                pregunta +
-                '"]:checked'
-            );
-
-
-        if (
-            seleccion &&
-            seleccion.value ===
-            respuestasCorrectas[pregunta]
-        ) {
-
-            puntos++;
-
-        }
-
-    }
-
-
-    const resultado =
-        document.getElementById(
-            "resultadoReto1"
+        const respuesta = document.querySelector(
+            'input[name="' + pregunta + '"]:checked'
         );
 
+        if (
+            respuesta &&
+            respuesta.value === respuestasCorrectas[pregunta]
+        ) {
+            puntos++;
+        }
+    }
+
+    const resultado =
+        document.getElementById("resultadoReto1");
 
     if (puntos === 5) {
 
@@ -241,40 +254,28 @@ btnComprobarReto1.addEventListener("click", function() {
 
         resultado.style.color = "green";
 
-
-        btnContinuarReto2.style.display =
-            "inline-block";
+        // PASAR AL RETO 2
+        setTimeout(function() {
+            mostrarPantalla("reto2");
+        }, 500);
 
     } else {
 
         resultado.textContent =
             "❌ Obtuviste " +
             puntos +
-            " de 5. Revisa la lectura e inténtalo nuevamente.";
+            " de 5. Revisa la leyenda e inténtalo nuevamente.";
 
         resultado.style.color = "red";
-
     }
 
 });
 
-
 // ==========================================================
-// 13. PASAR AL RETO 2
-// ==========================================================
-
-btnContinuarReto2.addEventListener("click", function() {
-
-    mostrarPantalla("reto2");
-
-});
-
-
-// ==========================================================
-// 14. RETO 2 — CHAT
+// 16. RETO 2 — CHAT
 // ==========================================================
 
-btnChat.addEventListener("click", function() {
+conectarBoton("btnChat", function() {
 
     mostrarPantalla("chat");
 
@@ -282,10 +283,10 @@ btnChat.addEventListener("click", function() {
 
 
 // ==========================================================
-// 15. RETO 2 — MEME
+// 17. RETO 2 — MEME
 // ==========================================================
 
-btnMeme.addEventListener("click", function() {
+conectarBoton("btnMeme", function() {
 
     mostrarPantalla("meme");
 
@@ -293,29 +294,36 @@ btnMeme.addEventListener("click", function() {
 
 
 // ==========================================================
-// 16. ENTREGAR CHAT
+// 18. ENTREGAR CHAT
 // ==========================================================
 
-btnEntregarChat.addEventListener("click", function() {
+conectarBoton("btnEntregarChat", function() {
 
     const campos = [
-
-        document.getElementById("chat1"),
-        document.getElementById("chat2"),
-        document.getElementById("chat3"),
-        document.getElementById("chat4"),
-        document.getElementById("chatFinal")
-
+        "chat1",
+        "chat2",
+        "chat3",
+        "chat4",
+        "chatFinal"
     ];
 
+    let completos = true;
 
-    const completos =
-        campos.every(function(campo) {
+    campos.forEach(function(id) {
 
-            return campo.value.trim() !== "";
+        const campo =
+            document.getElementById(id);
 
-        });
+        if (
+            !campo ||
+            campo.value.trim() === ""
+        ) {
 
+            completos = false;
+
+        }
+
+    });
 
     if (!completos) {
 
@@ -324,135 +332,49 @@ btnEntregarChat.addEventListener("click", function() {
         );
 
         return;
-
     }
-
 
     alert(
         "🎉 ¡Reto 2 completado!"
     );
 
-
     mostrarPantalla("reto3");
 
 });
-
-
-// ==========================================================
-// 17. SELECCIÓN DE IMAGEN DEL MEME
-// ==========================================================
-
-const botonesImagenMeme =
-    document.querySelectorAll(".imagenMeme");
-
-
-botonesImagenMeme.forEach(function(boton) {
-
-    boton.addEventListener("click", function() {
-
-        const imagen =
-            boton.getAttribute(
-                "data-imagen"
-            );
-
-
-        document.getElementById(
-            "imagenSeleccionada"
-        ).textContent = imagen;
-
-    });
-
-});
-
-
-// ==========================================================
-// 18. VISTA PREVIA DEL MEME
-// ==========================================================
-
-const memeSuperior =
-    document.getElementById(
-        "memeSuperior"
-    );
-
-const memeInferior =
-    document.getElementById(
-        "memeInferior"
-    );
-
-
-if (memeSuperior) {
-
-    memeSuperior.addEventListener(
-        "input",
-        function() {
-
-            document.getElementById(
-                "textoMemeSuperior"
-            ).textContent =
-                memeSuperior.value ||
-                "TU TEXTO AQUÍ";
-
-        }
-    );
-
-}
-
-
-if (memeInferior) {
-
-    memeInferior.addEventListener(
-        "input",
-        function() {
-
-            document.getElementById(
-                "textoMemeInferior"
-            ).textContent =
-                memeInferior.value ||
-                "TU TEXTO AQUÍ";
-
-        }
-    );
-
-}
 
 
 // ==========================================================
 // 19. CREAR MEME
 // ==========================================================
 
-btnCrearMeme.addEventListener("click", function() {
-
-    const imagen =
-        document.getElementById(
-            "imagenSeleccionada"
-        ).textContent;
+conectarBoton("btnCrearMeme", function() {
 
     const superior =
-        memeSuperior.value.trim();
+        document.getElementById("memeSuperior");
 
     const inferior =
-        memeInferior.value.trim();
+        document.getElementById("memeInferior");
 
+    if (!superior || !inferior) {
+
+        return;
+    }
 
     if (
-        imagen === "Ninguna" ||
-        superior === "" ||
-        inferior === ""
+        superior.value.trim() === "" ||
+        inferior.value.trim() === ""
     ) {
 
         alert(
-            "Selecciona una imagen y escribe los dos textos."
+            "Escribe el texto superior y el texto inferior."
         );
 
         return;
-
     }
 
-
     alert(
-        "😂 ¡Tu meme está listo! ¡Reto 2 completado!"
+        "😂 ¡Tu meme está listo!"
     );
-
 
     mostrarPantalla("reto3");
 
@@ -460,65 +382,299 @@ btnCrearMeme.addEventListener("click", function() {
 
 
 // ==========================================================
-// 20. RETO 3 — ORDENAR LA HISTORIA
+// 20. RETO 3 MISIÓN 1
 // ==========================================================
 
-const eventos =
-    document.querySelectorAll(".evento");
+conectarBoton("btnComprobarReto3", function() {
 
-const ordenSeleccionado =
-    document.getElementById(
-        "ordenSeleccionado"
+    alert(
+        "🧩 ¡Reto 3 completado!\n\n" +
+        "Has organizado correctamente la historia."
     );
 
+    mision1Completada = true;
 
-let orden = [];
+    localStorage.setItem(
+        "mision1Completada",
+        "true"
+    );
+
+    actualizarMapa();
+
+    mostrarPantalla("felicitacion");
+
+});
 
 
-eventos.forEach(function(evento) {
+// ==========================================================
+// 21. VOLVER AL MAPA
+// ==========================================================
 
-    evento.addEventListener(
-        "click",
-        function() {
+conectarBoton("btnVolverMapa", function() {
 
-            const numero =
-                evento.getAttribute(
-                    "data-orden"
+    actualizarMapa();
+
+    mostrarPantalla("mapa");
+
+});
+
+
+// ==========================================================
+// ==========================================================
+// MISIÓN 2 — LEÓN
+// ==========================================================
+// ==========================================================
+
+
+// ==========================================================
+// 22. ENTRAR A LEÓN
+// ==========================================================
+
+conectarBoton("btnLeon", function() {
+
+    if (!mision1Completada) {
+
+        alert(
+            "🔒 Debes completar la Misión 1 para desbloquear León."
+        );
+
+        return;
+    }
+
+    mostrarPantalla("tarjetaMision2");
+
+});
+
+
+// ==========================================================
+// 23. COMENZAR MISIÓN 2
+// ==========================================================
+
+conectarBoton("btnComenzarMision2", function() {
+
+    mostrarPantalla("lectura2");
+
+});
+
+
+// ==========================================================
+// 24. TERMINAR LECTURA 2
+// ==========================================================
+
+conectarBoton("btnTerminarLectura2", function() {
+
+    mostrarPantalla("reto1Mision2");
+
+});
+
+
+// ==========================================================
+// 25. RETO 1 MISIÓN 2
+// ==========================================================
+
+const respuestasMision2 = {
+
+    p1: "B",
+    p2: "C",
+    p3: "B",
+    p4: "C",
+    p5: "B"
+
+};
+
+
+conectarBoton(
+    "btnComprobarReto1Mision2",
+    function() {
+
+        let puntos = 0;
+
+        for (
+            let i = 1;
+            i <= 5;
+            i++
+        ) {
+
+            const respuesta =
+                document.querySelector(
+                    'input[name="p' +
+                    i +
+                    '"]:checked'
                 );
 
+            if (
+                respuesta &&
+                respuesta.value ===
+                respuestasMision2["p" + i]
+            ) {
 
-            if (orden.includes(numero)) {
-
-                return;
+                puntos++;
 
             }
 
+        }
 
-            orden.push(numero);
+        if (puntos < 5) {
+
+            alert(
+                "Obtuviste " +
+                puntos +
+                " de 5.\n\n" +
+                "Lee nuevamente el cuento y vuelve a intentarlo."
+            );
+
+            return;
+        }
+
+        alert(
+            "🎉 ¡Reto 1 completado!\n\n" +
+            "5 de 5 respuestas correctas."
+        );
+
+        mostrarPantalla("reto2Mision2");
+
+    }
+);
 
 
-            evento.disabled = true;
+// ==========================================================
+// 26. RETO 2 — DIARIO DE LA ROSA
+// ==========================================================
 
+conectarBoton(
+    "btnGuardarDiario",
+    function() {
+
+        const diario =
+            document.getElementById("diarioRosa");
+
+        if (
+            !diario ||
+            diario.value.trim() === ""
+        ) {
+
+            alert(
+                "🌹 Escribe primero el diario de la rosa."
+            );
+
+            return;
+        }
+
+        alert(
+            "✒️ ¡Diario guardado!\n\n" +
+            "Has expresado lo que pudo sentir la rosa."
+        );
+
+        mostrarPantalla("reto3Mision2");
+
+    }
+);
+
+
+// ==========================================================
+// 27. RETO 2 — CÓMIC
+// ==========================================================
+
+conectarBoton(
+    "btnGuardarComic",
+    function() {
+
+        const escenas = [
+            "comic1",
+            "comic2",
+            "comic3"
+        ];
+
+        let completos = true;
+
+        escenas.forEach(function(id) {
+
+            const campo =
+                document.getElementById(id);
+
+            if (
+                !campo ||
+                campo.value.trim() === ""
+            ) {
+
+                completos = false;
+
+            }
+
+        });
+
+        if (!completos) {
+
+            alert(
+                "🎨 Completa las tres escenas del cómic."
+            );
+
+            return;
+        }
+
+        alert(
+            "🎨 ¡Cómic guardado!\n\n" +
+            "Has creado tus propios diálogos."
+        );
+
+        mostrarPantalla("reto3Mision2");
+
+    }
+);
+
+
+// ==========================================================
+// 28. ROMPECABEZAS
+// ==========================================================
+
+let secuenciaMision2 = [];
+
+const piezas =
+    document.querySelectorAll(".pieza");
+
+
+piezas.forEach(function(pieza) {
+
+    pieza.addEventListener(
+        "click",
+        function() {
 
             const posicion =
-                orden.length;
-
-
-            const elemento =
-                document.createElement(
-                    "span"
+                Number(
+                    pieza.getAttribute(
+                        "data-posicion"
+                    )
                 );
 
+            if (
+                secuenciaMision2.includes(
+                    posicion
+                )
+            ) {
 
-            elemento.textContent =
-                posicion +
-                ". " +
-                evento.textContent;
+                return;
+            }
 
-
-            ordenSeleccionado.appendChild(
-                elemento
+            secuenciaMision2.push(
+                posicion
             );
+
+            pieza.style.opacity = "0.6";
+
+            const pantalla =
+                document.getElementById(
+                    "secuenciaSeleccionada"
+                );
+
+            if (pantalla) {
+
+                pantalla.textContent =
+                    "Orden seleccionado: " +
+                    secuenciaMision2.join(
+                        " → "
+                    );
+
+            }
 
         }
     );
@@ -527,80 +683,84 @@ eventos.forEach(function(evento) {
 
 
 // ==========================================================
-// 21. COMPROBAR RETO 3
+// 29. COMPROBAR ROMPECABEZAS
 // ==========================================================
 
-btnComprobarReto3.addEventListener(
-    "click",
+conectarBoton(
+    "btnComprobarRompecabezas",
     function() {
 
-        const resultado =
-            document.getElementById(
-                "resultadoReto3"
-            );
-
-
-        if (orden.length !== 5) {
-
-            resultado.textContent =
-                "⚠️ Debes ordenar los 5 acontecimientos.";
-
-            resultado.style.color =
-                "red";
-
-            return;
-
-        }
-
-
-        const ordenCorrecto = [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
+        const correcta = [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
         ];
 
-
-        const correcto =
-            orden.every(
+        const coincide =
+            secuenciaMision2.length === 6 &&
+            secuenciaMision2.every(
                 function(valor, indice) {
 
                     return valor ===
-                        ordenCorrecto[indice];
+                        correcta[indice];
 
                 }
             );
 
+        if (!coincide) {
 
-        if (correcto) {
+            alert(
+                "🧩 El orden no es correcto.\n\n" +
+                "Piensa en cómo sucedieron los acontecimientos."
+            );
 
-            resultado.textContent =
-                "🎉 ¡Excelente! Ordenaste correctamente la historia.";
-
-            resultado.style.color =
-                "green";
+            return;
+        }
 
 
-            setTimeout(
-                function() {
+        const respuestaMoraleja =
+            prompt(
+                "🎉 ¡Rompecabezas completado!\n\n" +
 
-                    mostrarPantalla(
-                        "felicitacion"
-                    );
+                "¿Cuál es una enseñanza que podemos obtener " +
+                "de la historia de la rosa?\n\n" +
 
-                },
-                1000
+                "A) Debemos tomar decisiones sin pensar.\n" +
+
+                "B) La apariencia es lo único importante.\n" +
+
+                "C) Antes de decidir debemos reflexionar sobre " +
+                "lo que deseamos y sus consecuencias.\n" +
+
+                "D) Siempre debemos hacer lo que otros aconsejan.\n\n" +
+
+                "Escribe A, B, C o D:"
             );
 
 
+        if (
+            respuestaMoraleja &&
+            respuestaMoraleja
+                .trim()
+                .toUpperCase() === "C"
+        ) {
+
+            alert(
+                "🌟 ¡Excelente!\n\n" +
+                "Comprendiste la enseñanza del cuento."
+            );
+
+            completarMision2();
+
         } else {
 
-            resultado.textContent =
-                "❌ El orden no es correcto. Lee nuevamente la leyenda e inténtalo.";
-
-            resultado.style.color =
-                "red";
+            alert(
+                "La respuesta no es correcta.\n\n" +
+                "Piensa en la decisión que tomó la rosa."
+            );
 
         }
 
@@ -609,42 +769,36 @@ btnComprobarReto3.addEventListener(
 
 
 // ==========================================================
-// 22. VOLVER AL MAPA
+// 30. COMPLETAR MISIÓN 2
 // ==========================================================
 
-btnVolverMapa.addEventListener(
-    "click",
+function completarMision2() {
+
+    mision2Completada = true;
+
+    localStorage.setItem(
+        "mision2Completada",
+        "true"
+    );
+
+    actualizarMapa();
+
+    mostrarPantalla(
+        "finalMision2"
+    );
+
+}
+
+
+// ==========================================================
+// 31. VOLVER AL MAPA MISIÓN 2
+// ==========================================================
+
+conectarBoton(
+    "btnVolverMapaMision2",
     function() {
 
-        localStorage.setItem(
-            "mision1Completada",
-            "true"
-        );
-
-
-        if (btnLeon) {
-
-            btnLeon.disabled = false;
-
-            btnLeon.textContent =
-                "🔓 León";
-
-        }
-
-
-        const estadoMapa =
-            document.getElementById(
-                "estadoMapa"
-            );
-
-
-        if (estadoMapa) {
-
-            estadoMapa.textContent =
-                "🎉 ¡Rivas completado! León está desbloqueado.";
-
-        }
-
+        actualizarMapa();
 
         mostrarPantalla("mapa");
 
@@ -653,27 +807,23 @@ btnVolverMapa.addEventListener(
 
 
 // ==========================================================
-// 23. RECUPERAR PROGRESO
+// 32. RECUPERAR NOMBRE
 // ==========================================================
 
-const misionCompletada =
+const nombreGuardado =
     localStorage.getItem(
-        "mision1Completada"
+        "nombreJugador"
     );
 
-
 if (
-    misionCompletada === "true"
+    nombreGuardado &&
+    saludoJugador
 ) {
 
-    if (btnLeon) {
-
-        btnLeon.disabled = false;
-
-        btnLeon.textContent =
-            "🔓 León";
-
-    }
+    saludoJugador.textContent =
+        "¡Hola, " +
+        nombreGuardado +
+        "! Prepárate para explorar Nicaragua.";
 
 }
 
