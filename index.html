@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Exploradores de la Lectura Nica</title>
+
+<link rel="stylesheet" href="style.css">
+```
+
+</head>
+
+<body>
+
+<!-- ==========================================================
+     PANTALLA 1 — BIENVENIDA
+========================================================== -->
+
+<section id="inicio" class="pantalla activa">
+
+```
+<div class="contenedor">
+
+    <h1>📚 Exploradores de la Lectura Nica</h1>
+
+    <p>
+        Descubre las leyendas y cuentos de Nicaragua
+        mientras completas misiones y desbloqueas
+        nuevos departamentos.
+    </p>
+
+    <button id="btnComenzar">
+        Comenzar
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 2 — REGISTRO
+========================================================== -->
+
+<section id="registro" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>👋 Bienvenido Explorador</h2>
+
+    <p>
+        Escribe tu nombre para comenzar.
+    </p>
+
+    <input
+        type="text"
+        id="nombreJugador"
+        placeholder="Tu nombre"
+    >
+
+    <button id="btnEntrar">
+        Entrar
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 3 — MENÚ PRINCIPAL
+========================================================== -->
+
+<section id="menu" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🏠 Menú Principal</h2>
+
+    <p id="saludoJugador"></p>
+
+    <button id="btnMapa">
+        🗺 Ir al mapa
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 4 — MAPA
+========================================================== -->
+
+<section id="mapa" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🗺 Mapa de Nicaragua</h2>
+
+    <p>
+        Selecciona un departamento para comenzar.
+    </p>
+
+
+    <div class="departamentos">
+
+        <button id="btnRivas">
+            🌋 Rivas
+        </button>
+
+
+        <button id="btnLeon" disabled>
+            🔒 León
+        </button>
+
+
+        <button disabled>
+            🔒 Granada
+        </button>
+
+
+        <button disabled>
+            🔒 Chinandega
+        </button>
+
+    </div>
+
+
+    <p id="estadoMapa"></p>
+
+
+    <button id="volverMenu">
+        Volver al menú
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 5 — PRESENTACIÓN MISIÓN 1
+========================================================== -->
+
+<section id="mision1" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🌋 Misión 1</h2>
+
+    <h3>La Laguna Misteriosa</h3>
+
+    <p>
+        Has llegado a Rivas, explorador.
+    </p>
+
+    <p>
+        En esta misión descubrirás la leyenda
+        de Chico Largo y pondrás a prueba
+        tus habilidades de comprensión.
+    </p>
+
+
+    <div class="tarjeta-mision">
+
+        <h3>📖 Tu misión</h3>
+
+        <p>
+            Lee atentamente la leyenda,
+            supera los tres retos y consigue
+            tu primera insignia.
+        </p>
+
+    </div>
+
+
+    <button id="btnComenzarLectura">
+        📖 Comenzar lectura
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 6 — LECTURA: CHICO LARGO
+========================================================== -->
+
+<section id="lectura1" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>📖 Lectura 1</h2>
+
+    <h3>Chico Largo</h3>
+
+
+    <div class="lectura">
+
+        <p>
+            Hace muchos años, en la isla de Ometepe,
+            vivía un hombre llamado Chico Largo.
+            La gente decía que conocía los secretos
+            de la naturaleza gracias a su madre,
+            Mamá Bucha, una famosa curandera.
+            También contaban que podía transformarse
+            en animales y que realizaba misteriosos
+            rituales en la laguna Charco Verde.
+        </p>
+
+
+        <p>
+            Una noche, Chico Largo se convirtió en
+            un venado y caminó cerca de la laguna.
+            En el bosque había unos cazadores que,
+            al verlo, dispararon y lo hirieron.
+            Ellos siguieron el rastro de sangre
+            hasta la laguna, pero el animal
+            desapareció sin dejar rastro.
+        </p>
+
+
+        <p>
+            Al amanecer, Chico Largo apareció en
+            su casa con una herida igual a la del
+            venado. Mamá Bucha intentó salvarlo
+            con sus conocimientos y remedios,
+            pero no pudo evitar su muerte.
+        </p>
+
+
+        <p>
+            Desde entonces, cuentan que el espíritu
+            de Chico Largo sigue apareciendo en los
+            alrededores de Charco Verde.
+            Algunas personas dicen escuchar ruidos
+            extraños entre los árboles o ver la
+            sombra de un venado cerca de la laguna.
+        </p>
+
+    </div>
+
+
+    <button id="btnTerminarLectura">
+        📖 Terminé de leer
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 7 — RETO 1
+========================================================== -->
+
+<section id="reto1" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🧠 Reto 1</h2>
+
+    <h3>Detectives de la Leyenda</h3>
+
+    <p>
+        Lee cada pregunta y selecciona
+        la respuesta correcta.
+    </p>
+
+
+    <!-- PREGUNTA 1 -->
+
+    <div class="pregunta">
+
+        <p>
+            <strong>1. ¿Dónde vivía Chico Largo?</strong>
+        </p>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta1"
+                value="a"
+            >
+            En Managua
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta1"
+                value="b"
+            >
+            En la isla de Ometepe
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta1"
+                value="c"
+            >
+            En León
+        </label>
+
+    </div>
+
+
+
+    <!-- PREGUNTA 2 -->
+
+    <div class="pregunta">
+
+        <p>
+            <strong>2. ¿Quién era Mamá Bucha?</strong>
+        </p>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta2"
+                value="a"
+            >
+            Una cazadora
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta2"
+                value="b"
+            >
+            Una famosa curandera
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta2"
+                value="c"
+            >
+            Una pescadora
+        </label>
+
+    </div>
+
+
+
+    <!-- PREGUNTA 3 -->
+
+    <div class="pregunta">
+
+        <p>
+            <strong>
+                3. ¿En qué animal se transformó
+                Chico Largo?
+            </strong>
+        </p>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta3"
+                value="a"
+            >
+            En un jaguar
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta3"
+                value="b"
+            >
+            En un venado
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta3"
+                value="c"
+            >
+            En un águila
+        </label>
+
+    </div>
+
+
+
+    <!-- PREGUNTA 4 -->
+
+    <div class="pregunta">
+
+        <p>
+            <strong>
+                4. ¿Qué hicieron los cazadores
+                después de herir al venado?
+            </strong>
+        </p>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta4"
+                value="a"
+            >
+            Siguieron el rastro de sangre.
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta4"
+                value="b"
+            >
+            Se fueron a Managua.
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta4"
+                value="c"
+            >
+            Buscaron a Mamá Bucha.
+        </label>
+
+    </div>
+
+
+
+    <!-- PREGUNTA 5 -->
+
+    <div class="pregunta">
+
+        <p>
+            <strong>
+                5. ¿Qué ocurrió al amanecer?
+            </strong>
+        </p>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta5"
+                value="a"
+            >
+            Chico Largo apareció con una herida
+            igual a la del venado.
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta5"
+                value="b"
+            >
+            Los cazadores capturaron al venado.
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="pregunta5"
+                value="c"
+            >
+            Mamá Bucha desapareció.
+        </label>
+
+    </div>
+
+
+
+    <button id="btnComprobarReto1">
+        🧠 Comprobar respuestas
+    </button>
+
+
+    <p id="resultadoReto1"></p>
+
+
+    <button
+        id="btnContinuarReto2"
+        style="display:none;"
+    >
+        💬 Continuar al Reto 2
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 8 — RETO 2
+========================================================== -->
+
+<section id="reto2" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>💬😂 Reto 2</h2>
+
+    <h3>Explorador Creativo</h3>
+
+    <p>
+        Elige una de las dos actividades
+        para demostrar lo que comprendiste.
+    </p>
+
+
+    <button id="btnChat">
+        💬 Chat con Chico Largo
+    </button>
+
+
+    <button id="btnMeme">
+        😂 Crear un Meme
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 9 — CHAT
+========================================================== -->
+
+<section id="chat" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>💬 Chat con Chico Largo</h2>
+
+    <p>
+        Chico Largo quiere conversar contigo.
+        Completa sus preguntas.
+    </p>
+
+
+    <div class="mensaje">
+
+        <strong>🌿 Chico Largo:</strong>
+
+        <p>
+            ¿Dónde ocurrió mi historia?
+        </p>
+
+        <input
+            type="text"
+            id="chat1"
+            placeholder="Escribe tu respuesta"
+        >
+
+    </div>
+
+
+    <div class="mensaje">
+
+        <strong>🌿 Chico Largo:</strong>
+
+        <p>
+            ¿En qué animal me transformé?
+        </p>
+
+        <input
+            type="text"
+            id="chat2"
+            placeholder="Escribe tu respuesta"
+        >
+
+    </div>
+
+
+    <div class="mensaje">
+
+        <strong>🌿 Chico Largo:</strong>
+
+        <p>
+            ¿Quién intentó salvarme?
+        </p>
+
+        <input
+            type="text"
+            id="chat3"
+            placeholder="Escribe tu respuesta"
+        >
+
+    </div>
+
+
+    <div class="mensaje">
+
+        <strong>🌿 Chico Largo:</strong>
+
+        <p>
+            ¿Qué ocurrió después de que los
+            cazadores hirieron al venado?
+        </p>
+
+        <input
+            type="text"
+            id="chat4"
+            placeholder="Escribe tu respuesta"
+        >
+
+    </div>
+
+
+    <div class="mensaje">
+
+        <strong>🌿 Chico Largo:</strong>
+
+        <p>
+            ¿Qué dicen algunas personas que
+            ocurre todavía cerca de Charco Verde?
+        </p>
+
+        <input
+            type="text"
+            id="chatFinal"
+            placeholder="Escribe tu respuesta"
+        >
+
+    </div>
+
+
+    <button id="btnEntregarChat">
+        💬 Entregar chat
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 10 — MEME
+========================================================== -->
+
+<section id="meme" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>😂 Crea tu Meme</h2>
+
+    <p>
+        Elige una imagen y crea un meme
+        relacionado con la leyenda.
+    </p>
+
+
+    <div class="imagenesMeme">
+
+        <button
+            class="imagenMeme"
+            data-imagen="🌊 Laguna"
+        >
+            🌊
+        </button>
+
+
+        <button
+            class="imagenMeme"
+            data-imagen="🦌 Venado"
+        >
+            🦌
+        </button>
+
+
+        <button
+            class="imagenMeme"
+            data-imagen="🌳 Bosque"
+        >
+            🌳
+        </button>
+
+    </div>
+
+
+    <p>
+        Imagen seleccionada:
+        <strong id="imagenSeleccionada">
+            Ninguna
+        </strong>
+    </p>
+
+
+    <input
+        type="text"
+        id="memeSuperior"
+        placeholder="Texto superior"
+    >
+
+
+    <input
+        type="text"
+        id="memeInferior"
+        placeholder="Texto inferior"
+    >
+
+
+    <div class="vistaMeme">
+
+        <p id="textoMemeSuperior">
+            TU TEXTO AQUÍ
+        </p>
+
+        <p id="textoMemeInferior">
+            TU TEXTO AQUÍ
+        </p>
+
+    </div>
+
+
+    <button id="btnCrearMeme">
+        😂 Crear meme
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 11 — RETO 3
+========================================================== -->
+
+<section id="reto3" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🧩 Reto 3</h2>
+
+    <h3>Ordena la Historia</h3>
+
+    <p>
+        Organiza cronológicamente los acontecimientos
+        principales de la leyenda.
+    </p>
+
+    <p>
+        <strong>
+            Desarrolla: secuencia narrativa,
+            memoria y organización lógica de ideas.
+        </strong>
+    </p>
+
+
+    <div id="secuencia">
+
+        <button class="evento" data-orden="3">
+            A. Chico Largo apareció en su casa
+            con una herida igual a la del venado.
+        </button>
+
+
+        <button class="evento" data-orden="1">
+            B. Chico Largo se convirtió en un
+            venado y caminó cerca de la laguna.
+        </button>
+
+
+        <button class="evento" data-orden="4">
+            C. Mamá Bucha intentó salvarlo,
+            pero no pudo evitar su muerte.
+        </button>
+
+
+        <button class="evento" data-orden="2">
+            D. Los cazadores dispararon al venado
+            y siguieron su rastro hasta la laguna.
+        </button>
+
+
+        <button class="evento" data-orden="5">
+            E. Desde entonces, cuentan que el
+            espíritu de Chico Largo aparece
+            cerca de Charco Verde.
+        </button>
+
+    </div>
+
+
+    <p>
+        Orden seleccionado:
+    </p>
+
+    <div id="ordenSeleccionado"></div>
+
+
+    <button id="btnComprobarReto3">
+        🧩 Comprobar orden
+    </button>
+
+
+    <p id="resultadoReto3"></p>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PANTALLA 12 — MISIÓN COMPLETADA
+========================================================== -->
+
+<section id="felicitacion" class="pantalla">
+
+```
+<div class="contenedor">
+
+    <h2>🎉 ¡Misión completada!</h2>
+
+    <h3>
+        La Laguna Misteriosa
+    </h3>
+
+
+    <p>
+        ¡Excelente, Explorador!
+    </p>
+
+
+    <p>
+        Has completado los tres retos de la
+        Misión 1 y has descubierto la leyenda
+        de Chico Largo.
+    </p>
+
+
+    <div class="insignia">
+
+        <h2>🏅</h2>
+
+        <h3>
+            Guardián de las Leyendas
+        </h3>
+
+        <p>
+            Primera insignia obtenida.
+        </p>
+
+    </div>
+
+
+    <button id="btnVolverMapa">
+        🗺 Volver al mapa
+    </button>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>

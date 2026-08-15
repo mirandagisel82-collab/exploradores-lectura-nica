@@ -1,0 +1,553 @@
+/* ==========================================================
+   EXPLORADORES DE LA LECTURA NICA
+   STYLE.CSS - DISEÑO INICIAL
+========================================================== */
+
+
+/* ==========================================================
+   CONFIGURACIÓN GENERAL
+========================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background: #eaf7f5;
+
+    color: #263238;
+}
+
+
+/* ==========================================================
+   PANTALLAS
+========================================================== */
+
+.pantalla {
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 30px 15px;
+}
+
+
+.pantalla.activa {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ==========================================================
+   CONTENEDOR
+========================================================== */
+
+.contenedor {
+    width: 100%;
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.12);
+
+    text-align: center;
+}
+
+
+/* ==========================================================
+   TÍTULOS
+========================================================== */
+
+h1 {
+    margin-top: 0;
+
+    font-size: 2.3rem;
+}
+
+
+h2 {
+    margin-top: 0;
+
+    font-size: 2rem;
+}
+
+
+h3 {
+    font-size: 1.5rem;
+}
+
+
+p {
+    line-height: 1.7;
+
+    font-size: 1.05rem;
+}
+
+
+/* ==========================================================
+   BOTONES
+========================================================== */
+
+button {
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 13px 22px;
+
+    margin: 8px;
+
+    font-size: 1rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background: #1976d2;
+
+    color: white;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+
+button:disabled {
+    background: #bdbdbd;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* ==========================================================
+   CAMPOS DE TEXTO
+========================================================== */
+
+input[type="text"] {
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 13px;
+
+    margin: 8px auto;
+
+    border: 2px solid #cfd8dc;
+
+    border-radius: 10px;
+
+    font-size: 1rem;
+
+    display: block;
+}
+
+
+input[type="text"]:focus {
+    outline: none;
+
+    border-color: #1976d2;
+}
+
+
+/* ==========================================================
+   MAPA / DEPARTAMENTOS
+========================================================== */
+
+.departamentos {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 25px 0;
+}
+
+
+.departamentos button {
+    min-width: 150px;
+}
+
+
+/* ==========================================================
+   TARJETA DE MISIÓN
+========================================================== */
+
+.tarjeta-mision {
+    margin: 25px auto;
+
+    padding: 20px;
+
+    max-width: 650px;
+
+    border-radius: 15px;
+
+    background: #f1f8e9;
+
+    border: 2px solid #c5e1a5;
+}
+
+
+/* ==========================================================
+   LECTURA
+========================================================== */
+
+.lectura {
+    max-width: 750px;
+
+    margin: 25px auto;
+
+    padding: 25px;
+
+    text-align: left;
+
+    background: #fffde7;
+
+    border-radius: 15px;
+
+    border: 2px solid #ffe082;
+}
+
+
+.lectura p {
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================================
+   PREGUNTAS DEL RETO 1
+========================================================== */
+
+.pregunta {
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    text-align: left;
+
+    background: #f5f5f5;
+
+    border-radius: 15px;
+
+    border: 1px solid #ddd;
+}
+
+
+.pregunta label {
+    display: block;
+
+    padding: 10px;
+
+    margin: 6px 0;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+.pregunta label:hover {
+    background: #e3f2fd;
+}
+
+
+.pregunta input {
+    margin-right: 8px;
+}
+
+
+/* ==========================================================
+   CHAT
+========================================================== */
+
+.mensaje {
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    padding: 18px;
+
+    text-align: left;
+
+    background: #e3f2fd;
+
+    border-radius: 15px;
+}
+
+
+.mensaje strong {
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================================
+   MEME
+========================================================== */
+
+.imagenesMeme {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 15px;
+
+    margin: 20px 0;
+}
+
+
+.imagenMeme {
+    width: 80px;
+
+    height: 80px;
+
+    font-size: 2rem;
+
+    padding: 10px;
+}
+
+
+.vistaMeme {
+    max-width: 500px;
+
+    min-height: 180px;
+
+    margin: 25px auto;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-radius: 15px;
+
+    background: #eeeeee;
+
+    border: 2px dashed #999;
+}
+
+
+.vistaMeme p {
+    font-weight: bold;
+
+    text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   RETO 3 — SECUENCIA
+========================================================== */
+
+#secuencia {
+    max-width: 750px;
+
+    margin: 25px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.evento {
+    width: 100%;
+
+    margin: 0;
+
+    text-align: left;
+
+    background: #f5f5f5;
+
+    color: #263238;
+
+    border: 2px solid #cfd8dc;
+}
+
+
+.evento:hover {
+    background: #e3f2fd;
+}
+
+
+.evento:disabled {
+    background: #c8e6c9;
+
+    color: #1b5e20;
+}
+
+
+/* ==========================================================
+   ORDEN SELECCIONADO
+========================================================== */
+
+#ordenSeleccionado {
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+#ordenSeleccionado span {
+    padding: 12px;
+
+    background: #e8f5e9;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   INSIGNIA
+========================================================== */
+
+.insignia {
+    max-width: 400px;
+
+    margin: 30px auto;
+
+    padding: 25px;
+
+    background: #fff8e1;
+
+    border: 3px solid #ffd54f;
+
+    border-radius: 20px;
+}
+
+
+.insignia h2 {
+    font-size: 4rem;
+
+    margin: 0;
+}
+
+
+.insignia h3 {
+    margin: 10px 0;
+}
+
+
+/* ==========================================================
+   MENSAJES DE RESULTADO
+========================================================== */
+
+#resultadoReto1,
+#resultadoReto3 {
+    font-weight: bold;
+
+    min-height: 25px;
+}
+
+
+/* ==========================================================
+   DISEÑO PARA CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    .pantalla {
+        padding: 15px 10px;
+    }
+
+
+    .contenedor {
+        padding: 20px 15px;
+
+        border-radius: 15px;
+    }
+
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+
+    button {
+        width: 90%;
+
+        max-width: 350px;
+    }
+
+
+    .departamentos {
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+
+    .departamentos button {
+        width: 90%;
+    }
+
+
+    .lectura {
+        padding: 18px;
+    }
+
+
+    .imagenesMeme {
+        flex-wrap: wrap;
+    }
+
+}
