@@ -1,20 +1,32 @@
 // ==========================================================
 // EXPLORADORES DE LA LECTURA NICA
 // SCRIPT.JS
-// MISIÓN 1 + MISIÓN 2
+// MISIÓN 1 + MISIÓN 2 + MISIÓN 3 + DESAFÍO FINAL
+// RETROCESO + PROGRESO + COMPETENCIA
+// ==========================================================
+// ==========================================================
+// SUPABASE — CLASIFICACIÓN COMPARTIDA
 // ==========================================================
 
+const SUPABASE_URL =
+    "https://ywrgglmxtwfyfdrdskoo.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publisable_Ae9Sk4zc64O3aH1xvOgIZQ_z54pFd-4";
+
+const supabaseCliente =
+    window.supabase
+        ? window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        )
+        : null;
 
 // ==========================================================
 // 1. PANTALLAS
 // ==========================================================
 
 const pantallas = document.querySelectorAll(".pantalla");
-
-
-// ==========================================================
-// 2. MOSTRAR PANTALLA
-// ==========================================================
 
 function mostrarPantalla(id) {
 
@@ -26,12 +38,13 @@ function mostrarPantalla(id) {
 
     if (pantalla) {
         pantalla.classList.add("activa");
+        window.scrollTo(0, 0);
     }
 }
 
 
 // ==========================================================
-// 3. CONECTAR BOTONES DE FORMA SEGURA
+// 2. CONECTAR BOTONES
 // ==========================================================
 
 function conectarBoton(id, funcion) {
@@ -45,7 +58,7 @@ function conectarBoton(id, funcion) {
 
 
 // ==========================================================
-// 4. NOMBRE DEL JUGADOR
+// 3. NOMBRE
 // ==========================================================
 
 const nombreJugador =
@@ -56,7 +69,7 @@ const saludoJugador =
 
 
 // ==========================================================
-// 5. COMENZAR
+// 4. INICIO
 // ==========================================================
 
 conectarBoton("btnComenzar", function() {
@@ -65,10 +78,6 @@ conectarBoton("btnComenzar", function() {
 
 });
 
-
-// ==========================================================
-// 6. ENTRAR
-// ==========================================================
 
 conectarBoton("btnEntrar", function() {
 
@@ -102,20 +111,12 @@ conectarBoton("btnEntrar", function() {
 });
 
 
-// ==========================================================
-// 7. IR AL MAPA
-// ==========================================================
-
 conectarBoton("btnMapa", function() {
 
     mostrarPantalla("mapa");
 
 });
 
-
-// ==========================================================
-// 8. VOLVER AL MENÚ
-// ==========================================================
 
 conectarBoton("volverMenu", function() {
 
@@ -125,7 +126,7 @@ conectarBoton("volverMenu", function() {
 
 
 // ==========================================================
-// 9. PROGRESO
+// 5. PROGRESO GENERAL
 // ==========================================================
 
 let mision1Completada =
@@ -134,9 +135,12 @@ let mision1Completada =
 let mision2Completada =
     localStorage.getItem("mision2Completada") === "true";
 
+let mision3Completada =
+    localStorage.getItem("mision3Completada") === "true";
+
 
 // ==========================================================
-// 10. ACTUALIZAR MAPA
+// 6. ACTUALIZAR MAPA
 // ==========================================================
 
 function actualizarMapa() {
@@ -144,28 +148,53 @@ function actualizarMapa() {
     const btnLeon =
         document.getElementById("btnLeon");
 
+    const btnChontales =
+        document.getElementById("btnChontales");
+
+    const btnDesafioFinal =
+        document.getElementById("btnDesafioFinal");
+
+
     if (btnLeon) {
 
-        if (mision1Completada) {
+        btnLeon.disabled =
+            !mision1Completada;
 
-            btnLeon.disabled = false;
-            btnLeon.textContent = "🌺 León";
+        btnLeon.textContent =
+            mision1Completada
+                ? "🌺 León"
+                : "🔒 León";
 
-        } else {
+    }
 
-            btnLeon.disabled = true;
-            btnLeon.textContent = "🔒 León";
 
-        }
+    if (btnChontales) {
+
+        btnChontales.disabled =
+            !mision2Completada;
+
+        btnChontales.textContent =
+            mision2Completada
+                ? "🐦 Chontales"
+                : "🔒 Chontales";
+
+    }
+
+
+    if (btnDesafioFinal) {
+
+        btnDesafioFinal.disabled =
+            !mision3Completada;
+
+        btnDesafioFinal.textContent =
+            mision3Completada
+                ? "🏆 Desafío Final"
+                : "🔒 Desafío Final";
 
     }
 
 }
 
-
-// ==========================================================
-// 11. ACTUALIZAR AL CARGAR
-// ==========================================================
 
 actualizarMapa();
 
@@ -176,21 +205,12 @@ actualizarMapa();
 // ==========================================================
 // ==========================================================
 
-
-// ==========================================================
-// 12. ENTRAR A RIVAS
-// ==========================================================
-
 conectarBoton("btnRivas", function() {
 
     mostrarPantalla("tarjetaMision1");
 
 });
 
-
-// ==========================================================
-// 13. COMENZAR LECTURA 1
-// ==========================================================
 
 conectarBoton("btnComenzarLectura", function() {
 
@@ -199,10 +219,6 @@ conectarBoton("btnComenzarLectura", function() {
 });
 
 
-// ==========================================================
-// 14. TERMINAR LECTURA 1
-// ==========================================================
-
 conectarBoton("btnTerminarLectura", function() {
 
     mostrarPantalla("reto1");
@@ -210,70 +226,209 @@ conectarBoton("btnTerminarLectura", function() {
 });
 
 
-//// ==========================================================
-// 15. RETO 1 MISIÓN 1
+// ==========================================================
+// RETO 1 MISIÓN 1
 // ==========================================================
 
-// ==========================================================
-// 15. RETO 1 MISIÓN 1 — SELECCIÓN MÚLTIPLE
-// ==========================================================
+const respuestasMision1 = {
 
-conectarBoton("btnComprobarReto1", function() {
+    m1p1: "B",
+    m1p2: "B",
+    m1p3: "B",
+    m1p4: "A",
+    m1p5: "A"
 
-    const respuestasCorrectas = {
-        m1p1: "B",
-        m1p2: "B",
-        m1p3: "B",
-        m1p4: "A",
-        m1p5: "A"
-    };
+};
 
-    let puntos = 0;
 
-    for (const pregunta in respuestasCorrectas) {
+Object.keys(respuestasMision1).forEach(
+    function(nombrePregunta) {
 
-        const respuesta = document.querySelector(
-            'input[name="' + pregunta + '"]:checked'
+        const guardada =
+            localStorage.getItem(
+                "m1_" + nombrePregunta
+            );
+
+        if (guardada) {
+
+            const opcion =
+                document.querySelector(
+                    'input[name="' +
+                    nombrePregunta +
+                    '"][value="' +
+                    guardada +
+                    '"]'
+                );
+
+            if (opcion) {
+                opcion.checked = true;
+            }
+
+        }
+
+
+        const opciones =
+            document.querySelectorAll(
+                'input[name="' +
+                nombrePregunta +
+                '"]'
+            );
+
+
+        opciones.forEach(
+            function(opcion) {
+
+                opcion.addEventListener(
+                    "change",
+                    function() {
+
+                        localStorage.setItem(
+                            "m1_" +
+                            nombrePregunta,
+                            opcion.value
+                        );
+
+                    }
+                );
+
+            }
         );
 
-        if (
-            respuesta &&
-            respuesta.value === respuestasCorrectas[pregunta]
-        ) {
-            puntos++;
+    }
+);
+
+
+conectarBoton(
+    "btnComprobarReto1",
+    function() {
+
+        let puntos = 0;
+
+
+        Object.keys(respuestasMision1)
+            .forEach(
+                function(pregunta) {
+
+                    const respuesta =
+                        document.querySelector(
+                            'input[name="' +
+                            pregunta +
+                            '"]:checked'
+                        );
+
+
+                    if (
+                        respuesta &&
+                        respuesta.value ===
+                        respuestasMision1[pregunta]
+                    ) {
+
+                        puntos++;
+
+                    }
+
+                }
+            );
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoReto1"
+            );
+
+
+        if (puntos === 5) {
+
+            if (resultado) {
+
+                resultado.textContent =
+                    "🎉 ¡Excelente! Respondiste correctamente las 5 preguntas.";
+
+                resultado.style.color =
+                    "green";
+
+            }
+
+
+            setTimeout(
+                function() {
+
+                    mostrarPantalla("reto2");
+
+                },
+                500
+            );
+
+        } else {
+
+            if (resultado) {
+
+                resultado.textContent =
+                    "❌ Obtuviste " +
+                    puntos +
+                    " de 5. Revisa la leyenda e inténtalo nuevamente.";
+
+                resultado.style.color =
+                    "red";
+
+            }
+
         }
+
     }
+);
 
-    const resultado =
-        document.getElementById("resultadoReto1");
-
-    if (puntos === 5) {
-
-        resultado.textContent =
-            "🎉 ¡Excelente! Respondiste correctamente las 5 preguntas.";
-
-        resultado.style.color = "green";
-
-        // PASAR AL RETO 2
-        setTimeout(function() {
-            mostrarPantalla("reto2");
-        }, 500);
-
-    } else {
-
-        resultado.textContent =
-            "❌ Obtuviste " +
-            puntos +
-            " de 5. Revisa la leyenda e inténtalo nuevamente.";
-
-        resultado.style.color = "red";
-    }
-
-});
 
 // ==========================================================
-// 16. RETO 2 — CHAT
+// RETO 2 CHAT
 // ==========================================================
+
+const camposChatM1 = [
+    "chat1",
+    "chat2",
+    "chat3",
+    "chat4",
+    "chatFinal"
+];
+
+
+camposChatM1.forEach(
+    function(id) {
+
+        const campo =
+            document.getElementById(id);
+
+        if (!campo) {
+            return;
+        }
+
+
+        const guardado =
+            localStorage.getItem(
+                "m1_" + id
+            );
+
+
+        if (guardado !== null) {
+            campo.value = guardado;
+        }
+
+
+        campo.addEventListener(
+            "input",
+            function() {
+
+                localStorage.setItem(
+                    "m1_" + id,
+                    campo.value
+                );
+
+            }
+        );
+
+    }
+);
+
 
 conectarBoton("btnChat", function() {
 
@@ -282,10 +437,6 @@ conectarBoton("btnChat", function() {
 });
 
 
-// ==========================================================
-// 17. RETO 2 — MEME
-// ==========================================================
-
 conectarBoton("btnMeme", function() {
 
     mostrarPantalla("meme");
@@ -293,130 +444,573 @@ conectarBoton("btnMeme", function() {
 });
 
 
-// ==========================================================
-// 18. ENTREGAR CHAT
-// ==========================================================
+conectarBoton(
+    "btnEntregarChat",
+    function() {
 
-conectarBoton("btnEntregarChat", function() {
+        let completos = true;
 
-    const campos = [
-        "chat1",
-        "chat2",
-        "chat3",
-        "chat4",
-        "chatFinal"
-    ];
 
-    let completos = true;
+        camposChatM1.forEach(
+            function(id) {
 
-    campos.forEach(function(id) {
+                const campo =
+                    document.getElementById(id);
 
-        const campo =
-            document.getElementById(id);
+                if (
+                    !campo ||
+                    campo.value.trim() === ""
+                ) {
 
-        if (
-            !campo ||
-            campo.value.trim() === ""
-        ) {
+                    completos = false;
 
-            completos = false;
+                }
+
+            }
+        );
+
+
+        if (!completos) {
+
+            alert(
+                "Completa todos los mensajes antes de entregar tu chat."
+            );
+
+            return;
 
         }
 
-    });
-
-    if (!completos) {
 
         alert(
-            "Completa todos los mensajes antes de entregar tu chat."
+            "🎉 ¡Reto 2 completado!"
         );
 
-        return;
-    }
 
-    alert(
-        "🎉 ¡Reto 2 completado!"
+        mostrarPantalla("reto3");
+
+    }
+);
+
+
+// ==========================================================
+// MEME MISIÓN 1
+// ==========================================================
+
+const botonesImagenMeme =
+    document.querySelectorAll(
+        ".imagenMeme"
     );
 
-    mostrarPantalla("reto3");
 
-});
+botonesImagenMeme.forEach(
+    function(boton) {
+
+        boton.addEventListener(
+            "click",
+            function() {
+
+                const imagen =
+                    boton.getAttribute(
+                        "data-imagen"
+                    );
 
 
-// ==========================================================
-// 19. CREAR MEME
-// ==========================================================
+                localStorage.setItem(
+                    "m1_imagenMeme",
+                    imagen
+                );
 
-conectarBoton("btnCrearMeme", function() {
 
-    const superior =
-        document.getElementById("memeSuperior");
+                const seleccionada =
+                    document.getElementById(
+                        "imagenSeleccionada"
+                    );
 
-    const inferior =
-        document.getElementById("memeInferior");
 
-    if (!superior || !inferior) {
+                if (seleccionada) {
 
-        return;
+                    seleccionada.textContent =
+                        imagen;
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+const imagenMemeGuardada =
+    localStorage.getItem(
+        "m1_imagenMeme"
+    );
+
+
+if (imagenMemeGuardada) {
+
+    const seleccionada =
+        document.getElementById(
+            "imagenSeleccionada"
+        );
+
+    if (seleccionada) {
+
+        seleccionada.textContent =
+            imagenMemeGuardada;
+
     }
 
-    if (
-        superior.value.trim() === "" ||
-        inferior.value.trim() === ""
-    ) {
+}
+
+
+const memeSuperior =
+    document.getElementById(
+        "memeSuperior"
+    );
+
+const memeInferior =
+    document.getElementById(
+        "memeInferior"
+    );
+
+
+if (memeSuperior) {
+
+    const guardado =
+        localStorage.getItem(
+            "m1_memeSuperior"
+        );
+
+    if (guardado !== null) {
+        memeSuperior.value = guardado;
+    }
+
+
+    memeSuperior.addEventListener(
+        "input",
+        function() {
+
+            localStorage.setItem(
+                "m1_memeSuperior",
+                memeSuperior.value
+            );
+
+
+            const vista =
+                document.getElementById(
+                    "textoMemeSuperior"
+                );
+
+
+            if (vista) {
+
+                vista.textContent =
+                    memeSuperior.value ||
+                    "TU TEXTO AQUÍ";
+
+            }
+
+        }
+    );
+
+}
+
+
+if (memeInferior) {
+
+    const guardado =
+        localStorage.getItem(
+            "m1_memeInferior"
+        );
+
+
+    if (guardado !== null) {
+        memeInferior.value = guardado;
+    }
+
+
+    memeInferior.addEventListener(
+        "input",
+        function() {
+
+            localStorage.setItem(
+                "m1_memeInferior",
+                memeInferior.value
+            );
+
+
+            const vista =
+                document.getElementById(
+                    "textoMemeInferior"
+                );
+
+
+            if (vista) {
+
+                vista.textContent =
+                    memeInferior.value ||
+                    "TU TEXTO AQUÍ";
+
+            }
+
+        }
+    );
+
+}
+
+
+conectarBoton(
+    "btnCrearMeme",
+    function() {
+
+        const imagen =
+            localStorage.getItem(
+                "m1_imagenMeme"
+            );
+
+        const superior =
+            memeSuperior
+                ? memeSuperior.value.trim()
+                : "";
+
+        const inferior =
+            memeInferior
+                ? memeInferior.value.trim()
+                : "";
+
+
+        if (
+            !imagen ||
+            !superior ||
+            !inferior
+        ) {
+
+            alert(
+                "Selecciona una imagen y completa los dos textos."
+            );
+
+            return;
+
+        }
+
 
         alert(
-            "Escribe el texto superior y el texto inferior."
+            "😂 ¡Tu meme está listo!"
         );
 
+
+        mostrarPantalla("reto3");
+
+    }
+);
+
+
+// ==========================================================
+// RETO 3 MISIÓN 1
+// ==========================================================
+
+let secuenciaMision1 =
+    JSON.parse(
+        localStorage.getItem(
+            "m1_secuencia"
+        ) || "[]"
+    );
+
+
+const eventosM1 =
+    document.querySelectorAll(
+        "#reto3 .evento"
+    );
+
+
+function actualizarSecuenciaM1() {
+
+    const contenedor =
+        document.getElementById(
+            "ordenSeleccionado"
+        );
+
+
+    if (!contenedor) {
         return;
     }
 
-    alert(
-        "😂 ¡Tu meme está listo!"
+
+    contenedor.innerHTML = "";
+
+
+    secuenciaMision1.forEach(
+        function(numero, indice) {
+
+            const evento =
+                document.querySelector(
+                    '#reto3 .evento[data-orden="' +
+                    numero +
+                    '"]'
+                );
+
+
+            if (evento) {
+
+                const span =
+                    document.createElement(
+                        "span"
+                    );
+
+                span.textContent =
+                    (indice + 1) +
+                    ". " +
+                    evento.textContent.trim();
+
+                contenedor.appendChild(
+                    span
+                );
+
+            }
+
+        }
     );
 
-    mostrarPantalla("reto3");
+}
 
-});
+
+eventosM1.forEach(
+    function(evento) {
+
+        const orden =
+            evento.getAttribute(
+                "data-orden"
+            );
+
+
+        if (
+            secuenciaMision1.includes(
+                orden
+            )
+        ) {
+
+            evento.disabled = true;
+
+        }
+
+
+        evento.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    secuenciaMision1.includes(
+                        orden
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                secuenciaMision1.push(
+                    orden
+                );
+
+
+                evento.disabled = true;
+
+
+                localStorage.setItem(
+                    "m1_secuencia",
+                    JSON.stringify(
+                        secuenciaMision1
+                    )
+                );
+
+
+                actualizarSecuenciaM1();
+
+            }
+        );
+
+    }
+);
+
+
+actualizarSecuenciaM1();
+
+
+conectarBoton(
+    "btnComprobarReto3",
+    function() {
+
+        const correcta = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+        ];
+
+
+        const correcto =
+            secuenciaMision1.length === 5 &&
+            secuenciaMision1.every(
+                function(valor, indice) {
+
+                    return valor ===
+                        correcta[indice];
+
+                }
+            );
+
+
+        if (!correcto) {
+
+            alert(
+                "🧩 El orden no es correcto. Pulsa ↩️ Retroceder para intentarlo nuevamente."
+            );
+
+            return;
+
+        }
+
+
+        mision1Completada = true;
+
+
+        localStorage.setItem(
+            "mision1Completada",
+            "true"
+        );
+
+
+        actualizarMapa();
+
+
+        alert(
+            "🎉 ¡Misión 1 completada!"
+        );
+
+
+        mostrarPantalla(
+            "felicitacion"
+        );
+
+    }
+);
 
 
 // ==========================================================
-// 20. RETO 3 MISIÓN 1
+// RETROCEDER MISIÓN 1
 // ==========================================================
 
-conectarBoton("btnComprobarReto3", function() {
+conectarBoton(
+    "btnAtrasLectura1",
+    function() {
 
-    alert(
-        "🧩 ¡Reto 3 completado!\n\n" +
-        "Has organizado correctamente la historia."
-    );
+        mostrarPantalla(
+            "tarjetaMision1"
+        );
 
-    mision1Completada = true;
-
-    localStorage.setItem(
-        "mision1Completada",
-        "true"
-    );
-
-    actualizarMapa();
-
-    mostrarPantalla("felicitacion");
-
-});
+    }
+);
 
 
-// ==========================================================
-// 21. VOLVER AL MAPA
-// ==========================================================
+conectarBoton(
+    "btnAtrasReto1",
+    function() {
 
-conectarBoton("btnVolverMapa", function() {
+        mostrarPantalla(
+            "lectura1"
+        );
 
-    actualizarMapa();
+    }
+);
 
-    mostrarPantalla("mapa");
 
-});
+conectarBoton(
+    "btnAtrasReto2",
+    function() {
+
+        mostrarPantalla(
+            "reto1"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasChat",
+    function() {
+
+        mostrarPantalla(
+            "reto2"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasMeme",
+    function() {
+
+        mostrarPantalla(
+            "reto2"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasReto3",
+    function() {
+
+        secuenciaMision1 = [];
+
+        localStorage.removeItem(
+            "m1_secuencia"
+        );
+
+
+        document
+            .querySelectorAll(
+                "#reto3 .evento"
+            )
+            .forEach(
+                function(evento) {
+
+                    evento.disabled =
+                        false;
+
+                }
+            );
+
+
+        actualizarSecuenciaM1();
+
+
+        mostrarPantalla(
+            "reto2"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnVolverMapa",
+    function() {
+
+        actualizarMapa();
+
+        mostrarPantalla(
+            "mapa"
+        );
+
+    }
+);
 
 
 // ==========================================================
@@ -425,52 +1019,52 @@ conectarBoton("btnVolverMapa", function() {
 // ==========================================================
 // ==========================================================
 
+conectarBoton(
+    "btnLeon",
+    function() {
 
-// ==========================================================
-// 22. ENTRAR A LEÓN
-// ==========================================================
+        if (!mision1Completada) {
 
-conectarBoton("btnLeon", function() {
+            alert(
+                "🔒 Debes completar la Misión 1 para desbloquear León."
+            );
 
-    if (!mision1Completada) {
+            return;
 
-        alert(
-            "🔒 Debes completar la Misión 1 para desbloquear León."
+        }
+
+
+        mostrarPantalla(
+            "tarjetaMision2"
         );
 
-        return;
     }
-
-    mostrarPantalla("tarjetaMision2");
-
-});
+);
 
 
-// ==========================================================
-// 23. COMENZAR MISIÓN 2
-// ==========================================================
+conectarBoton(
+    "btnComenzarMision2",
+    function() {
 
-conectarBoton("btnComenzarMision2", function() {
+        mostrarPantalla(
+            "lectura2"
+        );
 
-    mostrarPantalla("lectura2");
-
-});
-
-
-// ==========================================================
-// 24. TERMINAR LECTURA 2
-// ==========================================================
-
-conectarBoton("btnTerminarLectura2", function() {
-
-    mostrarPantalla("reto1Mision2");
-
-});
+    }
+);
 
 
-// ==========================================================
-// 25. RETO 1 MISIÓN 2
-// ==========================================================
+conectarBoton(
+    "btnTerminarLectura2",
+    function() {
+
+        mostrarPantalla(
+            "reto1Mision2"
+        );
+
+    }
+);
+
 
 const respuestasMision2 = {
 
@@ -483,11 +1077,66 @@ const respuestasMision2 = {
 };
 
 
+for (let i = 1; i <= 5; i++) {
+
+    const guardada =
+        localStorage.getItem(
+            "m2_p" + i
+        );
+
+
+    if (guardada) {
+
+        const opcion =
+            document.querySelector(
+                'input[name="p' +
+                i +
+                '"][value="' +
+                guardada +
+                '"]'
+            );
+
+
+        if (opcion) {
+            opcion.checked = true;
+        }
+
+    }
+
+
+    document
+        .querySelectorAll(
+            'input[name="p' +
+            i +
+            '"]'
+        )
+        .forEach(
+            function(opcion) {
+
+                opcion.addEventListener(
+                    "change",
+                    function() {
+
+                        localStorage.setItem(
+                            "m2_p" + i,
+                            opcion.value
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
 conectarBoton(
     "btnComprobarReto1Mision2",
     function() {
 
         let puntos = 0;
+
 
         for (
             let i = 1;
@@ -502,10 +1151,13 @@ conectarBoton(
                     '"]:checked'
                 );
 
+
             if (
                 respuesta &&
                 respuesta.value ===
-                respuestasMision2["p" + i]
+                respuestasMision2[
+                    "p" + i
+                ]
             ) {
 
                 puntos++;
@@ -514,39 +1166,42 @@ conectarBoton(
 
         }
 
+
         if (puntos < 5) {
 
             alert(
                 "Obtuviste " +
                 puntos +
-                " de 5.\n\n" +
-                "Lee nuevamente el cuento y vuelve a intentarlo."
+                " de 5. Lee nuevamente el cuento y vuelve a intentarlo."
             );
 
             return;
+
         }
 
+
         alert(
-            "🎉 ¡Reto 1 completado!\n\n" +
-            "5 de 5 respuestas correctas."
+            "🎉 ¡Reto 1 completado!"
         );
 
-        mostrarPantalla("reto2Mision2");
+
+        mostrarPantalla(
+            "reto2Mision2"
+        );
 
     }
 );
 
-
-// ==========================================================
-// 26. RETO 2 — DIARIO DE LA ROSA
-// ==========================================================
 
 conectarBoton(
     "btnGuardarDiario",
     function() {
 
         const diario =
-            document.getElementById("diarioRosa");
+            document.getElementById(
+                "diarioRosa"
+            );
+
 
         if (
             !diario ||
@@ -558,22 +1213,22 @@ conectarBoton(
             );
 
             return;
+
         }
 
+
         alert(
-            "✒️ ¡Diario guardado!\n\n" +
-            "Has expresado lo que pudo sentir la rosa."
+            "✒️ ¡Diario guardado!"
         );
 
-        mostrarPantalla("reto3Mision2");
+
+        mostrarPantalla(
+            "reto3Mision2"
+        );
 
     }
 );
 
-
-// ==========================================================
-// 27. RETO 2 — CÓMIC
-// ==========================================================
 
 conectarBoton(
     "btnGuardarComic",
@@ -585,23 +1240,29 @@ conectarBoton(
             "comic3"
         ];
 
+
         let completos = true;
 
-        escenas.forEach(function(id) {
 
-            const campo =
-                document.getElementById(id);
+        escenas.forEach(
+            function(id) {
 
-            if (
-                !campo ||
-                campo.value.trim() === ""
-            ) {
+                const campo =
+                    document.getElementById(id);
 
-                completos = false;
+
+                if (
+                    !campo ||
+                    campo.value.trim() === ""
+                ) {
+
+                    completos = false;
+
+                }
 
             }
+        );
 
-        });
 
         if (!completos) {
 
@@ -610,81 +1271,243 @@ conectarBoton(
             );
 
             return;
+
         }
 
+
         alert(
-            "🎨 ¡Cómic guardado!\n\n" +
-            "Has creado tus propios diálogos."
+            "🎨 ¡Cómic guardado!"
         );
 
-        mostrarPantalla("reto3Mision2");
+
+        mostrarPantalla(
+            "reto3Mision2"
+        );
+
+    }
+);
+
+
+// Guardar Diario y Cómic
+
+[
+    "diarioRosa",
+    "comic1",
+    "comic2",
+    "comic3"
+].forEach(
+    function(id) {
+
+        const campo =
+            document.getElementById(id);
+
+
+        if (!campo) {
+            return;
+        }
+
+
+        const guardado =
+            localStorage.getItem(
+                "m2_" + id
+            );
+
+
+        if (guardado !== null) {
+            campo.value = guardado;
+        }
+
+
+        campo.addEventListener(
+            "input",
+            function() {
+
+                localStorage.setItem(
+                    "m2_" + id,
+                    campo.value
+                );
+
+            }
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasLectura2",
+    function() {
+
+        mostrarPantalla(
+            "tarjetaMision2"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasReto1Mision2",
+    function() {
+
+        mostrarPantalla(
+            "lectura2"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasReto2Mision2",
+    function() {
+
+        mostrarPantalla(
+            "reto1Mision2"
+        );
 
     }
 );
 
 
 // ==========================================================
-// 28. ROMPECABEZAS
+// ROMPECABEZAS M2
 // ==========================================================
 
-let secuenciaMision2 = [];
+let secuenciaMision2 =
+    JSON.parse(
+        localStorage.getItem(
+            "m2_secuencia"
+        ) || "[]"
+    );
+
 
 const piezas =
-    document.querySelectorAll(".pieza");
+    document.querySelectorAll(
+        ".pieza"
+    );
 
 
-piezas.forEach(function(pieza) {
+piezas.forEach(
+    function(pieza) {
 
-    pieza.addEventListener(
-        "click",
-        function() {
+        const posicion =
+            Number(
+                pieza.getAttribute(
+                    "data-posicion"
+                )
+            );
 
-            const posicion =
-                Number(
-                    pieza.getAttribute(
-                        "data-posicion"
+
+        if (
+            secuenciaMision2.includes(
+                posicion
+            )
+        ) {
+
+            pieza.disabled = true;
+
+        }
+
+
+        pieza.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    secuenciaMision2.includes(
+                        posicion
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                secuenciaMision2.push(
+                    posicion
+                );
+
+
+                pieza.disabled = true;
+
+
+                localStorage.setItem(
+                    "m2_secuencia",
+                    JSON.stringify(
+                        secuenciaMision2
                     )
                 );
 
-            if (
-                secuenciaMision2.includes(
-                    posicion
-                )
-            ) {
 
-                return;
+                actualizarSecuenciaM2();
+
             }
+        );
 
-            secuenciaMision2.push(
-                posicion
+    }
+);
+
+
+function actualizarSecuenciaM2() {
+
+    const pantalla =
+        document.getElementById(
+            "secuenciaSeleccionada"
+        );
+
+
+    if (!pantalla) {
+        return;
+    }
+
+
+    pantalla.textContent =
+        secuenciaMision2.length > 0
+            ? "Orden seleccionado: " +
+              secuenciaMision2.join(" → ")
+            : "Selecciona las piezas en el orden correcto.";
+
+}
+
+
+actualizarSecuenciaM2();
+
+
+conectarBoton(
+    "btnAtrasReto3Mision2",
+    function() {
+
+        secuenciaMision2 = [];
+
+        localStorage.removeItem(
+            "m2_secuencia"
+        );
+
+
+        document
+            .querySelectorAll(".pieza")
+            .forEach(
+                function(pieza) {
+
+                    pieza.disabled =
+                        false;
+
+                }
             );
 
-            pieza.style.opacity = "0.6";
 
-            const pantalla =
-                document.getElementById(
-                    "secuenciaSeleccionada"
-                );
-
-            if (pantalla) {
-
-                pantalla.textContent =
-                    "Orden seleccionado: " +
-                    secuenciaMision2.join(
-                        " → "
-                    );
-
-            }
-
-        }
-    );
-
-});
+        actualizarSecuenciaM2();
 
 
-// ==========================================================
-// 29. COMPROBAR ROMPECABEZAS
-// ==========================================================
+        mostrarPantalla(
+            "reto2Mision2"
+        );
+
+    }
+);
+
 
 conectarBoton(
     "btnComprobarRompecabezas",
@@ -699,6 +1522,7 @@ conectarBoton(
             6
         ];
 
+
         const coincide =
             secuenciaMision2.length === 6 &&
             secuenciaMision2.every(
@@ -710,33 +1534,26 @@ conectarBoton(
                 }
             );
 
+
         if (!coincide) {
 
             alert(
-                "🧩 El orden no es correcto.\n\n" +
-                "Piensa en cómo sucedieron los acontecimientos."
+                "🧩 El orden no es correcto. Puedes retroceder para intentarlo nuevamente."
             );
 
             return;
+
         }
 
 
         const respuestaMoraleja =
             prompt(
                 "🎉 ¡Rompecabezas completado!\n\n" +
-
-                "¿Cuál es una enseñanza que podemos obtener " +
-                "de la historia de la rosa?\n\n" +
-
+                "¿Cuál es una enseñanza de la historia de la rosa?\n\n" +
                 "A) Debemos tomar decisiones sin pensar.\n" +
-
                 "B) La apariencia es lo único importante.\n" +
-
-                "C) Antes de decidir debemos reflexionar sobre " +
-                "lo que deseamos y sus consecuencias.\n" +
-
+                "C) Antes de decidir debemos reflexionar sobre lo que deseamos y sus consecuencias.\n" +
                 "D) Siempre debemos hacer lo que otros aconsejan.\n\n" +
-
                 "Escribe A, B, C o D:"
             );
 
@@ -748,18 +1565,12 @@ conectarBoton(
                 .toUpperCase() === "C"
         ) {
 
-            alert(
-                "🌟 ¡Excelente!\n\n" +
-                "Comprendiste la enseñanza del cuento."
-            );
-
             completarMision2();
 
         } else {
 
             alert(
-                "La respuesta no es correcta.\n\n" +
-                "Piensa en la decisión que tomó la rosa."
+                "La respuesta no es correcta. Inténtalo nuevamente."
             );
 
         }
@@ -768,20 +1579,19 @@ conectarBoton(
 );
 
 
-// ==========================================================
-// 30. COMPLETAR MISIÓN 2
-// ==========================================================
-
 function completarMision2() {
 
     mision2Completada = true;
+
 
     localStorage.setItem(
         "mision2Completada",
         "true"
     );
 
+
     actualizarMapa();
+
 
     mostrarPantalla(
         "finalMision2"
@@ -790,30 +1600,1901 @@ function completarMision2() {
 }
 
 
-// ==========================================================
-// 31. VOLVER AL MAPA MISIÓN 2
-// ==========================================================
-
 conectarBoton(
     "btnVolverMapaMision2",
     function() {
 
         actualizarMapa();
 
-        mostrarPantalla("mapa");
+        mostrarPantalla(
+            "mapa"
+        );
 
     }
 );
 
 
 // ==========================================================
-// 32. RECUPERAR NOMBRE
+// ==========================================================
+// MISIÓN 3 — CHONTALES
+// ==========================================================
+// ==========================================================
+
+conectarBoton(
+    "btnChontales",
+    function() {
+
+        if (!mision2Completada) {
+
+            alert(
+                "🔒 Debes completar la Misión 2 para desbloquear Chontales."
+            );
+
+            return;
+
+        }
+
+
+        mostrarPantalla(
+            "tarjetaMision3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnComenzarMision3",
+    function() {
+
+        mostrarPantalla(
+            "lectura3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnTerminarLectura3",
+    function() {
+
+        mostrarPantalla(
+            "reto1Mision3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasLectura3",
+    function() {
+
+        mostrarPantalla(
+            "tarjetaMision3"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// RETO 1 M3
+// ==========================================================
+
+const respuestasMision3 = {
+
+    m3p1: "B",
+    m3p2: "A",
+    m3p3: "C",
+    m3p4: "B",
+    m3p5: "C"
+
+};
+
+
+Object.keys(respuestasMision3)
+    .forEach(
+        function(nombrePregunta) {
+
+            const guardada =
+                localStorage.getItem(
+                    "m3_" +
+                    nombrePregunta
+                );
+
+
+            if (guardada) {
+
+                const opcion =
+                    document.querySelector(
+                        'input[name="' +
+                        nombrePregunta +
+                        '"][value="' +
+                        guardada +
+                        '"]'
+                    );
+
+
+                if (opcion) {
+                    opcion.checked = true;
+                }
+
+            }
+
+
+            document
+                .querySelectorAll(
+                    'input[name="' +
+                    nombrePregunta +
+                    '"]'
+                )
+                .forEach(
+                    function(opcion) {
+
+                        opcion.addEventListener(
+                            "change",
+                            function() {
+
+                                localStorage.setItem(
+                                    "m3_" +
+                                    nombrePregunta,
+                                    opcion.value
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+
+conectarBoton(
+    "btnComprobarReto1Mision3",
+    function() {
+
+        let puntos = 0;
+
+
+        Object.keys(respuestasMision3)
+            .forEach(
+                function(pregunta) {
+
+                    const respuesta =
+                        document.querySelector(
+                            'input[name="' +
+                            pregunta +
+                            '"]:checked'
+                        );
+
+
+                    if (
+                        respuesta &&
+                        respuesta.value ===
+                        respuestasMision3[pregunta]
+                    ) {
+
+                        puntos++;
+
+                    }
+
+                }
+            );
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoReto1Mision3"
+            );
+
+
+        const boton =
+            document.getElementById(
+                "btnContinuarReto2Mision3"
+            );
+
+
+        if (puntos === 5) {
+
+            resultado.textContent =
+                "🎉 ¡Excelente! Las 5 respuestas son correctas.";
+
+            resultado.style.color =
+                "green";
+
+
+            boton.style.display =
+                "inline-block";
+
+        } else {
+
+            resultado.textContent =
+                "❌ Obtuviste " +
+                puntos +
+                " de 5. Revisa la fábula e inténtalo nuevamente.";
+
+            resultado.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+
+conectarBoton(
+    "btnContinuarReto2Mision3",
+    function() {
+
+        mostrarPantalla(
+            "reto2Mision3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasReto1Mision3",
+    function() {
+
+        mostrarPantalla(
+            "lectura3"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// CRUCIGRAMA M3
+// ==========================================================
+
+const respuestasCrucigrama = {
+
+    crucigrama1: ["chichiltote"],
+    crucigrama2: ["pochote"],
+    crucigrama3: ["honestidad", "honradez"],
+    crucigrama4: ["red"],
+    crucigrama5: ["robaron"]
+
+};
+
+
+const camposCrucigrama = [
+    "crucigrama1",
+    "crucigrama2",
+    "crucigrama3",
+    "crucigrama4",
+    "crucigrama5"
+];
+
+
+camposCrucigrama.forEach(
+    function(id) {
+
+        const campo =
+            document.getElementById(id);
+
+
+        if (!campo) {
+            return;
+        }
+
+
+        const guardado =
+            localStorage.getItem(
+                "m3_" + id
+            );
+
+
+        if (guardado !== null) {
+            campo.value = guardado;
+        }
+
+
+        campo.addEventListener(
+            "input",
+            function() {
+
+                localStorage.setItem(
+                    "m3_" + id,
+                    campo.value
+                );
+
+            }
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnAtrasReto2Mision3",
+    function() {
+
+        mostrarPantalla(
+            "reto1Mision3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnComprobarCrucigrama",
+    function() {
+
+        let correctas = 0;
+
+
+        camposCrucigrama.forEach(
+            function(id) {
+
+                const campo =
+                    document.getElementById(id);
+
+
+                if (!campo) {
+                    return;
+                }
+
+
+                const respuesta =
+                    campo.value
+                        .trim()
+                        .toLowerCase();
+
+
+                if (
+                    respuestasCrucigrama[id]
+                        .includes(respuesta)
+                ) {
+
+                    correctas++;
+
+                }
+
+            }
+        );
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoCrucigrama"
+            );
+
+
+        if (correctas === 5) {
+
+            resultado.textContent =
+                "🎉 ¡Crucigrama completado!";
+
+            resultado.style.color =
+                "green";
+
+
+            setTimeout(
+                function() {
+
+                    mostrarPantalla(
+                        "reto3Mision3"
+                    );
+
+                },
+                700
+            );
+
+        } else {
+
+            resultado.textContent =
+                "❌ Tienes " +
+                correctas +
+                " de 5 palabras correctas.";
+
+            resultado.style.color =
+                "red";
+
+        }
+
+    }
+);
+
+
+// ==========================================================
+// RULETA M3
+// ==========================================================
+
+let ruletaGirando = false;
+
+let valorRuleta = "";
+
+
+const valoresRuleta = [
+    "HONESTIDAD",
+    "RESPETO",
+    "ESFUERZO",
+    "TRABAJO",
+    "RESPONSABILIDAD",
+    "ENGAÑO"
+];
+
+
+const consignasRuleta = {
+
+    HONESTIDAD:
+        "¿Cómo demuestra la fábula que la honestidad es importante?",
+
+    RESPETO:
+        "¿Qué debieron respetar los güises?",
+
+    ESFUERZO:
+        "¿Quién demostró esfuerzo en la fábula y por qué?",
+
+    TRABAJO:
+        "¿Por qué debemos valorar el trabajo ajeno?",
+
+    RESPONSABILIDAD:
+        "¿Qué responsabilidad debieron asumir los güises?",
+
+    ENGAÑO:
+        "¿Por qué aprovecharse del trabajo ajeno se relaciona con el engaño?"
+
+};
+
+
+conectarBoton(
+    "btnGirarRuleta",
+    function() {
+
+        if (ruletaGirando) {
+            return;
+        }
+
+
+        const ruleta =
+            document.getElementById(
+                "ruleta"
+            );
+
+
+        if (!ruleta) {
+            return;
+        }
+
+
+        ruletaGirando = true;
+
+
+        const indice =
+            Math.floor(
+                Math.random() *
+                valoresRuleta.length
+            );
+
+
+        valorRuleta =
+            valoresRuleta[indice];
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoRuleta"
+            );
+
+
+        const pregunta =
+            document.getElementById(
+                "preguntaRuleta"
+            );
+
+
+        const consigna =
+            document.getElementById(
+                "consignaRuleta"
+            );
+
+
+        const grados =
+            1800 +
+            (360 - indice * 60);
+
+
+        ruleta.style.transition =
+            "transform 4s cubic-bezier(0.12, 0.75, 0.18, 1)";
+
+        ruleta.style.transform =
+            "rotate(" +
+            grados +
+            "deg)";
+
+
+        if (resultado) {
+
+            resultado.textContent =
+                "🎡 La ruleta está girando...";
+
+        }
+
+
+        if (pregunta) {
+
+            pregunta.style.display =
+                "none";
+
+        }
+
+
+        setTimeout(
+            function() {
+
+                ruletaGirando = false;
+
+
+                if (resultado) {
+
+                    resultado.textContent =
+                        "🎯 La ruleta cayó en: " +
+                        valorRuleta;
+
+                }
+
+
+                if (consigna) {
+
+                    consigna.textContent =
+                        consignasRuleta[
+                            valorRuleta
+                        ];
+
+                }
+
+
+                if (pregunta) {
+
+                    pregunta.style.display =
+                        "block";
+
+                }
+
+
+                localStorage.setItem(
+                    "m3_valorRuleta",
+                    valorRuleta
+                );
+
+            },
+            4200
+        );
+
+    }
+);
+
+
+// ==========================================================
+// RESPUESTA RULETA
+// ==========================================================
+
+const respuestaRuleta =
+    document.getElementById(
+        "respuestaRuleta"
+    );
+
+
+if (respuestaRuleta) {
+
+    const guardada =
+        localStorage.getItem(
+            "m3_respuestaRuleta"
+        );
+
+
+    if (guardada !== null) {
+        respuestaRuleta.value =
+            guardada;
+    }
+
+
+    respuestaRuleta.addEventListener(
+        "input",
+        function() {
+
+            localStorage.setItem(
+                "m3_respuestaRuleta",
+                respuestaRuleta.value
+            );
+
+        }
+    );
+
+}
+
+
+conectarBoton(
+    "btnAtrasReto3Mision3",
+    function() {
+
+        mostrarPantalla(
+            "reto2Mision3"
+        );
+
+    }
+);
+
+
+conectarBoton(
+    "btnComprobarRuleta",
+    function() {
+
+        if (
+            !respuestaRuleta ||
+            respuestaRuleta.value.trim() === ""
+        ) {
+
+            alert(
+                "Escribe primero tu reflexión."
+            );
+
+            return;
+        }
+
+
+        const resultado =
+            document.getElementById(
+                "resultadoFinalRuleta"
+            );
+
+
+        if (resultado) {
+
+            resultado.textContent =
+                "🎉 ¡Excelente reflexión! Has completado el desafío.";
+
+            resultado.style.color =
+                "green";
+
+        }
+
+
+        completarMision3();
+
+    }
+);
+
+
+// ==========================================================
+// COMPLETAR MISIÓN 3
+// ==========================================================
+
+function completarMision3() {
+
+    mision3Completada = true;
+
+
+    localStorage.setItem(
+        "mision3Completada",
+        "true"
+    );
+
+
+    actualizarMapa();
+
+
+    setTimeout(
+        function() {
+
+            mostrarPantalla(
+                "finalMision3"
+            );
+
+        },
+        700
+    );
+
+}
+
+
+conectarBoton(
+    "btnVolverMapaMision3",
+    function() {
+
+        actualizarMapa();
+
+        mostrarPantalla(
+            "mapa"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// ==========================================================
+// DESAFÍO FINAL
+// ==========================================================
+// ==========================================================
+
+
+// ----------------------------------------------------------
+// BANCO DE PREGUNTAS
+// ----------------------------------------------------------
+
+const bancoDesafio = [
+
+    // ================= MISIÓN 1 =================
+
+    {
+        mision: "🌋 Misión 1",
+        pregunta: "¿Dónde se desarrolla la historia de Chico Largo?",
+        opciones: {
+            A: "León",
+            B: "La isla de Ometepe",
+            C: "Juigalpa",
+            D: "Managua"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌋 Misión 1",
+        pregunta: "¿Quién era Mamá Bucha?",
+        opciones: {
+            A: "Una cazadora",
+            B: "Una famosa curandera",
+            C: "Una pescadora",
+            D: "Una exploradora"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌋 Misión 1",
+        pregunta: "¿En qué animal se transformó Chico Largo?",
+        opciones: {
+            A: "Jaguar",
+            B: "Venado",
+            C: "Águila",
+            D: "Mono"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌋 Misión 1",
+        pregunta: "¿Qué hicieron los cazadores después de herir al venado?",
+        opciones: {
+            A: "Siguieron el rastro de sangre",
+            B: "Regresaron a sus casas",
+            C: "Buscaron a Mamá Bucha",
+            D: "Abandonaron el bosque"
+        },
+        correcta: "A"
+    },
+
+    {
+        mision: "🌋 Misión 1",
+        pregunta: "¿Qué ocurrió al amanecer?",
+        opciones: {
+            A: "Chico Largo apareció herido en su casa",
+            B: "Los cazadores capturaron al venado",
+            C: "Mamá Bucha desapareció",
+            D: "Chico Largo abandonó la isla"
+        },
+        correcta: "A"
+    },
+
+
+    // ================= MISIÓN 2 =================
+
+    {
+        mision: "🌺 Misión 2",
+        pregunta: "¿A quién se acercó el espíritu maligno?",
+        opciones: {
+            A: "A Eva",
+            B: "A la más linda rosa nueva",
+            C: "A un árbol",
+            D: "A la primera col"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌺 Misión 2",
+        pregunta: "¿Qué dijo el diablo que le faltaba a la rosa?",
+        opciones: {
+            A: "Color",
+            B: "Aroma",
+            C: "Utilidad",
+            D: "Belleza"
+        },
+        correcta: "C"
+    },
+
+    {
+        mision: "🌺 Misión 2",
+        pregunta: "¿Qué deseó la rosa?",
+        opciones: {
+            A: "Ser más bella",
+            B: "Ser útil",
+            C: "Ser un árbol",
+            D: "Desaparecer"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌺 Misión 2",
+        pregunta: "¿Qué ocurrió después de que Dios aceptó el deseo de la rosa?",
+        opciones: {
+            A: "Se convirtió en árbol",
+            B: "Nació la primera col",
+            C: "Desapareció",
+            D: "Regresó a ser rosa"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🌺 Misión 2",
+        pregunta: "¿Qué decisión podemos valorar críticamente en el cuento?",
+        opciones: {
+            A: "Decidir sin pensar",
+            B: "Reflexionar antes de tomar decisiones",
+            C: "Creer todo lo que nos dicen",
+            D: "Rechazar la utilidad"
+        },
+        correcta: "B"
+    },
+
+
+    // ================= MISIÓN 3 =================
+
+    {
+        mision: "🐦 Misión 3",
+        pregunta: "¿Qué construía el chichiltote?",
+        opciones: {
+            A: "Una casa",
+            B: "Una red",
+            C: "Una cueva",
+            D: "Un puente"
+        },
+        correcta: "B"
+    },
+
+    {
+        mision: "🐦 Misión 3",
+        pregunta: "¿Dónde construía su red el chichiltote?",
+        opciones: {
+            A: "En un pochote",
+            B: "En una laguna",
+            C: "En una montaña",
+            D: "En una casa"
+        },
+        correcta: "A"
+    },
+
+    {
+        mision: "🐦 Misión 3",
+        pregunta: "¿Qué hicieron los dos güises?",
+        opciones: {
+            A: "Ayudaron al chichiltote",
+            B: "Construyeron otra red",
+            C: "Robaron su construcción",
+            D: "La protegieron"
+        },
+        correcta: "C"
+    },
+
+    {
+        mision: "🐦 Misión 3",
+        pregunta: "¿Qué valor representa la enseñanza de la fábula?",
+        opciones: {
+            A: "Honestidad",
+            B: "Desobediencia",
+            C: "Aprovechamiento",
+            D: "Engaño"
+        },
+        correcta: "A"
+    },
+
+    {
+        mision: "🐦 Misión 3",
+        pregunta: "¿Qué debe hacerse con el trabajo de otra persona?",
+        opciones: {
+            A: "Tomarlo sin permiso",
+            B: "Ignorarlo",
+            C: "Respetarlo",
+            D: "Copiarlo"
+        },
+        correcta: "C"
+    }
+
+];
+
+
+// ----------------------------------------------------------
+// VARIABLES DEL DESAFÍO
+// ----------------------------------------------------------
+
+let preguntasDesafio = [];
+
+let indicePreguntaDesafio = 0;
+
+let puntajeDesafio = 0;
+
+let correctasDesafio = 0;
+
+let rachaDesafio = 0;
+
+let mejorRachaDesafio = 0;
+
+let tiempoRestante = 15;
+
+let temporizadorDesafio = null;
+
+let partidaTerminada = false;
+
+
+// ----------------------------------------------------------
+// MEZCLAR ARRAY
+// ----------------------------------------------------------
+
+function mezclarArray(array) {
+
+    const copia = [...array];
+
+
+    for (
+        let i = copia.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+
+        [
+            copia[i],
+            copia[j]
+        ] = [
+            copia[j],
+            copia[i]
+        ];
+
+    }
+
+
+    return copia;
+}
+
+
+// ----------------------------------------------------------
+// INICIAR DESAFÍO
+// ----------------------------------------------------------
+
+function iniciarDesafio() {
+
+    if (!mision3Completada) {
+
+        alert(
+            "🔒 Primero debes completar las tres misiones."
+        );
+
+        return;
+
+    }
+
+
+    preguntasDesafio =
+        mezclarArray(
+            bancoDesafio
+        ).slice(
+            0,
+            10
+        );
+
+
+    indicePreguntaDesafio = 0;
+
+    puntajeDesafio = 0;
+
+    correctasDesafio = 0;
+
+    rachaDesafio = 0;
+
+    mejorRachaDesafio = 0;
+
+    partidaTerminada = false;
+
+
+    mostrarPantalla(
+        "juegoDesafio"
+    );
+
+
+    mostrarPreguntaDesafio();
+
+}
+
+
+// ----------------------------------------------------------
+// COMENZAR DESAFÍO
+// ----------------------------------------------------------
+
+conectarBoton(
+    "btnComenzarDesafio",
+    iniciarDesafio
+);
+
+
+// ----------------------------------------------------------
+// MOSTRAR PREGUNTA
+// ----------------------------------------------------------
+
+function mostrarPreguntaDesafio() {
+
+    if (partidaTerminada) {
+        return;
+    }
+
+
+    const pregunta =
+        preguntasDesafio[
+            indicePreguntaDesafio
+        ];
+
+
+    if (!pregunta) {
+
+        finalizarDesafio(
+            "🎉 ¡Completaste las 10 preguntas!"
+        );
+
+        return;
+
+    }
+
+
+    const numeroPregunta =
+        document.getElementById(
+            "numeroPregunta"
+        );
+
+
+    const puntajeActual =
+        document.getElementById(
+            "puntajeActual"
+        );
+
+
+    const origen =
+        document.getElementById(
+            "origenPregunta"
+        );
+
+
+    const texto =
+        document.getElementById(
+            "textoPregunta"
+        );
+
+
+    const racha =
+        document.getElementById(
+            "rachaDesafio"
+        );
+
+
+    if (numeroPregunta) {
+
+        numeroPregunta.textContent =
+            "Pregunta " +
+            (indicePreguntaDesafio + 1) +
+            " de 10";
+
+    }
+
+
+    if (puntajeActual) {
+
+        puntajeActual.textContent =
+            "⭐ " +
+            puntajeDesafio +
+            " puntos";
+
+    }
+
+
+    if (origen) {
+
+        origen.textContent =
+            pregunta.mision;
+
+    }
+
+
+    if (texto) {
+
+        texto.textContent =
+            pregunta.pregunta;
+
+    }
+
+
+    if (racha) {
+
+        racha.textContent =
+            "🔥 Racha: " +
+            rachaDesafio;
+
+    }
+
+
+    const botones =
+        document.querySelectorAll(
+            ".opcionDesafio"
+        );
+
+
+    botones.forEach(
+        function(boton) {
+
+            const letra =
+                boton.getAttribute(
+                    "data-respuesta"
+                );
+
+
+            boton.textContent =
+                letra +
+                ") " +
+                pregunta.opciones[letra];
+
+
+            boton.disabled = false;
+
+        }
+    );
+
+
+    iniciarTemporizadorDesafio();
+
+}
+
+
+// ----------------------------------------------------------
+// TEMPORIZADOR
+// ----------------------------------------------------------
+
+function iniciarTemporizadorDesafio() {
+
+    detenerTemporizadorDesafio();
+
+
+    tiempoRestante = 15;
+
+
+    const elemento =
+        document.getElementById(
+            "tiempoPregunta"
+        );
+
+
+    if (elemento) {
+
+        elemento.textContent =
+            tiempoRestante;
+
+    }
+
+
+    temporizadorDesafio =
+        setInterval(
+            function() {
+
+                tiempoRestante--;
+
+
+                if (elemento) {
+
+                    elemento.textContent =
+                        tiempoRestante;
+
+                }
+
+
+                if (tiempoRestante <= 0) {
+
+                    detenerTemporizadorDesafio();
+
+
+                    finalizarDesafio(
+                        "⏰ ¡Tiempo agotado!"
+                    );
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+// ----------------------------------------------------------
+// DETENER TEMPORIZADOR
+// ----------------------------------------------------------
+
+function detenerTemporizadorDesafio() {
+
+    if (temporizadorDesafio) {
+
+        clearInterval(
+            temporizadorDesafio
+        );
+
+        temporizadorDesafio =
+            null;
+
+    }
+
+}
+
+
+// ----------------------------------------------------------
+// RESPONDER
+// ----------------------------------------------------------
+
+document
+    .querySelectorAll(
+        ".opcionDesafio"
+    )
+    .forEach(
+        function(boton) {
+
+            boton.addEventListener(
+                "click",
+                function() {
+
+                    if (
+                        partidaTerminada
+                    ) {
+                        return;
+                    }
+
+
+                    detenerTemporizadorDesafio();
+
+
+                    const botones =
+                        document.querySelectorAll(
+                            ".opcionDesafio"
+                        );
+
+
+                    botones.forEach(
+                        function(b) {
+
+                            b.disabled =
+                                true;
+
+                        }
+                    );
+
+
+                    const respuesta =
+                        boton.getAttribute(
+                            "data-respuesta"
+                        );
+
+
+                    const pregunta =
+                        preguntasDesafio[
+                            indicePreguntaDesafio
+                        ];
+
+
+                    if (
+                        respuesta ===
+                        pregunta.correcta
+                    ) {
+
+                        registrarRespuestaCorrecta();
+
+                    } else {
+
+                        rachaDesafio = 0;
+
+                        finalizarDesafio(
+                            "❌ Respuesta incorrecta. La partida ha terminado."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+// ----------------------------------------------------------
+// RESPUESTA CORRECTA
+// ----------------------------------------------------------
+
+function registrarRespuestaCorrecta() {
+
+    correctasDesafio++;
+
+    rachaDesafio++;
+
+
+    if (
+        rachaDesafio >
+        mejorRachaDesafio
+    ) {
+
+        mejorRachaDesafio =
+            rachaDesafio;
+
+    }
+
+
+    // Puntos según rapidez
+    let puntosGanados = 60;
+
+
+    if (tiempoRestante >= 11) {
+
+        puntosGanados = 100;
+
+    } else if (
+        tiempoRestante >= 6
+    ) {
+
+        puntosGanados = 80;
+
+    }
+
+
+    // Bonificación por racha
+    if (
+        rachaDesafio === 3
+    ) {
+
+        puntosGanados += 30;
+
+    }
+
+
+    if (
+        rachaDesafio === 5
+    ) {
+
+        puntosGanados += 50;
+
+    }
+
+
+    puntajeDesafio +=
+        puntosGanados;
+
+
+    const racha =
+        document.getElementById(
+            "rachaDesafio"
+        );
+
+
+    if (racha) {
+
+        racha.textContent =
+            "🔥 Racha: " +
+            rachaDesafio;
+
+    }
+
+
+    if (
+        indicePreguntaDesafio >=
+        9
+    ) {
+
+        finalizarDesafio(
+            "🎉 ¡Completaste las 10 preguntas!"
+        );
+
+        return;
+
+    }
+
+
+    indicePreguntaDesafio++;
+
+
+    setTimeout(
+        function() {
+
+            mostrarPreguntaDesafio();
+
+        },
+        500
+    );
+
+}
+
+
+// ==========================================================
+// 58. CLASIFICACIÓN
+// ==========================================================
+
+function obtenerClasificacion() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "clasificacionGuardianes"
+            ) || "[]"
+        );
+
+    } catch (error) {
+
+        return [];
+
+    }
+
+}
+
+
+function guardarClasificacion(lista) {
+
+    localStorage.setItem(
+        "clasificacionGuardianes",
+        JSON.stringify(lista)
+    );
+
+}
+
+
+function registrarPuntuacion() {
+
+    const nombre =
+        localStorage.getItem(
+            "nombreJugador"
+        ) ||
+        "Explorador";
+
+
+    let lista =
+        obtenerClasificacion();
+
+
+    const existente =
+        lista.find(
+            function(jugador) {
+
+                return jugador.nombre ===
+                    nombre;
+
+            }
+        );
+
+
+    if (existente) {
+
+        if (
+            puntajeDesafio >
+            existente.puntos
+        ) {
+
+            existente.puntos =
+                puntajeDesafio;
+
+        }
+
+    } else {
+
+        lista.push({
+
+            nombre: nombre,
+
+            puntos: puntajeDesafio
+
+        });
+
+    }
+
+
+    lista.sort(
+        function(a, b) {
+
+            return b.puntos -
+                a.puntos;
+
+        }
+    );
+
+
+    lista =
+        lista.slice(
+            0,
+            20
+        );
+
+
+    guardarClasificacion(
+        lista
+    );
+
+
+    return lista;
+
+}
+
+
+// ==========================================================
+// 59. FINALIZAR DESAFÍO
+// ==========================================================
+
+function finalizarDesafio(motivo) {
+
+    if (partidaTerminada) {
+        return;
+    }
+
+
+    partidaTerminada = true;
+
+
+    detenerTemporizadorDesafio();
+
+
+    registrarPuntuacion();
+
+
+    const motivoElemento =
+        document.getElementById(
+            "motivoFinDesafio"
+        );
+
+
+    const puntuacion =
+        document.getElementById(
+            "puntuacionFinal"
+        );
+
+
+    const correctas =
+        document.getElementById(
+            "preguntasCorrectas"
+        );
+
+
+    const mejorRacha =
+        document.getElementById(
+            "mejorRacha"
+        );
+
+
+    if (motivoElemento) {
+
+        motivoElemento.textContent =
+            motivo;
+
+    }
+
+
+    if (puntuacion) {
+
+        puntuacion.textContent =
+            puntajeDesafio +
+            " puntos";
+
+    }
+
+
+    if (correctas) {
+
+        correctas.textContent =
+            correctasDesafio +
+            " respuestas correctas";
+
+    }
+
+
+    if (mejorRacha) {
+
+        mejorRacha.textContent =
+            "🔥 Mejor racha: " +
+            mejorRachaDesafio;
+
+    }
+
+
+    const lista =
+        obtenerClasificacion();
+
+
+    const nombre =
+        localStorage.getItem(
+            "nombreJugador"
+        ) ||
+        "Explorador";
+
+
+    const posicion =
+        lista.findIndex(
+            function(jugador) {
+
+                return jugador.nombre ===
+                    nombre;
+
+            }
+        );
+
+
+    const posicionElemento =
+        document.getElementById(
+            "posicionJugador"
+        );
+
+
+    if (posicionElemento) {
+
+        if (posicion >= 0) {
+
+            posicionElemento.textContent =
+                "🏅 Tu posición: " +
+                (posicion + 1) +
+                ".º lugar";
+
+        }
+
+    }
+
+
+    // Trofeo: debe completar las 10 preguntas
+    if (
+        correctasDesafio === 10
+    ) {
+
+        localStorage.setItem(
+            "trofeoGuardianes",
+            "true"
+        );
+
+    }
+
+
+    mostrarPantalla(
+        "resultadoDesafio"
+    );
+
+}
+
+
+// ==========================================================
+// 60. INTENTAR NUEVAMENTE
+// ==========================================================
+
+conectarBoton(
+    "btnIntentarNuevamente",
+    function() {
+
+        iniciarDesafio();
+
+    }
+);
+
+
+// ==========================================================
+// 61. VER CLASIFICACIÓN
+// ==========================================================
+
+conectarBoton(
+    "btnVerClasificacion",
+    function() {
+
+        cargarClasificacion();
+
+        mostrarPantalla(
+            "clasificacion"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// 62. CARGAR CLASIFICACIÓN
+// ==========================================================
+
+function cargarClasificacion() {
+
+    const contenedor =
+        document.getElementById(
+            "tablaClasificacion"
+        );
+
+
+    if (!contenedor) {
+        return;
+    }
+
+
+    const lista =
+        obtenerClasificacion();
+
+
+    contenedor.innerHTML = "";
+
+
+    const encabezado =
+        document.createElement(
+            "div"
+        );
+
+
+    encabezado.className =
+        "fila-clasificacion encabezado";
+
+
+    encabezado.innerHTML =
+        `
+        <span>Pos.</span>
+        <span>Jugador</span>
+        <span>Puntos</span>
+        `;
+
+
+    contenedor.appendChild(
+        encabezado
+    );
+
+
+    lista.forEach(
+        function(jugador, indice) {
+
+            const fila =
+                document.createElement(
+                    "div"
+                );
+
+
+            fila.className =
+                "fila-clasificacion";
+
+
+            let posicion =
+                (indice + 1) +
+                ".º";
+
+
+            if (indice === 0) {
+                posicion = "🥇";
+            }
+
+            if (indice === 1) {
+                posicion = "🥈";
+            }
+
+            if (indice === 2) {
+                posicion = "🥉";
+            }
+
+
+            fila.innerHTML =
+                `
+                <span>${posicion}</span>
+                <span>${jugador.nombre}</span>
+                <span>${jugador.puntos}</span>
+                `;
+
+
+            contenedor.appendChild(
+                fila
+            );
+
+        }
+    );
+
+
+    if (lista.length === 0) {
+
+        const vacio =
+            document.createElement(
+                "p"
+            );
+
+        vacio.textContent =
+            "Todavía no hay puntuaciones registradas.";
+
+        contenedor.appendChild(
+            vacio
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// 63. VOLVER DEL RESULTADO
+// ==========================================================
+
+conectarBoton(
+    "btnVolverResultado",
+    function() {
+
+        mostrarPantalla(
+            "resultadoDesafio"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// 64. DESAFÍO FINAL DESDE EL MAPA
+// ==========================================================
+
+conectarBoton(
+    "btnDesafioFinal",
+    function() {
+
+        if (!mision3Completada) {
+
+            alert(
+                "🔒 Primero debes completar las tres misiones."
+            );
+
+            return;
+
+        }
+
+
+        mostrarPantalla(
+            "desafioFinal"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// 65. TROFEO
+// ==========================================================
+
+conectarBoton(
+    "btnVolverMapaTrofeo",
+    function() {
+
+        mostrarPantalla(
+            "mapa"
+        );
+
+    }
+);
+
+
+// ==========================================================
+// 66. RECUPERAR NOMBRE
 // ==========================================================
 
 const nombreGuardado =
     localStorage.getItem(
         "nombreJugador"
     );
+
 
 if (
     nombreGuardado &&
@@ -829,5 +3510,5 @@ if (
 
 
 // ==========================================================
-// FIN DEL SCRIPT
+// FIN
 // ==========================================================
