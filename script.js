@@ -12,7 +12,7 @@ const SUPABASE_URL =
     "https://ywrgglmxtwfyfdrdskoo.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publisable_Ae9Sk4zc64O3aH1xvOgIZQ_z54pFd-4";
+    "sb_publishable_Ae9Sk4zc64O3aH1xvOgIZQ_z54pFd-4";
 
 const supabaseCliente =
     window.supabase
@@ -3031,12 +3031,15 @@ function registrarRespuestaCorrecta() {
 
 }
 
-
 // ==========================================================
-// 58. CLASIFICACIÓN
+// 58. CLASIFICACIÓN — LOCAL + SUPABASE
 // ==========================================================
 
-function obtenerClasificacion() {
+// ----------------------------------------------------------
+// OBTENER CLASIFICACIÓN LOCAL
+// ----------------------------------------------------------
+
+function obtenerClasificacionLocal() {
 
     try {
 
@@ -3048,6 +3051,11 @@ function obtenerClasificacion() {
 
     } catch (error) {
 
+        console.error(
+            "Error leyendo clasificación local:",
+            error
+        );
+
         return [];
 
     }
@@ -3055,7 +3063,11 @@ function obtenerClasificacion() {
 }
 
 
-function guardarClasificacion(lista) {
+// ----------------------------------------------------------
+// GUARDAR CLASIFICACIÓN LOCAL
+// ----------------------------------------------------------
+
+function guardarClasificacionLocal(lista) {
 
     localStorage.setItem(
         "clasificacionGuardianes",
@@ -3065,7 +3077,11 @@ function guardarClasificacion(lista) {
 }
 
 
-function registrarPuntuacion() {
+// ----------------------------------------------------------
+// REGISTRAR PUNTUACIÓN
+// ----------------------------------------------------------
+
+async function registrarPuntuacion() {
 
     const nombre =
         localStorage.getItem(
@@ -3074,12 +3090,16 @@ function registrarPuntuacion() {
         "Explorador";
 
 
-    let lista =
-        obtenerClasificacion();
+    // ------------------------------------------------------
+    // 1. GUARDAR LOCALMENTE
+    // ------------------------------------------------------
+
+    let listaLocal =
+        obtenerClasificacionLocal();
 
 
     const existente =
-        lista.find(
+        listaLocal.find(
             function(jugador) {
 
                 return jugador.nombre ===
@@ -3103,18 +3123,20 @@ function registrarPuntuacion() {
 
     } else {
 
-        lista.push({
+        listaLocal.push({
 
-            nombre: nombre,
+            nombre:
+                nombre,
 
-            puntos: puntajeDesafio
+            puntos:
+                puntajeDesafio
 
         });
 
     }
 
 
-    lista.sort(
+    listaLocal.sort(
         function(a, b) {
 
             return b.puntos -
@@ -3124,41 +3146,257 @@ function registrarPuntuacion() {
     );
 
 
-    lista =
-        lista.slice(
+    listaLocal =
+        listaLocal.slice(
             0,
             20
         );
 
 
-    guardarClasificacion(
-        lista
+    guardarClasificacionLocal(
+        listaLocal
     );
 
 
-    return lista;
+    // ------------------------------------------------------
+    // 2. GUARDAR EN SUPABASE
+    // ------------------------------------------------------
+
+    if (
+        !supabaseCliente
+    ) {
+
+        console.warn(
+            "Supabase no está disponible."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !navigator.onLine
+    ) {
+
+        console.log(
+            "Sin internet. Se conserva la puntuación local."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const resultado =
+            await supabaseCliente
+                .from(
+                    "clasificacion_guardianes"
+                )
+                .insert({
+
+                    nombre:
+                        nombre,
+
+                    puntos:
+                        puntajeDesafio,
+
+                    preguntas_correctas:
+                        correctasDesafio,
+
+                    mejor_racha:
+                        mejorRachaDesafio
+
+                });
+
+
+        if (
+            resultado.error
+        ) {
+
+            console.error(
+                "Error de Supabase:",
+                resultado.error
+            );
+
+        } else {
+
+            console.log(
+                "✅ Puntuación guardada en Supabase."
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Error de conexión con Supabase:",
+            error
+        );
+
+    }
 
 }
 
+
+// ----------------------------------------------------------
+// OBTENER CLASIFICACIÓN
+// ----------------------------------------------------------
+
+async function obtenerClasificacion() {
+
+    // ------------------------------------------------------
+    // 1. INTENTAR SUPABASE
+    // ------------------------------------------------------
+
+    if (
+        supabaseCliente &&
+        navigator.onLine
+    ) {
+
+        try {
+
+            const resultado =
+                await supabaseCliente
+                    .from(
+                        "clasificacion_guardianes"
+                    )
+                    .select(
+                        "nombre,puntos,preguntas_correctas,mejor_racha,creado_en"
+                    )
+                    .order(
+                        "puntos",
+                        {
+                            ascending: false
+                        }
+                    );
+
+
+            if (
+                !resultado.error
+            ) {
+
+                const filas =
+                    resultado.data ||
+                    [];
+
+
+                // ------------------------------------------
+                // CONSERVAR SOLO LA MEJOR PUNTUACIÓN
+                // DE CADA JUGADOR
+                // ------------------------------------------
+
+                const mejores =
+                    {};
+
+
+                filas.forEach(
+                    function(fila) {
+
+                        if (
+                            !mejores[
+                                fila.nombre
+                            ] ||
+                            fila.puntos >
+                            mejores[
+                                fila.nombre
+                            ].puntos
+                        ) {
+
+                            mejores[
+                                fila.nombre
+                            ] = {
+
+                                nombre:
+                                    fila.nombre,
+
+                                puntos:
+                                    fila.puntos,
+
+                                preguntas_correctas:
+                                    fila.preguntas_correctas,
+
+                                mejor_racha:
+                                    fila.mejor_racha,
+
+                                creado_en:
+                                    fila.creado_en
+
+                            };
+
+                        }
+
+                    }
+                );
+
+
+                const lista =
+                    Object.values(
+                        mejores
+                    );
+
+
+                lista.sort(
+                    function(a, b) {
+
+                        return b.puntos -
+                            a.puntos;
+
+                    }
+                );
+
+
+                return lista.slice(
+                    0,
+                    20
+                );
+
+            }
+
+
+            console.error(
+                "Supabase devolvió un error:",
+                resultado.error
+            );
+
+        } catch (error) {
+
+            console.error(
+                "No se pudo consultar Supabase:",
+                error
+            );
+
+        }
+
+    }
+
+
+    // ------------------------------------------------------
+    // 2. SI NO HAY INTERNET, USAR LOCAL
+    // ------------------------------------------------------
+
+    return obtenerClasificacionLocal();
+
+}
 
 // ==========================================================
 // 59. FINALIZAR DESAFÍO
 // ==========================================================
 
-function finalizarDesafio(motivo) {
-
-    if (partidaTerminada) {
-        return;
+async function finalizarDesafio(motivo) { 
+ 
+    if (partidaTerminada) { 
+        return; 
     }
-
-
     partidaTerminada = true;
 
 
     detenerTemporizadorDesafio();
 
 
-    registrarPuntuacion();
+    await registrarPuntuacion();
 
 
     const motivoElemento =
@@ -3221,8 +3459,7 @@ function finalizarDesafio(motivo) {
 
 
     const lista =
-        obtenerClasificacion();
-
+    await obtenerClasificacion();
 
     const nombre =
         localStorage.getItem(
@@ -3312,36 +3549,33 @@ conectarBoton(
 
     }
 );
-
-
 // ==========================================================
 // 62. CARGAR CLASIFICACIÓN
 // ==========================================================
 
-function cargarClasificacion() {
+async function cargarClasificacion() {
 
     const contenedor =
         document.getElementById(
             "tablaClasificacion"
         );
 
-
     if (!contenedor) {
-        return;
-    }
+    return;
+}
 
 
-    const lista =
-        obtenerClasificacion();
+const lista =
+    await obtenerClasificacion();
 
 
-    contenedor.innerHTML = "";
+contenedor.innerHTML = "";
 
 
-    const encabezado =
-        document.createElement(
-            "div"
-        );
+const encabezado =
+    document.createElement(
+        "div"
+    );
 
 
     encabezado.className =
