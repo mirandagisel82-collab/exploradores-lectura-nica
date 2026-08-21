@@ -1,6 +1,9 @@
+console.log("ESTE ES EL SCRIPT QUE ESTOY EDITANDO");
+
 // ==========================================================
 // EXPLORADORES DE LA LECTURA NICA
 // SCRIPT.JS
+// ==========================================================
 // MISIÓN 1 + MISIÓN 2 + MISIÓN 3 + DESAFÍO FINAL
 // RETROCESO + PROGRESO + COMPETENCIA
 // ==========================================================
@@ -704,314 +707,192 @@ conectarBoton(
 
     }
 );
+// ==========================================================
+// RETO 3 MISIÓN 1 — ORDENAR LA HISTORIA
+// ==========================================================
+
+let secuenciaMision1 = [];
 
 
 // ==========================================================
-// RETO 3 MISIÓN 1
+// ACTUALIZAR SECUENCIA
 // ==========================================================
-
-let secuenciaMision1 =
-    JSON.parse(
-        localStorage.getItem(
-            "m1_secuencia"
-        ) || "[]"
-    );
-
-
-const eventosM1 =
-    document.querySelectorAll(
-        "#reto3 .evento"
-    );
-
 
 function actualizarSecuenciaM1() {
 
-    const contenedor =
-        document.getElementById(
-            "ordenSeleccionado"
-        );
-
+    const contenedor = document.getElementById("ordenSeleccionado");
 
     if (!contenedor) {
         return;
     }
 
+    if (secuenciaMision1.length === 0) {
 
-    contenedor.innerHTML = "";
+        contenedor.textContent =
+            "Selecciona los acontecimientos en el orden correcto.";
 
+        return;
+    }
 
-    secuenciaMision1.forEach(
-        function(numero, indice) {
-
-            const evento =
-                document.querySelector(
-                    '#reto3 .evento[data-orden="' +
-                    numero +
-                    '"]'
-                );
-
-
-            if (evento) {
-
-                const span =
-                    document.createElement(
-                        "span"
-                    );
-
-                span.textContent =
-                    (indice + 1) +
-                    ". " +
-                    evento.textContent.trim();
-
-                contenedor.appendChild(
-                    span
-                );
-
-            }
-
-        }
-    );
-
+    contenedor.textContent =
+        "Orden seleccionado: " +
+        secuenciaMision1.join(" → ");
 }
 
 
-eventosM1.forEach(
-    function(evento) {
+// ==========================================================
+// SELECCIONAR ACONTECIMIENTOS
+// ==========================================================
 
-        const orden =
-            evento.getAttribute(
-                "data-orden"
-            );
+document.addEventListener("click", function(event) {
 
+    const pieza = event.target.closest("#secuencia .evento");
 
-        if (
-            secuenciaMision1.includes(
-                orden
-            )
-        ) {
-
-            evento.disabled = true;
-
-        }
-
-
-        evento.addEventListener(
-            "click",
-            function() {
-
-                if (
-                    secuenciaMision1.includes(
-                        orden
-                    )
-                ) {
-
-                    return;
-
-                }
-
-
-                secuenciaMision1.push(
-                    orden
-                );
-
-
-                evento.disabled = true;
-
-
-                localStorage.setItem(
-                    "m1_secuencia",
-                    JSON.stringify(
-                        secuenciaMision1
-                    )
-                );
-
-
-                actualizarSecuenciaM1();
-
-            }
-        );
-
+    if (!pieza) {
+        return;
     }
-);
+
+    const orden = pieza.getAttribute("data-orden");
+
+    if (secuenciaMision1.includes(orden)) {
+        return;
+    }
+
+    secuenciaMision1.push(orden);
+
+    pieza.disabled = true;
+
+    actualizarSecuenciaM1();
+
+});
 
 
-actualizarSecuenciaM1();
+// ==========================================================
+// COMPROBAR RETO 3 MISIÓN 1
+// ==========================================================
+
+conectarBoton("btnComprobarReto3", function() {
+
+    const correcta = ["1", "2", "3", "4", "5"];
+
+    const correcto =
+        secuenciaMision1.length === 5 &&
+        secuenciaMision1.every(function(valor, indice) {
+
+            return valor === correcta[indice];
+
+        });
 
 
-conectarBoton(
-    "btnComprobarReto3",
-    function() {
-
-        const correcta = [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
-        ];
-
-
-        const correcto =
-            secuenciaMision1.length === 5 &&
-            secuenciaMision1.every(
-                function(valor, indice) {
-
-                    return valor ===
-                        correcta[indice];
-
-                }
-            );
-
-
-        if (!correcto) {
-
-            alert(
-                "🧩 El orden no es correcto. Pulsa ↩️ Retroceder para intentarlo nuevamente."
-            );
-
-            return;
-
-        }
-
-
-        mision1Completada = true;
-
-
-        localStorage.setItem(
-            "mision1Completada",
-            "true"
-        );
-
-
-        actualizarMapa();
-
+    if (!correcto) {
 
         alert(
-            "🎉 ¡Misión 1 completada!"
+            "🧩 El orden no es correcto. Inténtalo nuevamente."
         );
 
+        secuenciaMision1 = [];
 
-        mostrarPantalla(
-            "felicitacion"
-        );
+        document
+            .querySelectorAll("#secuencia .evento")
+            .forEach(function(pieza) {
 
+                pieza.disabled = false;
+
+            });
+
+        actualizarSecuenciaM1();
+
+        return;
     }
-);
+
+
+    // ======================================================
+    // MISIÓN 1 COMPLETADA
+    // ======================================================
+
+    mision1Completada = true;
+
+    localStorage.setItem(
+        "mision1Completada",
+        "true"
+    );
+
+    actualizarMapa();
+
+    alert(
+        "🎉 ¡Misión 1 completada!"
+    );
+
+    mostrarPantalla("felicitacion");
+
+});
 
 
 // ==========================================================
 // RETROCEDER MISIÓN 1
 // ==========================================================
 
-conectarBoton(
-    "btnAtrasLectura1",
-    function() {
+conectarBoton("btnAtrasLectura1", function() {
 
-        mostrarPantalla(
-            "tarjetaMision1"
-        );
+    mostrarPantalla("tarjetaMision1");
 
-    }
-);
+});
 
 
-conectarBoton(
-    "btnAtrasReto1",
-    function() {
+conectarBoton("btnAtrasReto1", function() {
 
-        mostrarPantalla(
-            "lectura1"
-        );
+    mostrarPantalla("lectura1");
 
-    }
-);
+});
 
 
-conectarBoton(
-    "btnAtrasReto2",
-    function() {
+conectarBoton("btnAtrasReto2", function() {
 
-        mostrarPantalla(
-            "reto1"
-        );
+    mostrarPantalla("reto1");
 
-    }
-);
+});
 
 
-conectarBoton(
-    "btnAtrasChat",
-    function() {
+conectarBoton("btnAtrasChat", function() {
 
-        mostrarPantalla(
-            "reto2"
-        );
+    mostrarPantalla("reto2");
 
-    }
-);
+});
 
 
-conectarBoton(
-    "btnAtrasMeme",
-    function() {
+conectarBoton("btnAtrasMeme", function() {
 
-        mostrarPantalla(
-            "reto2"
-        );
+    mostrarPantalla("reto2");
 
-    }
-);
+});
 
 
-conectarBoton(
-    "btnAtrasReto3",
-    function() {
+conectarBoton("btnAtrasReto3", function() {
 
-        secuenciaMision1 = [];
+    secuenciaMision1 = [];
 
-        localStorage.removeItem(
-            "m1_secuencia"
-        );
+    document
+        .querySelectorAll("#secuencia .evento")
+        .forEach(function(evento) {
 
+            evento.disabled = false;
 
-        document
-            .querySelectorAll(
-                "#reto3 .evento"
-            )
-            .forEach(
-                function(evento) {
+        });
 
-                    evento.disabled =
-                        false;
+    actualizarSecuenciaM1();
 
-                }
-            );
+    mostrarPantalla("reto2");
+
+});
 
 
-        actualizarSecuenciaM1();
+conectarBoton("btnVolverMapa", function() {
 
+    actualizarMapa();
 
-        mostrarPantalla(
-            "reto2"
-        );
+    mostrarPantalla("mapa");
 
-    }
-);
-
-
-conectarBoton(
-    "btnVolverMapa",
-    function() {
-
-        actualizarMapa();
-
-        mostrarPantalla(
-            "mapa"
-        );
-
-    }
-);
-
+});
 
 // ==========================================================
 // ==========================================================
@@ -1357,7 +1238,6 @@ conectarBoton(
     }
 );
 
-
 conectarBoton(
     "btnAtrasReto2Mision2",
     function() {
@@ -1371,109 +1251,154 @@ conectarBoton(
 
 
 // ==========================================================
-// ROMPECABEZAS M2
+// RETO 3 MISIÓN 2 — ROMPECABEZAS
 // ==========================================================
 
-let secuenciaMision2 =
-    JSON.parse(
-        localStorage.getItem(
-            "m2_secuencia"
-        ) || "[]"
-    );
+let secuenciaMision2 = [];
 
 
-const piezas =
-    document.querySelectorAll(
-        ".pieza"
-    );
+// ==========================================================
+// SELECCIONAR PIEZAS
+// ==========================================================
 
+document.querySelectorAll(".piezaM2").forEach(function(pieza) {
 
-piezas.forEach(
-    function(pieza) {
+    pieza.addEventListener("click", function() {
 
         const posicion =
-            Number(
-                pieza.getAttribute(
-                    "data-posicion"
-                )
+            pieza.getAttribute("data-posicion");
+
+        if (secuenciaMision2.includes(posicion)) {
+            return;
+        }
+
+        secuenciaMision2.push(posicion);
+
+        pieza.disabled = true;
+
+        const contenedor =
+            document.getElementById(
+                "secuenciaSeleccionadaM2"
             );
 
+        if (contenedor) {
 
-        if (
-            secuenciaMision2.includes(
-                posicion
-            )
-        ) {
-
-            pieza.disabled = true;
+            contenedor.textContent =
+                "Orden seleccionado: " +
+                secuenciaMision2.join(" → ");
 
         }
 
+    });
 
-        pieza.addEventListener(
-            "click",
-            function() {
+});
 
-                if (
-                    secuenciaMision2.includes(
-                        posicion
-                    )
-                ) {
 
-                    return;
+// ==========================================================
+// COMPROBAR ROMPECABEZAS MISIÓN 2
+// ==========================================================
+
+conectarBoton(
+    "btnComprobarRompecabezasM2",
+    function() {
+
+        const correcta = [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6"
+        ];
+
+        const correcto =
+            secuenciaMision2.length === 6 &&
+            secuenciaMision2.every(
+                function(valor, indice) {
+
+                    return valor === correcta[indice];
 
                 }
+            );
 
+        const resultado =
+            document.getElementById(
+                "resultadoReto3Mision2"
+            );
 
-                secuenciaMision2.push(
-                    posicion
-                );
+        if (!correcto) {
 
+            if (resultado) {
 
-                pieza.disabled = true;
+                resultado.textContent =
+                    "❌ El orden no es correcto. Inténtalo nuevamente.";
 
-
-                localStorage.setItem(
-                    "m2_secuencia",
-                    JSON.stringify(
-                        secuenciaMision2
-                    )
-                );
-
-
-                actualizarSecuenciaM2();
+                resultado.style.color = "red";
 
             }
+
+            secuenciaMision2 = [];
+
+            document
+                .querySelectorAll(".piezaM2")
+                .forEach(function(pieza) {
+
+                    pieza.disabled = false;
+
+                });
+
+            const secuencia =
+                document.getElementById(
+                    "secuenciaSeleccionadaM2"
+                );
+
+            if (secuencia) {
+
+                secuencia.textContent =
+                    "Selecciona las piezas en el orden correcto.";
+
+            }
+
+            return;
+        }
+
+        // ==================================================
+        // MISIÓN 2 COMPLETADA
+        // ==================================================
+
+        mision2Completada = true;
+
+        localStorage.setItem(
+            "mision2Completada",
+            "true"
+        );
+
+        actualizarMapa();
+
+        if (resultado) {
+
+            resultado.textContent =
+                "🎉 ¡Excelente! Ordenaste correctamente las seis escenas.";
+
+            resultado.style.color = "green";
+
+        }
+
+        alert(
+            "🎉 ¡Misión 2 completada!"
+        );
+
+        mostrarPantalla(
+            "finalMision2"
         );
 
     }
 );
 
 
-function actualizarSecuenciaM2() {
-
-    const pantalla =
-        document.getElementById(
-            "secuenciaSeleccionada"
-        );
-
-
-    if (!pantalla) {
-        return;
-    }
-
-
-    pantalla.textContent =
-        secuenciaMision2.length > 0
-            ? "Orden seleccionado: " +
-              secuenciaMision2.join(" → ")
-            : "Selecciona las piezas en el orden correcto.";
-
-}
-
-
-actualizarSecuenciaM2();
-
+// ==========================================================
+// RETROCEDER DESDE RETO 3 MISIÓN 2
+// ==========================================================
 
 conectarBoton(
     "btnAtrasReto3Mision2",
@@ -1481,25 +1406,25 @@ conectarBoton(
 
         secuenciaMision2 = [];
 
-        localStorage.removeItem(
-            "m2_secuencia"
-        );
-
-
         document
-            .querySelectorAll(".pieza")
-            .forEach(
-                function(pieza) {
+            .querySelectorAll(".piezaM2")
+            .forEach(function(pieza) {
 
-                    pieza.disabled =
-                        false;
+                pieza.disabled = false;
 
-                }
+            });
+
+        const secuencia =
+            document.getElementById(
+                "secuenciaSeleccionadaM2"
             );
 
+        if (secuencia) {
 
-        actualizarSecuenciaM2();
+            secuencia.textContent =
+                "Selecciona las piezas en el orden correcto.";
 
+        }
 
         mostrarPantalla(
             "reto2Mision2"
@@ -1508,97 +1433,9 @@ conectarBoton(
     }
 );
 
-
-conectarBoton(
-    "btnComprobarRompecabezas",
-    function() {
-
-        const correcta = [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6
-        ];
-
-
-        const coincide =
-            secuenciaMision2.length === 6 &&
-            secuenciaMision2.every(
-                function(valor, indice) {
-
-                    return valor ===
-                        correcta[indice];
-
-                }
-            );
-
-
-        if (!coincide) {
-
-            alert(
-                "🧩 El orden no es correcto. Puedes retroceder para intentarlo nuevamente."
-            );
-
-            return;
-
-        }
-
-
-        const respuestaMoraleja =
-            prompt(
-                "🎉 ¡Rompecabezas completado!\n\n" +
-                "¿Cuál es una enseñanza de la historia de la rosa?\n\n" +
-                "A) Debemos tomar decisiones sin pensar.\n" +
-                "B) La apariencia es lo único importante.\n" +
-                "C) Antes de decidir debemos reflexionar sobre lo que deseamos y sus consecuencias.\n" +
-                "D) Siempre debemos hacer lo que otros aconsejan.\n\n" +
-                "Escribe A, B, C o D:"
-            );
-
-
-        if (
-            respuestaMoraleja &&
-            respuestaMoraleja
-                .trim()
-                .toUpperCase() === "C"
-        ) {
-
-            completarMision2();
-
-        } else {
-
-            alert(
-                "La respuesta no es correcta. Inténtalo nuevamente."
-            );
-
-        }
-
-    }
-);
-
-
-function completarMision2() {
-
-    mision2Completada = true;
-
-
-    localStorage.setItem(
-        "mision2Completada",
-        "true"
-    );
-
-
-    actualizarMapa();
-
-
-    mostrarPantalla(
-        "finalMision2"
-    );
-
-}
-
+// ==========================================================
+// VOLVER AL MAPA DESDE EL FINAL DE MISIÓN 2
+// ==========================================================
 
 conectarBoton(
     "btnVolverMapaMision2",
@@ -1612,6 +1449,8 @@ conectarBoton(
 
     }
 );
+
+
 
 
 // ==========================================================
@@ -3520,16 +3359,53 @@ async function finalizarDesafio(motivo) {
 
 
 // ==========================================================
-// 60. INTENTAR NUEVAMENTE
+// 60. NUEVA PARTIDA — SIN BORRAR EL PROGRESO
+// ==========================================================
+
+function nuevaPartidaDesafio() {
+
+    preguntasDesafio = [];
+
+    indicePreguntaDesafio = 0;
+
+    puntajeDesafio = 0;
+
+    correctasDesafio = 0;
+
+    rachaDesafio = 0;
+
+    mejorRachaDesafio = 0;
+
+    tiempoRestante = 15;
+
+    partidaTerminada = false;
+
+    detenerTemporizadorDesafio();
+
+    preguntasDesafio =
+        mezclarArray(
+            bancoDesafio
+        ).slice(
+            0,
+            10
+        );
+
+    mostrarPantalla(
+        "juegoDesafio"
+    );
+
+    mostrarPreguntaDesafio();
+
+}
+
+
+// ==========================================================
+// BOTÓN 🔄 NUEVA PARTIDA
 // ==========================================================
 
 conectarBoton(
     "btnIntentarNuevamente",
-    function() {
-
-        iniciarDesafio();
-
-    }
+    nuevaPartidaDesafio
 );
 
 
@@ -3549,6 +3425,8 @@ conectarBoton(
 
     }
 );
+
+
 // ==========================================================
 // 62. CARGAR CLASIFICACIÓN
 // ==========================================================
