@@ -26,6 +26,89 @@ const supabaseCliente =
         : null;
 
 // ==========================================================
+// 🔊 SISTEMA DE SONIDO - ON / OFF
+// ==========================================================
+
+let sonidoActivado =
+    localStorage.getItem("sonidoActivado") !== "false";
+
+const btnSonido =
+    document.getElementById("btnSonido");
+
+function actualizarBotonSonido() {
+
+    if (!btnSonido) return;
+
+    btnSonido.textContent =
+        sonidoActivado ? "🔊" : "🔇";
+
+    btnSonido.setAttribute(
+        "aria-label",
+        sonidoActivado
+            ? "Desactivar sonido"
+            : "Activar sonido"
+    );
+}
+
+if (btnSonido) {
+
+    btnSonido.addEventListener("click", function() {
+
+        sonidoActivado = !sonidoActivado;
+
+        localStorage.setItem(
+            "sonidoActivado",
+            sonidoActivado
+        );
+
+        actualizarBotonSonido();
+
+    });
+
+}
+
+actualizarBotonSonido();
+
+// ==========================================================
+// 🎧 ARCHIVOS DE SONIDO
+// ==========================================================
+
+const sonidos = {
+
+    campanita: new Audio("audio/CAMPANITA.wav"),
+
+    error: new Audio("audio/ERROR.wav"),
+
+    logro: new Audio("audio/LOGRO.wav"),
+
+    insignia: new Audio("audio/INSIGNIA.wav")
+
+};
+
+// ==========================================================
+// 🔊 REPRODUCIR SONIDO
+// ==========================================================
+
+function reproducirSonido(nombre) {
+
+    if (!sonidoActivado) return;
+
+    const sonido = sonidos[nombre];
+
+    if (!sonido) return;
+
+    sonido.currentTime = 0;
+
+    sonido.play().catch(function() {
+
+        // El navegador puede bloquear sonidos
+        // hasta que exista una interacción del usuario.
+
+    });
+
+}
+
+// ==========================================================
 // 1. PANTALLAS
 // ==========================================================
 
@@ -300,13 +383,11 @@ Object.keys(respuestasMision1).forEach(
     }
 );
 
-
 conectarBoton(
     "btnComprobarReto1",
     function() {
 
         let puntos = 0;
-
 
         Object.keys(respuestasMision1)
             .forEach(
@@ -319,7 +400,6 @@ conectarBoton(
                             '"]:checked'
                         );
 
-
                     if (
                         respuesta &&
                         respuesta.value ===
@@ -328,17 +408,17 @@ conectarBoton(
 
                         puntos++;
 
+                        reproducirSonido("campanita");
+
                     }
 
                 }
             );
 
-
         const resultado =
             document.getElementById(
                 "resultadoReto1"
             );
-
 
         if (puntos === 5) {
 
@@ -351,7 +431,6 @@ conectarBoton(
                     "green";
 
             }
-
 
             setTimeout(
                 function() {

@@ -1,6 +1,7 @@
 /* ==========================================================
    EXPLORADORES DE LA LECTURA NICA
-   STYLE.CSS - DISEÑO INICIAL
+   STYLE.CSS - REDISEÑO VISUAL
+   FASE 1: IDENTIDAD VISUAL
 ========================================================== */
 
 
@@ -12,6 +13,9 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
@@ -19,7 +23,13 @@ body {
 
     font-family: Arial, sans-serif;
 
-    background: #eaf7f5;
+    background:
+        linear-gradient(
+            135deg,
+            #e8f5e9 0%,
+            #e0f2f1 50%,
+            #fff8e1 100%
+        );
 
     color: #263238;
 }
@@ -34,38 +44,70 @@ body {
 
     min-height: 100vh;
 
-    padding: 30px 15px;
+    padding: 35px 18px;
 }
-
 
 .pantalla.activa {
     display: flex;
 
     justify-content: center;
     align-items: center;
+
+    animation: aparecerPantalla 0.45s ease;
 }
 
 
 /* ==========================================================
-   CONTENEDOR
+   CONTENEDOR PRINCIPAL
 ========================================================== */
 
 .contenedor {
     width: 100%;
-    max-width: 850px;
+    max-width: 900px;
 
     margin: auto;
 
-    padding: 30px;
+    padding: 35px;
 
-    background: white;
+    background: rgba(255, 255, 255, 0.96);
 
-    border-radius: 20px;
+    border-radius: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
 
     box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.12);
+        0 15px 40px rgba(38, 50, 56, 0.14);
 
     text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+/* ==========================================================
+   DETALLE SUPERIOR DEL CONTENEDOR
+========================================================== */
+
+.contenedor::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ef6c00,
+            #f9a825,
+            #43a047
+        );
 }
 
 
@@ -75,25 +117,36 @@ body {
 
 h1 {
     margin-top: 0;
+    margin-bottom: 15px;
 
-    font-size: 2.3rem;
+    font-size: 2.6rem;
+
+    line-height: 1.15;
+
+    color: #174a3a;
+
+    letter-spacing: -0.5px;
 }
-
 
 h2 {
     margin-top: 0;
+    margin-bottom: 12px;
 
-    font-size: 2rem;
+    font-size: 2.1rem;
+
+    line-height: 1.2;
+
+    color: #245c49;
 }
-
 
 h3 {
     font-size: 1.5rem;
+
+    color: #355c4a;
 }
 
-
 p {
-    line-height: 1.7;
+    line-height: 1.75;
 
     font-size: 1.05rem;
 }
@@ -106,11 +159,13 @@ p {
 button {
     border: none;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    padding: 13px 22px;
+    padding: 14px 24px;
 
     margin: 8px;
+
+    min-height: 48px;
 
     font-size: 1rem;
 
@@ -118,23 +173,36 @@ button {
 
     cursor: pointer;
 
-    background: #1976d2;
+    background:
+        linear-gradient(
+            135deg,
+            #1976d2,
+            #1565c0
+        );
 
     color: white;
 
-    transition:
-        transform 0.2s,
-        box-shadow 0.2s;
-}
+    box-shadow:
+        0 5px 12px rgba(25, 118, 210, 0.22);
 
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
 
 button:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 
     box-shadow:
-        0 5px 12px rgba(0, 0, 0, 0.18);
+        0 8px 18px rgba(25, 118, 210, 0.28);
+
+    filter: brightness(1.05);
 }
 
+button:active {
+    transform: translateY(-1px);
+}
 
 button:disabled {
     background: #bdbdbd;
@@ -144,6 +212,8 @@ button:disabled {
     transform: none;
 
     box-shadow: none;
+
+    filter: none;
 }
 
 
@@ -156,29 +226,38 @@ input[type="text"] {
 
     max-width: 500px;
 
-    padding: 13px;
+    padding: 14px 16px;
 
-    margin: 8px auto;
+    margin: 10px auto;
 
     border: 2px solid #cfd8dc;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     font-size: 1rem;
 
     display: block;
-}
 
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
 input[type="text"]:focus {
     outline: none;
 
     border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 4px rgba(25, 118, 210, 0.12);
 }
 
 
 /* ==========================================================
    MAPA / DEPARTAMENTOS
+   FASE POSTERIOR: SE PERSONALIZARÁN RIVAS, LEÓN Y CHONTALES
 ========================================================== */
 
 .departamentos {
@@ -188,14 +267,15 @@ input[type="text"]:focus {
 
     justify-content: center;
 
-    gap: 10px;
+    gap: 14px;
 
-    margin: 25px 0;
+    margin: 30px 0;
 }
 
-
 .departamentos button {
-    min-width: 150px;
+    min-width: 160px;
+
+    min-height: 55px;
 }
 
 
@@ -204,17 +284,36 @@ input[type="text"]:focus {
 ========================================================== */
 
 .tarjeta-mision {
-    margin: 25px auto;
+    margin: 28px auto;
 
-    padding: 20px;
+    padding: 25px;
 
-    max-width: 650px;
+    max-width: 680px;
 
-    border-radius: 15px;
+    border-radius: 20px;
 
-    background: #f1f8e9;
+    background:
+        linear-gradient(
+            135deg,
+            #f1f8e9,
+            #ffffff
+        );
 
     border: 2px solid #c5e1a5;
+
+    box-shadow:
+        0 8px 20px rgba(76, 100, 70, 0.10);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.tarjeta-mision:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(76, 100, 70, 0.15);
 }
 
 
@@ -225,22 +324,31 @@ input[type="text"]:focus {
 .lectura {
     max-width: 750px;
 
-    margin: 25px auto;
+    margin: 28px auto;
 
-    padding: 25px;
+    padding: 30px;
 
     text-align: left;
 
-    background: #fffde7;
+    background:
+        linear-gradient(
+            135deg,
+            #fffef3,
+            #fffde7
+        );
 
-    border-radius: 15px;
+    border-radius: 18px;
 
     border: 2px solid #ffe082;
-}
 
+    box-shadow:
+        0 7px 18px rgba(100, 85, 30, 0.08);
+}
 
 .lectura p {
     margin-bottom: 20px;
+
+    line-height: 1.85;
 }
 
 
@@ -251,37 +359,43 @@ input[type="text"]:focus {
 .pregunta {
     max-width: 700px;
 
-    margin: 20px auto;
+    margin: 22px auto;
 
-    padding: 20px;
+    padding: 22px;
 
     text-align: left;
 
-    background: #f5f5f5;
+    background: #fafafa;
 
-    border-radius: 15px;
+    border-radius: 17px;
 
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.05);
 }
-
 
 .pregunta label {
     display: block;
 
-    padding: 10px;
+    padding: 12px;
 
-    margin: 6px 0;
+    margin: 7px 0;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     cursor: pointer;
-}
 
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
 
 .pregunta label:hover {
     background: #e3f2fd;
-}
 
+    transform: translateX(3px);
+}
 
 .pregunta input {
     margin-right: 8px;
@@ -295,17 +409,26 @@ input[type="text"]:focus {
 .mensaje {
     max-width: 700px;
 
-    margin: 20px auto;
+    margin: 22px auto;
 
-    padding: 18px;
+    padding: 20px;
 
     text-align: left;
 
-    background: #e3f2fd;
+    background:
+        linear-gradient(
+            135deg,
+            #e3f2fd,
+            #f5fbff
+        );
 
-    border-radius: 15px;
+    border-radius: 17px;
+
+    border-left: 5px solid #1976d2;
+
+    box-shadow:
+        0 5px 15px rgba(25, 118, 210, 0.08);
 }
-
 
 .mensaje strong {
     display: block;
@@ -325,27 +448,29 @@ input[type="text"]:focus {
 
     gap: 15px;
 
-    margin: 20px 0;
+    margin: 22px 0;
+
+    flex-wrap: wrap;
 }
 
-
 .imagenMeme {
-    width: 80px;
+    width: 82px;
 
-    height: 80px;
+    height: 82px;
 
     font-size: 2rem;
 
     padding: 10px;
-}
 
+    border-radius: 14px;
+}
 
 .vistaMeme {
     max-width: 500px;
 
     min-height: 180px;
 
-    margin: 25px auto;
+    margin: 28px auto;
 
     padding: 30px;
 
@@ -357,13 +482,15 @@ input[type="text"]:focus {
 
     align-items: center;
 
-    border-radius: 15px;
+    border-radius: 18px;
 
     background: #eeeeee;
 
     border: 2px dashed #999;
-}
 
+    box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.06);
+}
 
 .vistaMeme p {
     font-weight: bold;
@@ -379,15 +506,14 @@ input[type="text"]:focus {
 #secuencia {
     max-width: 750px;
 
-    margin: 25px auto;
+    margin: 28px auto;
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 10px;
+    gap: 12px;
 }
-
 
 .evento {
     width: 100%;
@@ -401,18 +527,25 @@ input[type="text"]:focus {
     color: #263238;
 
     border: 2px solid #cfd8dc;
-}
 
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
 
 .evento:hover {
     background: #e3f2fd;
-}
 
+    transform: translateX(3px);
+}
 
 .evento:disabled {
     background: #c8e6c9;
 
     color: #1b5e20;
+
+    border-color: #81c784;
 }
 
 
@@ -423,26 +556,27 @@ input[type="text"]:focus {
 #ordenSeleccionado {
     max-width: 700px;
 
-    margin: 20px auto;
+    margin: 22px auto;
 
     display: flex;
 
     flex-direction: column;
 
-    gap: 8px;
+    gap: 9px;
 }
 
-
 #ordenSeleccionado span {
-    padding: 12px;
+    padding: 13px;
 
     background: #e8f5e9;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
     text-align: left;
 
     font-weight: bold;
+
+    border-left: 4px solid #43a047;
 }
 
 
@@ -453,24 +587,32 @@ input[type="text"]:focus {
 .insignia {
     max-width: 400px;
 
-    margin: 30px auto;
+    margin: 32px auto;
 
-    padding: 25px;
+    padding: 28px;
 
-    background: #fff8e1;
+    background:
+        linear-gradient(
+            135deg,
+            #fff8e1,
+            #fffde7
+        );
 
     border: 3px solid #ffd54f;
 
-    border-radius: 20px;
-}
+    border-radius: 22px;
 
+    box-shadow:
+        0 10px 25px rgba(120, 95, 20, 0.12);
+
+    animation: aparecerInsignia 0.6s ease;
+}
 
 .insignia h2 {
     font-size: 4rem;
 
     margin: 0;
 }
-
 
 .insignia h3 {
     margin: 10px 0;
@@ -490,6 +632,57 @@ input[type="text"]:focus {
 
 
 /* ==========================================================
+   ANIMACIONES SUAVES
+========================================================== */
+
+@keyframes aparecerPantalla {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes aparecerInsignia {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* ==========================================================
+   DISEÑO PARA TABLET
+========================================================== */
+
+@media (max-width: 800px) {
+
+    .contenedor {
+        max-width: 95%;
+
+        padding: 28px 22px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}
+
+
+/* ==========================================================
    DISEÑO PARA CELULAR
 ========================================================== */
 
@@ -499,35 +692,35 @@ input[type="text"]:focus {
         padding: 15px 10px;
     }
 
-
     .contenedor {
-        padding: 20px 15px;
+        padding: 25px 15px;
 
-        border-radius: 15px;
+        border-radius: 18px;
     }
-
 
     h1 {
         font-size: 1.8rem;
     }
 
-
     h2 {
         font-size: 1.6rem;
     }
-
 
     h3 {
         font-size: 1.3rem;
     }
 
+    p {
+        font-size: 1rem;
+    }
 
     button {
         width: 90%;
 
         max-width: 350px;
-    }
 
+        min-height: 50px;
+    }
 
     .departamentos {
         flex-direction: column;
@@ -535,19 +728,3755 @@ input[type="text"]:focus {
         align-items: center;
     }
 
-
     .departamentos button {
         width: 90%;
     }
 
-
-    .lectura {
-        padding: 18px;
+    .tarjeta-mision {
+        padding: 20px 15px;
     }
 
+    .lectura {
+        padding: 20px 17px;
+    }
 
     .imagenesMeme {
         flex-wrap: wrap;
     }
 
+    .vistaMeme {
+        padding: 22px 15px;
+    }
+}
+
+
+/* ==========================================================
+   ACCESIBILIDAD — REDUCIR ANIMACIONES
+========================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================
+   MAPA PRINCIPAL — AVENTURA POR NICARAGUA
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+/* Contenedor del mapa */
+#mapa .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf5 0%,
+            #ffffff 50%,
+            #f3faf7 100%
+        );
+
+    border: 3px solid #d8e6e2;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.14);
+}
+
+/* Título del mapa */
+#mapa h2 {
+    font-size: 2.3rem;
+
+    margin-bottom: 10px;
+
+    letter-spacing: 0.5px;
+}
+
+/* Texto de instrucciones */
+#mapa > .contenedor > p {
+    color: #546e7a;
+
+    font-weight: 600;
+}
+
+/* Zona de departamentos */
+#mapa .departamentos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(180px, 1fr));
+
+    gap: 18px;
+
+    max-width: 650px;
+
+    margin: 30px auto;
+}
+
+/* Todos los botones del mapa */
+#mapa .departamentos button {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 105px;
+
+    margin: 0;
+
+    border-radius: 20px;
+
+    border: 3px solid transparent;
+
+    font-size: 1.15rem;
+
+    letter-spacing: 0.3px;
+
+    box-shadow:
+        0 7px 15px rgba(0, 0, 0, 0.14);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* ==========================================================
+   RIVAS — NARANJA VOLCÁNICO
+========================================================== */
+
+#btnRivas {
+    background:
+        linear-gradient(
+            135deg,
+            #f57c00,
+            #ffb74d
+        );
+
+    border-color: #e65100;
+
+    color: white;
+}
+
+/* ==========================================================
+   LEÓN — DORADO
+========================================================== */
+
+#btnLeon {
+    background:
+        linear-gradient(
+            135deg,
+            #f9a825,
+            #ffe082
+        );
+
+    border-color: #f57f17;
+
+    color: #4e342e;
+}
+
+/* ==========================================================
+   CHONTALES — VERDE BOSQUE
+========================================================== */
+
+#btnChontales {
+    background:
+        linear-gradient(
+            135deg,
+            #388e3c,
+            #81c784
+        );
+
+    border-color: #1b5e20;
+
+    color: white;
+}
+
+/* ==========================================================
+   DESAFÍO FINAL
+========================================================== */
+
+#btnDesafioFinal {
+    background:
+        linear-gradient(
+            135deg,
+            #5e35b1,
+            #9575cd
+        );
+
+    border-color: #4527a0;
+
+    color: white;
+}
+
+/* ==========================================================
+   EFECTO AL PASAR EL CURSOR
+========================================================== */
+
+#mapa .departamentos button:not(:disabled):hover {
+    transform: translateY(-5px) scale(1.03);
+
+    box-shadow:
+        0 12px 22px rgba(0, 0, 0, 0.20);
+
+    filter: brightness(1.06);
+}
+
+/* Brillo suave */
+#mapa .departamentos button:not(:disabled)::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 25%,
+            rgba(255,255,255,0.28) 50%,
+            transparent 75%
+        );
+
+    opacity: 0;
+
+    transition: opacity 0.25s ease;
+
+    pointer-events: none;
+}
+
+#mapa .departamentos button:not(:disabled):hover::after {
+    opacity: 1;
+}
+
+/* ==========================================================
+   BOTONES BLOQUEADOS
+========================================================== */
+
+#mapa .departamentos button:disabled {
+    filter: grayscale(0.45);
+
+    opacity: 0.58;
+
+    box-shadow:
+        0 4px 9px rgba(0, 0, 0, 0.10);
+
+    cursor: not-allowed;
+}
+
+/* ==========================================================
+   VOLVER AL MENÚ
+========================================================== */
+
+#volverMenu {
+    background: #607d8b;
+
+    margin-top: 8px;
+}
+
+#volverMenu:hover {
+    background: #455a64;
+}
+
+/* ==========================================================
+   ADAPTACIÓN PARA CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    #mapa .departamentos {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+
+        margin: 25px auto;
+    }
+
+    #mapa .departamentos button {
+        width: 100%;
+
+        min-height: 85px;
+
+        font-size: 1.05rem;
+    }
+
+    #mapa h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ==========================================================
+   TARJETA MISIÓN 1 — ESTACIÓN DE AVENTURA
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#tarjetaMision1 .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffaf0 0%,
+            #ffffff 55%,
+            #fff3df 100%
+        );
+
+    border: 3px solid #f4b860;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Franja decorativa superior */
+#tarjetaMision1 .contenedor::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #e65100,
+            #f9a825,
+            #f57c00
+        );
+}
+
+/* Título */
+#tarjetaMision1 h2 {
+    margin-top: 15px;
+
+    color: #e65100;
+
+    font-size: 2.2rem;
+}
+
+/* Nombre de la misión */
+#tarjetaMision1 h3 {
+    color: #5d4037;
+
+    font-size: 1.7rem;
+
+    margin-bottom: 20px;
+}
+
+/* Textos */
+#tarjetaMision1 p {
+    color: #455a64;
+
+    max-width: 650px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Botón de comenzar */
+#btnComenzarLectura {
+    background:
+        linear-gradient(
+            135deg,
+            #e65100,
+            #f57c00
+        );
+
+    border: 2px solid #bf360c;
+
+    border-radius: 15px;
+
+    padding: 15px 28px;
+
+    font-size: 1.05rem;
+
+    box-shadow:
+        0 6px 14px rgba(230, 81, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* Efecto al pasar el cursor */
+#btnComenzarLectura:hover {
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 10px 20px rgba(230, 81, 0, 0.30);
+
+    filter: brightness(1.06);
+}
+
+/* Efecto al presionar */
+#btnComenzarLectura:active {
+    transform: scale(0.98);
+}
+
+/* Adaptación para celular */
+@media (max-width: 600px) {
+
+    #tarjetaMision1 .contenedor {
+        padding: 25px 18px;
+    }
+
+    #tarjetaMision1 h2 {
+        font-size: 1.8rem;
+    }
+
+    #tarjetaMision1 h3 {
+        font-size: 1.4rem;
+    }
+
+    #tarjetaMision1 p {
+        font-size: 1rem;
+    }
+
+    #btnComenzarLectura {
+        width: 90%;
+        max-width: 320px;
+    }
+}
+
+/* ==========================================================
+   TARJETA MISIÓN 2 — EL JARDÍN DE LA SABIDURÍA
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#tarjetaMision2 .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf2 0%,
+            #ffffff 55%,
+            #fff8d6 100%
+        );
+
+    border: 3px solid #e0b52d;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Franja superior dorada */
+#tarjetaMision2 .contenedor::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 9px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #c79100,
+            #f9d65c,
+            #d4a017
+        );
+}
+
+/* Título de misión */
+#tarjetaMision2 h2 {
+    margin-top: 15px;
+
+    color: #b8860b;
+
+    font-size: 2.2rem;
+}
+
+/* Nombre de la misión */
+#tarjetaMision2 h3 {
+    color: #5d4037;
+
+    font-size: 1.7rem;
+
+    margin-bottom: 20px;
+}
+
+/* Textos */
+#tarjetaMision2 p {
+    color: #455a64;
+
+    max-width: 650px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Destacar el nombre de Rubén Darío */
+#tarjetaMision2 strong {
+    color: #9a7000;
+}
+
+/* Botón comenzar lectura */
+#btnComenzarMision2 {
+    background:
+        linear-gradient(
+            135deg,
+            #c79100,
+            #f1c40f
+        );
+
+    border: 2px solid #9c7200;
+
+    border-radius: 15px;
+
+    padding: 15px 28px;
+
+    font-size: 1.05rem;
+
+    color: #3e2f00;
+
+    box-shadow:
+        0 6px 14px rgba(199, 145, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* Hover */
+#btnComenzarMision2:hover {
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 10px 20px rgba(199, 145, 0, 0.30);
+
+    filter: brightness(1.06);
+}
+
+/* Al presionar */
+#btnComenzarMision2:active {
+    transform: scale(0.98);
+}
+
+/* Adaptación para celular */
+@media (max-width: 600px) {
+
+    #tarjetaMision2 .contenedor {
+        padding: 25px 18px;
+    }
+
+    #tarjetaMision2 h2 {
+        font-size: 1.8rem;
+    }
+
+    #tarjetaMision2 h3 {
+        font-size: 1.4rem;
+    }
+
+    #tarjetaMision2 p {
+        font-size: 1rem;
+    }
+
+    #btnComenzarMision2 {
+        width: 90%;
+        max-width: 320px;
+    }
+}
+
+/* ==========================================================
+   TARJETA MISIÓN 3 — ESTACIÓN DE AVENTURA
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#tarjetaMision3 .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1f8e9,
+            #fffde7
+        );
+
+    border: 3px solid #66bb6a;
+
+    box-shadow:
+        0 10px 30px rgba(46, 125, 50, 0.20);
+}
+
+
+/* Decoración superior */
+
+#tarjetaMision3 .contenedor::before {
+    content: "🐦  🌳  🌿  🧭";
+
+    display: block;
+
+    font-size: 2rem;
+
+    margin-bottom: 12px;
+
+    letter-spacing: 8px;
+}
+
+
+/* Título de misión */
+
+#tarjetaMision3 h2 {
+    color: #2e7d32;
+
+    margin-bottom: 10px;
+}
+
+
+/* Nombre de la misión */
+
+#tarjetaMision3 h3 {
+    color: #33691e;
+
+    margin-bottom: 18px;
+}
+
+
+/* Textos */
+
+#tarjetaMision3 p {
+    margin: 10px auto;
+
+    max-width: 650px;
+}
+
+
+/* Botón comenzar */
+
+#tarjetaMision3 #btnComenzarMision3 {
+    background: #43a047;
+
+    box-shadow:
+        0 5px 12px rgba(46, 125, 50, 0.25);
+}
+
+
+#tarjetaMision3 #btnComenzarMision3:hover {
+    background: #2e7d32;
+
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 8px 18px rgba(46, 125, 50, 0.30);
+}
+
+/* ==========================================================
+   DESAFÍO FINAL — PRESENTACIÓN
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#desafioFinal .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8e1,
+            #ffffff
+        );
+
+    border: 3px solid #f9a825;
+
+    box-shadow:
+        0 12px 35px rgba(245, 166, 35, 0.22);
+}
+
+
+/* Decoración superior */
+
+#desafioFinal .contenedor::before {
+    content: "🏆  ⭐  ⚡  🧭  ⭐";
+
+    display: block;
+
+    font-size: 2rem;
+
+    margin-bottom: 12px;
+
+    letter-spacing: 6px;
+}
+
+
+/* Título */
+
+#desafioFinal h2 {
+    color: #e65100;
+
+    margin-bottom: 15px;
+}
+
+
+/* Texto de introducción */
+
+#desafioFinal > .contenedor > p {
+    max-width: 650px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Caja de reglas */
+
+#desafioFinal .reglas-desafio {
+    max-width: 600px;
+
+    margin: 25px auto;
+
+    padding: 20px;
+
+    background: #fffde7;
+
+    border: 2px solid #ffe082;
+
+    border-radius: 18px;
+
+    text-align: left;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Título de reglas */
+
+#desafioFinal .reglas-desafio h3 {
+    text-align: center;
+
+    color: #ef6c00;
+
+    margin-top: 0;
+}
+
+
+/* Reglas */
+
+#desafioFinal .reglas-desafio p {
+    margin: 10px 0;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.7);
+}
+
+
+/* Botón comenzar */
+
+#desafioFinal #btnComenzarDesafio {
+    background: #ef6c00;
+
+    font-size: 1.1rem;
+
+    padding: 15px 28px;
+
+    box-shadow:
+        0 6px 15px rgba(239, 108, 0, 0.25);
+}
+
+
+#desafioFinal #btnComenzarDesafio:hover {
+    background: #e65100;
+
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 9px 20px rgba(239, 108, 0, 0.30);
+}
+
+/* ==========================================================
+   DESAFÍO FINAL — PANTALLA DE JUEGO
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#juegoDesafio .contenedor {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff8e1
+        );
+
+    border: 3px solid #ffb300;
+
+    box-shadow:
+        0 10px 30px rgba(255, 179, 0, 0.20);
+}
+
+
+/* Título */
+
+#juegoDesafio h2 {
+    color: #e65100;
+
+    margin-bottom: 20px;
+}
+
+
+/* Barra superior */
+
+#juegoDesafio .barra-desafio {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 15px auto 20px;
+
+    max-width: 700px;
+}
+
+
+/* Número de pregunta */
+
+#juegoDesafio #numeroPregunta {
+    padding: 10px 16px;
+
+    background: #e3f2fd;
+
+    color: #1565c0;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+}
+
+
+/* Puntuación */
+
+#juegoDesafio #puntajeActual {
+    padding: 10px 16px;
+
+    background: #fff3e0;
+
+    color: #e65100;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+}
+
+
+/* Temporizador */
+
+#juegoDesafio .temporizador {
+    width: 95px;
+
+    height: 95px;
+
+    margin: 20px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #fff8e1;
+
+    border: 4px solid #ffb300;
+
+    box-shadow:
+        0 5px 15px rgba(255, 179, 0, 0.20);
+}
+
+
+#juegoDesafio .temporizador span {
+    font-size: 1.2rem;
+}
+
+
+#juegoDesafio #tiempoPregunta {
+    font-size: 2rem;
+
+    color: #e65100;
+}
+
+
+/* Origen de la pregunta */
+
+#juegoDesafio #origenPregunta {
+    display: inline-block;
+
+    margin: 10px auto;
+
+    padding: 8px 16px;
+
+    background: #e8f5e9;
+
+    color: #2e7d32;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+}
+
+
+/* Pregunta */
+
+#juegoDesafio #textoPregunta {
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    padding: 18px;
+
+    background: #f5f5f5;
+
+    border-radius: 15px;
+
+    border-left: 5px solid #ffb300;
+
+    text-align: left;
+}
+
+
+/* Opciones */
+
+#juegoDesafio #opcionesDesafio {
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+#juegoDesafio .opcionDesafio {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 15px;
+
+    text-align: left;
+
+    background: #ffffff;
+
+    color: #263238;
+
+    border: 2px solid #cfd8dc;
+
+    border-radius: 12px;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        border-color 0.2s,
+        background 0.2s;
+}
+
+
+#juegoDesafio .opcionDesafio:hover {
+    background: #fff8e1;
+
+    border-color: #ffb300;
+
+    transform: translateX(4px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.10);
+}
+
+
+/* Racha */
+
+#juegoDesafio #rachaDesafio {
+    display: inline-block;
+
+    margin-top: 20px;
+
+    padding: 10px 18px;
+
+    background: #fff3e0;
+
+    color: #e65100;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+
+    font-size: 1.05rem;
+}
+
+
+/* Adaptación para celular */
+
+@media (max-width: 600px) {
+
+    #juegoDesafio .barra-desafio {
+        flex-direction: column;
+    }
+
+    #juegoDesafio #numeroPregunta,
+    #juegoDesafio #puntajeActual {
+        width: 100%;
+    }
+
+    #juegoDesafio .temporizador {
+        width: 85px;
+        height: 85px;
+    }
+
+}
+
+/* ==========================================================
+   DESAFÍO FINAL — RESULTADO
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#resultadoDesafio .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff8e1
+        );
+
+    border: 3px solid #ffb300;
+
+    box-shadow:
+        0 12px 35px rgba(255, 179, 0, 0.20);
+}
+
+
+/* Decoración */
+
+#resultadoDesafio .contenedor::before {
+    content: "🏁  ⭐  🏆  ⭐  🏁";
+
+    display: block;
+
+    font-size: 1.8rem;
+
+    margin-bottom: 12px;
+
+    letter-spacing: 5px;
+}
+
+
+/* Título */
+
+#resultadoDesafio h2 {
+    color: #e65100;
+}
+
+
+/* Motivo de finalización */
+
+#resultadoDesafio #motivoFinDesafio {
+    max-width: 600px;
+
+    margin: 15px auto;
+
+    padding: 12px;
+
+    background: #f5f5f5;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+}
+
+
+/* Tarjeta de puntuación */
+
+#resultadoDesafio .resultado-puntuacion {
+    max-width: 500px;
+
+    margin: 25px auto;
+
+    padding: 25px;
+
+    background: #fffde7;
+
+    border: 2px solid #ffe082;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+#resultadoDesafio .resultado-puntuacion h3 {
+    color: #ef6c00;
+
+    margin-top: 0;
+}
+
+
+/* Puntuación principal */
+
+#resultadoDesafio #puntuacionFinal {
+    font-size: 2.4rem;
+
+    font-weight: bold;
+
+    color: #e65100;
+
+    margin: 15px 0;
+}
+
+
+/* Respuestas correctas */
+
+#resultadoDesafio #preguntasCorrectas {
+    font-weight: bold;
+
+    color: #2e7d32;
+}
+
+
+/* Mejor racha */
+
+#resultadoDesafio #mejorRacha {
+    font-weight: bold;
+
+    color: #ef6c00;
+}
+
+
+/* Posición */
+
+#resultadoDesafio #posicionJugador {
+    display: inline-block;
+
+    margin: 20px auto;
+
+    padding: 12px 20px;
+
+    background: #e3f2fd;
+
+    color: #1565c0;
+
+    border-radius: 20px;
+}
+
+
+/* Botones */
+
+#resultadoDesafio #btnIntentarNuevamente {
+    background: #43a047;
+}
+
+
+#resultadoDesafio #btnIntentarNuevamente:hover {
+    background: #2e7d32;
+}
+
+
+#resultadoDesafio #btnVerClasificacion {
+    background: #1976d2;
+}
+
+
+#resultadoDesafio #btnVerClasificacion:hover {
+    background: #1565c0;
+}
+
+
+/* Celular */
+
+@media (max-width: 600px) {
+
+    #resultadoDesafio .resultado-puntuacion {
+        padding: 20px 15px;
+    }
+
+    #resultadoDesafio #puntuacionFinal {
+        font-size: 2rem;
+    }
+
+}
+
+/* ==========================================================
+   LIGA DE EXPLORADORES — CLASIFICACIÓN
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#clasificacion .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #f3f8ff
+        );
+
+    border: 3px solid #1976d2;
+
+    box-shadow:
+        0 12px 35px rgba(25, 118, 210, 0.18);
+}
+
+
+/* Decoración superior */
+
+#clasificacion .contenedor::before {
+    content: "🏆  🥇  🥈  🥉  🏆";
+
+    display: block;
+
+    font-size: 1.8rem;
+
+    margin-bottom: 12px;
+
+    letter-spacing: 5px;
+}
+
+
+/* Título */
+
+#clasificacion h2 {
+    color: #1565c0;
+
+    margin-bottom: 10px;
+}
+
+
+/* Tabla */
+
+#tablaClasificacion {
+    max-width: 650px;
+
+    margin: 25px auto;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    border: 2px solid #bbdefb;
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Cada fila */
+
+#tablaClasificacion .fila-clasificacion {
+    display: grid;
+
+    grid-template-columns: 80px 1fr 120px;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 15px;
+
+    background: white;
+
+    border-bottom: 1px solid #e0e0e0;
+
+    text-align: center;
+}
+
+
+/* Encabezado */
+
+#tablaClasificacion .fila-clasificacion.encabezado {
+    background: #1976d2;
+
+    color: white;
+
+    font-weight: bold;
+
+    border-bottom: none;
+}
+
+
+/* Filas al pasar el cursor */
+
+#tablaClasificacion .fila-clasificacion:not(.encabezado):hover {
+    background: #e3f2fd;
+
+    transform: scale(1.01);
+}
+
+
+/* Primera posición */
+
+#tablaClasificacion .fila-clasificacion:nth-child(2) {
+    background: #fffde7;
+
+    font-weight: bold;
+}
+
+
+/* Segunda posición */
+
+#tablaClasificacion .fila-clasificacion:nth-child(3) {
+    background: #f5f5f5;
+}
+
+
+/* Tercera posición */
+
+#tablaClasificacion .fila-clasificacion:nth-child(4) {
+    background: #fff3e0;
+}
+
+
+/* Botón volver */
+
+#clasificacion #btnVolverResultado {
+    background: #1976d2;
+
+    box-shadow:
+        0 5px 12px rgba(25, 118, 210, 0.20);
+}
+
+
+#clasificacion #btnVolverResultado:hover {
+    background: #1565c0;
+
+    transform: translateY(-3px);
+}
+
+
+/* Celular */
+
+@media (max-width: 600px) {
+
+    #tablaClasificacion .fila-clasificacion {
+        grid-template-columns: 55px 1fr 90px;
+
+        padding: 12px 8px;
+
+        font-size: 0.9rem;
+    }
+
+}
+
+/* ==========================================================
+   TROFEO FINAL — GRAN CIERRE
+   SOLO DISEÑO VISUAL
+========================================================== */
+
+#trofeoFinal .contenedor {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8e1,
+            #ffffff,
+            #fff3e0
+        );
+
+    border: 4px solid #f9a825;
+
+    box-shadow:
+        0 15px 40px rgba(245, 166, 35, 0.25);
+}
+
+
+/* Decoración */
+
+#trofeoFinal .contenedor::before {
+    content: "⭐  🏆  ⭐";
+
+    display: block;
+
+    font-size: 2.2rem;
+
+    margin-bottom: 10px;
+
+    letter-spacing: 8px;
+}
+
+
+/* Título principal */
+
+#trofeoFinal h2:first-of-type {
+    color: #e65100;
+
+    font-size: 2.4rem;
+
+    margin-bottom: 15px;
+}
+
+
+/* Trofeo */
+
+#trofeoFinal h1 {
+    font-size: 6rem;
+
+    margin: 20px 0;
+
+    line-height: 1;
+
+    filter:
+        drop-shadow(
+            0 8px 8px rgba(0, 0, 0, 0.15)
+        );
+
+    animation: trofeoEntrada 0.8s ease-out;
+}
+
+
+/* Nombre del logro */
+
+#trofeoFinal h2:nth-of-type(2) {
+    color: #b26a00;
+
+    max-width: 650px;
+
+    margin: 20px auto;
+}
+
+
+/* Texto final */
+
+#trofeoFinal p {
+    max-width: 650px;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Botón */
+
+#trofeoFinal #btnVolverMapaTrofeo {
+    background: #ef6c00;
+
+    margin-top: 20px;
+
+    padding: 15px 28px;
+
+    box-shadow:
+        0 6px 15px rgba(239, 108, 0, 0.25);
+}
+
+
+#trofeoFinal #btnVolverMapaTrofeo:hover {
+    background: #e65100;
+
+    transform: translateY(-3px) scale(1.02);
+
+    box-shadow:
+        0 9px 20px rgba(239, 108, 0, 0.30);
+}
+
+
+/* Animación muy breve del trofeo */
+
+@keyframes trofeoEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Celular */
+
+@media (max-width: 600px) {
+
+    #trofeoFinal h1 {
+        font-size: 5rem;
+    }
+
+    #trofeoFinal h2:first-of-type {
+        font-size: 2rem;
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — MENÚ PRINCIPAL
+========================================================== */
+
+#menu .contenedor {
+    animation: aparecerMenu 0.8s ease-out;
+}
+
+#menu h2 {
+    animation: bajarTitulo 0.7s ease-out;
+}
+
+#menu p {
+    animation: aparecerTexto 1s ease-out;
+}
+
+#menu button {
+    animation: subirBoton 0.8s ease-out;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#menu button:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+@keyframes aparecerMenu {
+    from {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bajarTitulo {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes aparecerTexto {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes subirBoton {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================
+   ANIMACIÓN — MAPA DE NICARAGUA
+========================================================== */
+
+#mapa .contenedor {
+    animation: aparecerMapa 0.7s ease-out;
+}
+
+#mapa .departamentos {
+    animation: aparecerDepartamentos 0.8s ease-out;
+}
+
+#mapa .departamentos button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* Botones disponibles */
+
+#mapa .departamentos button:not(:disabled):hover {
+    transform: translateY(-5px) scale(1.04);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.18);
+
+    filter: brightness(1.05);
+}
+
+/* Botones bloqueados */
+
+#mapa .departamentos button:disabled {
+    opacity: 0.65;
+
+    filter: grayscale(0.35);
+
+    cursor: not-allowed;
+}
+
+/* Animación de entrada del mapa */
+
+@keyframes aparecerMapa {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Aparición escalonada de los departamentos */
+
+@keyframes aparecerDepartamentos {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================
+   ANIMACIÓN — TARJETAS DE LAS MISIONES
+========================================================== */
+
+/* Entrada de la tarjeta */
+
+#tarjetaMision1 .contenedor,
+#tarjetaMision2 .contenedor,
+#tarjetaMision3 .contenedor {
+    animation: aparecerTarjetaMision 0.8s ease-out;
+}
+
+
+/* Títulos */
+
+#tarjetaMision1 h2,
+#tarjetaMision2 h2,
+#tarjetaMision3 h2 {
+    animation: tituloMision 0.7s ease-out;
+}
+
+
+/* Nombre de la misión */
+
+#tarjetaMision1 h3,
+#tarjetaMision2 h3,
+#tarjetaMision3 h3 {
+    animation: nombreMision 0.9s ease-out;
+}
+
+
+/* Botones de comenzar */
+
+#tarjetaMision1 button,
+#tarjetaMision2 button,
+#tarjetaMision3 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#tarjetaMision1 button:hover,
+#tarjetaMision2 button:hover,
+#tarjetaMision3 button:hover {
+    transform: translateY(-4px) scale(1.04);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+
+/* ==========================================================
+   ANIMACIONES
+========================================================== */
+
+@keyframes aparecerTarjetaMision {
+
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+
+@keyframes tituloMision {
+
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes nombreMision {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — PANTALLAS DE LECTURA
+========================================================== */
+
+#lectura1 .contenedor,
+#lectura2 .contenedor,
+#lectura3 .contenedor {
+    animation: aparecerLectura 0.8s ease-out;
+}
+
+
+/* Título de la lectura */
+
+#lectura1 h2,
+#lectura2 h2,
+#lectura3 h2 {
+    animation: tituloLectura 0.7s ease-out;
+}
+
+
+/* Texto */
+
+#lectura1 .texto-lectura,
+#lectura2 .texto-lectura,
+#lectura3 .texto-lectura {
+    animation: textoLectura 1s ease-out;
+}
+
+
+/* Botones */
+
+#lectura1 button,
+#lectura2 button,
+#lectura3 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#lectura1 button:hover,
+#lectura2 button:hover,
+#lectura3 button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.16);
+}
+
+
+/* ==========================================================
+   ANIMACIONES
+========================================================== */
+
+@keyframes aparecerLectura {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes tituloLectura {
+
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes textoLectura {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — RETO 1
+========================================================== */
+
+/* Entrada de la pantalla */
+
+#reto1 .contenedor,
+#reto1Mision2 .contenedor,
+#reto1Mision3 .contenedor {
+    animation: aparecerReto1 0.7s ease-out;
+}
+
+
+/* Tarjetas de preguntas */
+
+#reto1 .pregunta,
+#reto1Mision2 .pregunta,
+#reto1Mision3 .pregunta {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Efecto al pasar sobre una pregunta */
+
+#reto1 .pregunta:hover,
+#reto1Mision2 .pregunta:hover,
+#reto1Mision3 .pregunta:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Opciones */
+
+#reto1 .pregunta label,
+#reto1Mision2 .pregunta label,
+#reto1Mision3 .pregunta label {
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* Al pasar el cursor */
+
+#reto1 .pregunta label:hover,
+#reto1Mision2 .pregunta label:hover,
+#reto1Mision3 .pregunta label:hover {
+    transform: translateX(4px);
+}
+
+
+/* Cuando se selecciona una opción */
+
+#reto1 .pregunta label:has(input:checked),
+#reto1Mision2 .pregunta label:has(input:checked),
+#reto1Mision3 .pregunta label:has(input:checked) {
+    background: #e3f2fd;
+
+    transform: translateX(5px);
+
+    font-weight: bold;
+}
+
+
+/* Botones de comprobar */
+
+#reto1 button,
+#reto1Mision2 button,
+#reto1Mision3 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#reto1 button:hover,
+#reto1Mision2 button:hover,
+#reto1Mision3 button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.16);
+}
+
+
+/* ==========================================================
+   ANIMACIÓN DE ENTRADA
+========================================================== */
+
+@keyframes aparecerReto1 {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — RETO 2 MISIÓN 1
+========================================================== */
+
+#reto2 .contenedor,
+#chat .contenedor,
+#meme .contenedor {
+    animation: aparecerReto2M1 0.7s ease-out;
+}
+
+
+/* Botones de elección */
+
+#reto2 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#reto2 button:hover {
+    transform: translateY(-4px) scale(1.03);
+
+    box-shadow:
+        0 7px 16px rgba(0, 0, 0, 0.16);
+}
+
+
+/* Mensajes del chat */
+
+#chat .mensaje-chat {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#chat .mensaje-chat:hover {
+    transform: translateX(4px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Campos de respuesta */
+
+#chat input,
+#meme input {
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#chat input:focus,
+#meme input:focus {
+    outline: none;
+
+    border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 118, 210, 0.12);
+}
+
+
+/* Imágenes del meme */
+
+#meme .imagenMeme {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#meme .imagenMeme:hover {
+    transform: translateY(-5px) scale(1.05);
+
+    box-shadow:
+        0 7px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Vista previa del meme */
+
+#meme .vistaMeme {
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+#meme .vistaMeme:hover {
+    transform: scale(1.02);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.10);
+}
+
+
+/* ==========================================================
+   ANIMACIÓN
+========================================================== */
+
+@keyframes aparecerReto2M1 {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — RETO 3 MISIÓN 1
+   ORDENa LA HISTORIA
+========================================================== */
+
+#reto3 .contenedor {
+    animation: aparecerReto3M1 0.7s ease-out;
+}
+
+
+/* Título y explicación */
+
+#reto3 h2,
+#reto3 h3,
+#reto3 p {
+    animation: aparecerTextoReto3M1 0.7s ease-out;
+}
+
+
+/* Acontecimientos */
+
+#reto3 .evento {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Al pasar el cursor */
+
+#reto3 .evento:hover {
+    transform: translateX(5px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.10);
+}
+
+
+/* Acontecimiento seleccionado */
+
+#reto3 .evento:disabled {
+    transform: translateX(3px);
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Secuencia elegida */
+
+#ordenSeleccionado span {
+    animation: aparecerOrdenM1 0.35s ease-out;
+}
+
+
+/* Botones del reto */
+
+#reto3 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+#reto3 button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==========================================================
+   ANIMACIONES
+========================================================== */
+
+@keyframes aparecerReto3M1 {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes aparecerTextoReto3M1 {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+@keyframes aparecerOrdenM1 {
+
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN — RETO 1 MISIÓN 2
+========================================================== */
+
+#reto1Mision2 .contenedor {
+    animation: aparecerReto1M2 0.7s ease-out;
+}
+
+#reto1Mision2 .pregunta {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#reto1Mision2 .pregunta:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+#reto1Mision2 .pregunta label {
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+#reto1Mision2 .pregunta label:hover {
+    transform: translateX(4px);
+}
+
+#reto1Mision2 .pregunta label:has(input:checked) {
+    background: #e3f2fd;
+
+    transform: translateX(5px);
+
+    font-weight: bold;
+}
+
+#reto1Mision2 button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#reto1Mision2 button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 6px 15px rgba(0, 0, 0, 0.16);
+}
+
+@keyframes aparecerReto1M2 {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+   MISIÓN 2 — RETO 2
+   EL DIARIO SECRETO DE LA ROSA
+========================================================== */
+
+#reto2Mision2 .contenedor {
+    background: linear-gradient(145deg, #fffafc, #fff3f7);
+    border: 2px solid #f3c1d4;
+    box-shadow: 0 10px 30px rgba(180, 80, 120, 0.15);
+}
+
+
+/* TÍTULO */
+
+#reto2Mision2 h2 {
+    color: #ad1457;
+}
+
+
+/* TEXTOS */
+
+#reto2Mision2 p {
+    color: #4e3b43;
+}
+
+
+/* SUBTÍTULOS */
+
+#reto2Mision2 h3 {
+    color: #c2185b;
+    margin-top: 25px;
+}
+
+
+/* DIARIO */
+
+#diarioRosa {
+    width: 100%;
+    min-height: 170px;
+
+    padding: 15px;
+
+    border: 2px solid #e8a8c0;
+    border-radius: 14px;
+
+    background: #fff;
+
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+
+    resize: vertical;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+#diarioRosa:focus {
+    outline: none;
+
+    border-color: #c2185b;
+
+    box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.12);
+}
+
+
+/* CAMPOS DEL CÓMIC */
+
+#reto2Mision2 input[type="text"] {
+    border: 2px solid #d8b5c4;
+    background: white;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+
+#reto2Mision2 input[type="text"]:focus {
+    border-color: #c2185b;
+
+    box-shadow: 0 0 0 3px rgba(194, 24, 91, 0.10);
+}
+
+
+/* SEPARADOR */
+
+#reto2Mision2 hr {
+    border: none;
+
+    height: 2px;
+
+    margin: 30px 0;
+
+    background: #f1c5d5;
+}
+
+
+/* BOTONES DE GUARDAR */
+
+#btnGuardarDiario,
+#btnGuardarComic {
+    background: #c2185b;
+
+    box-shadow: 0 4px 10px rgba(194, 24, 91, 0.18);
+}
+
+
+#btnGuardarDiario:hover,
+#btnGuardarComic:hover {
+    background: #ad1457;
+
+    transform: translateY(-2px);
+}
+
+
+/* BOTÓN RETROCEDER */
+
+#btnAtrasReto2Mision2 {
+    background: #78909c;
+}
+
+
+#btnAtrasReto2Mision2:hover {
+    background: #607d8b;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    #reto2Mision2 .contenedor {
+        padding: 20px 15px;
+    }
+
+    #diarioRosa {
+        min-height: 150px;
+    }
+
+}
+
+/* ==========================================================
+   MISIÓN 2 — RETO 3
+   ROMPECABEZAS CON MORALEJA
+========================================================== */
+
+#reto3Mision2 .contenedor {
+    background: linear-gradient(145deg, #fffdf5, #fff8e1);
+    border: 2px solid #f0d48a;
+    box-shadow: 0 10px 30px rgba(160, 120, 40, 0.15);
+}
+
+
+/* TÍTULO */
+
+#reto3Mision2 h2 {
+    color: #8d6e00;
+}
+
+
+/* TEXTO */
+
+#reto3Mision2 p {
+    color: #4e4635;
+}
+
+
+/* ÁREA DEL ROMPECABEZAS */
+
+#rompecabezasM2 {
+    max-width: 700px;
+
+    margin: 25px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* PIEZAS */
+
+#rompecabezasM2 .piezaM2 {
+    width: 100%;
+
+    margin: 0;
+
+    padding: 16px 20px;
+
+    text-align: left;
+
+    background: #fff;
+
+    color: #5d4037;
+
+    border: 2px solid #e6c96a;
+
+    border-radius: 14px;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
+}
+
+
+/* EFECTO AL PASAR EL CURSOR */
+
+#rompecabezasM2 .piezaM2:hover {
+    background: #fff8d6;
+
+    transform: translateX(5px);
+
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+
+/* SECUENCIA SELECCIONADA */
+
+#secuenciaSeleccionadaM2 {
+    max-width: 700px;
+
+    margin: 25px auto;
+
+    padding: 16px;
+
+    background: #f1f8e9;
+
+    border: 2px solid #c5e1a5;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    min-height: 50px;
+}
+
+
+/* BOTÓN COMPROBAR */
+
+#btnComprobarRompecabezasM2 {
+    background: #f9a825;
+
+    color: #3e2723;
+
+    box-shadow: 0 4px 10px rgba(249, 168, 37, 0.20);
+}
+
+
+#btnComprobarRompecabezasM2:hover {
+    background: #f57f17;
+
+    color: white;
+}
+
+
+/* BOTÓN RETROCEDER */
+
+#btnAtrasReto3Mision2 {
+    background: #78909c;
+}
+
+
+#btnAtrasReto3Mision2:hover {
+    background: #607d8b;
+}
+
+
+/* RESULTADO */
+
+#resultadoReto3Mision2 {
+    font-weight: bold;
+
+    min-height: 28px;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================================
+   CELULAR — MISIÓN 2 — RETO 3
+========================================================== */
+
+@media (max-width: 600px) {
+
+    #reto3Mision2 .contenedor {
+        padding: 20px 15px;
+    }
+
+    #rompecabezasM2 {
+        width: 100%;
+        gap: 10px;
+        margin: 20px auto;
+    }
+
+    #rompecabezasM2 .piezaM2 {
+        padding: 14px 15px;
+        font-size: 0.95rem;
+    }
+
+    #secuenciaSeleccionadaM2 {
+        width: 100%;
+        margin: 20px auto;
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+    #btnComprobarRompecabezasM2,
+    #btnAtrasReto3Mision2 {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+}
+
+/* ==========================================================
+   MISIÓN 3 — RETO 1
+   DETECTIVE LECTOR
+========================================================== */
+
+#reto1Mision3 .contenedor {
+    background: linear-gradient(145deg, #f6fff8, #eef8f0);
+    border: 2px solid #a5d6a7;
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.14);
+}
+
+
+/* TÍTULO */
+
+#reto1Mision3 h2 {
+    color: #2e7d32;
+}
+
+
+/* SUBTÍTULOS Y TEXTO */
+
+#reto1Mision3 p {
+    color: #37474f;
+}
+
+
+/* PREGUNTAS */
+
+#reto1Mision3 .pregunta {
+    background: #ffffff;
+
+    border: 2px solid #c8e6c9;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+
+#reto1Mision3 .pregunta:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.10);
+}
+
+
+/* OPCIONES */
+
+#reto1Mision3 .pregunta label {
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+
+#reto1Mision3 .pregunta label:hover {
+    background: #e8f5e9;
+
+    transform: translateX(4px);
+}
+
+
+/* BOTÓN COMPROBAR */
+
+#btnComprobarReto1Mision3 {
+    background: #388e3c;
+
+    box-shadow:
+        0 4px 10px rgba(56, 142, 60, 0.20);
+}
+
+
+#btnComprobarReto1Mision3:hover {
+    background: #2e7d32;
+}
+
+
+/* RESULTADO */
+
+#resultadoReto1Mision3 {
+    font-weight: bold;
+
+    min-height: 28px;
+
+    margin: 15px auto;
+}
+
+
+/* CONTINUAR */
+
+#btnContinuarReto2Mision3 {
+    background: #f9a825;
+
+    color: #3e2723;
+}
+
+
+#btnContinuarReto2Mision3:hover {
+    background: #f57f17;
+
+    color: white;
+}
+
+
+/* RETROCEDER */
+
+#btnAtrasReto1Mision3 {
+    background: #78909c;
+}
+
+
+#btnAtrasReto1Mision3:hover {
+    background: #607d8b;
+}
+
+
+/* ==========================================================
+   CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    #reto1Mision3 .contenedor {
+        padding: 20px 15px;
+    }
+
+    #reto1Mision3 .pregunta {
+        padding: 16px;
+    }
+
+    #reto1Mision3 .pregunta label {
+        padding: 9px;
+    }
+
+}
+
+/* ==========================================================
+   MISIÓN 3 — RETO 2
+   CRUCIGRAMA DEL BOSQUE
+========================================================== */
+
+#reto2Mision3 .contenedor {
+    background: linear-gradient(145deg, #f4fff6, #edf7ef);
+
+    border: 2px solid #a5d6a7;
+
+    box-shadow:
+        0 10px 30px rgba(46, 125, 50, 0.14);
+}
+
+
+/* TÍTULO */
+
+#reto2Mision3 h2 {
+    color: #2e7d32;
+}
+
+
+/* TEXTO */
+
+#reto2Mision3 p {
+    color: #37474f;
+}
+
+
+/* ÁREA DE PISTAS */
+
+#reto2Mision3 .crucigrama {
+    max-width: 700px;
+
+    margin: 25px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* CADA PISTA */
+
+#reto2Mision3 .cruci-pista {
+    padding: 18px;
+
+    text-align: left;
+
+    background: #ffffff;
+
+    border: 2px solid #c8e6c9;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.07);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+
+#reto2Mision3 .cruci-pista:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.10);
+}
+
+
+/* TEXTO DE LA PISTA */
+
+#reto2Mision3 .cruci-pista strong {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #33691e;
+}
+
+
+/* CAMPOS DEL CRUCIGRAMA */
+
+#reto2Mision3 .cruci-pista input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    margin: 0;
+
+    border: 2px solid #b7cdb9;
+
+    border-radius: 10px;
+
+    background: #fbfffb;
+
+    font-size: 1rem;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+
+#reto2Mision3 .cruci-pista input:focus {
+    outline: none;
+
+    border-color: #43a047;
+
+    box-shadow:
+        0 0 0 3px rgba(67, 160, 71, 0.12);
+}
+
+
+/* BOTÓN COMPROBAR */
+
+#btnComprobarCrucigrama {
+    background: #388e3c;
+
+    box-shadow:
+        0 4px 10px rgba(56, 142, 60, 0.20);
+}
+
+
+#btnComprobarCrucigrama:hover {
+    background: #2e7d32;
+}
+
+
+/* RESULTADO */
+
+#resultadoCrucigrama {
+    font-weight: bold;
+
+    min-height: 28px;
+
+    margin: 15px auto;
+}
+
+
+/* BOTÓN RETROCEDER */
+
+#btnAtrasReto2Mision3 {
+    background: #78909c;
+}
+
+
+#btnAtrasReto2Mision3:hover {
+    background: #607d8b;
+}
+
+
+/* ==========================================================
+   CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    #reto2Mision3 .contenedor {
+        padding: 20px 15px;
+    }
+
+    #reto2Mision3 .cruci-pista {
+        padding: 15px;
+    }
+
+    #reto2Mision3 .cruci-pista input {
+        font-size: 0.95rem;
+    }
+
+}
+
+/* ==========================================================
+   MISIÓN 3 — RETO 3
+   RULETA DE LA MORALEJA
+========================================================== */
+
+#reto3Mision3 .contenedor {
+    background: linear-gradient(145deg, #fffdf4, #f1f8e9);
+
+    border: 2px solid #c5d99a;
+
+    box-shadow:
+        0 10px 30px rgba(80, 100, 40, 0.15);
+}
+
+
+/* TÍTULO */
+
+#reto3Mision3 h2 {
+    color: #558b2f;
+}
+
+
+/* TEXTO */
+
+#reto3Mision3 p {
+    color: #37474f;
+}
+
+
+/* ==========================================================
+   CONTENEDOR DE LA RULETA
+========================================================== */
+
+#reto3Mision3 .ruleta-contenedor {
+    position: relative;
+
+    width: 280px;
+    height: 280px;
+
+    margin: 30px auto;
+}
+
+
+/* RULETA */
+
+#reto3Mision3 .ruleta {
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    border: 8px solid #795548;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.18);
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: #f5f5f5;
+}
+
+
+/* SEGMENTOS */
+
+#reto3Mision3 .segmento {
+    position: absolute;
+
+    width: 50%;
+    height: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    font-size: 0.72rem;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    transform-origin: 100% 100%;
+}
+
+
+/* Distribución visual de los segmentos */
+
+#reto3Mision3 .segmento1 {
+    top: 0;
+    left: 0;
+    background: #dcedc8;
+}
+
+#reto3Mision3 .segmento2 {
+    top: 0;
+    right: 0;
+    background: #fff9c4;
+}
+
+#reto3Mision3 .segmento3 {
+    bottom: 0;
+    right: 0;
+    background: #ffccbc;
+}
+
+#reto3Mision3 .segmento4 {
+    bottom: 0;
+    left: 0;
+    background: #bbdefb;
+}
+
+#reto3Mision3 .segmento5 {
+    top: 25%;
+    left: 25%;
+    background: #e1bee7;
+}
+
+#reto3Mision3 .segmento6 {
+    top: 25%;
+    right: 25%;
+    background: #ffcdd2;
+}
+
+
+/* PUNTERO */
+
+#reto3Mision3 .puntero-ruleta {
+    position: absolute;
+
+    top: -18px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 5;
+
+    font-size: 2rem;
+
+    color: #d32f2f;
+
+    text-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ==========================================================
+   BOTÓN GIRAR
+========================================================== */
+
+#btnGirarRuleta {
+    background: #689f38;
+
+    box-shadow:
+        0 5px 12px rgba(104, 159, 56, 0.25);
+}
+
+
+#btnGirarRuleta:hover {
+    background: #558b2f;
+
+    transform: translateY(-2px);
+}
+
+
+/* RESULTADO */
+
+#resultadoRuleta {
+    max-width: 600px;
+
+    margin: 20px auto;
+
+    padding: 15px;
+
+    background: #f1f8e9;
+
+    border: 2px solid #c5e1a5;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+}
+
+
+/* ==========================================================
+   PREGUNTA DE REFLEXIÓN
+========================================================== */
+
+#preguntaRuleta {
+    max-width: 650px;
+
+    margin: 25px auto;
+
+    padding: 20px;
+
+    background: #fff;
+
+    border: 2px solid #dcedc8;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+
+#preguntaRuleta h3 {
+    color: #558b2f;
+}
+
+
+/* RESPUESTA */
+
+#respuestaRuleta {
+    width: 100%;
+
+    min-height: 120px;
+
+    padding: 14px;
+
+    border: 2px solid #c5d6c5;
+
+    border-radius: 10px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 1rem;
+
+    line-height: 1.5;
+
+    resize: vertical;
+}
+
+
+#respuestaRuleta:focus {
+    outline: none;
+
+    border-color: #689f38;
+
+    box-shadow:
+        0 0 0 3px rgba(104, 159, 56, 0.12);
+}
+
+
+/* BOTÓN COMPROBAR */
+
+#btnComprobarRuleta {
+    background: #689f38;
+}
+
+
+#btnComprobarRuleta:hover {
+    background: #558b2f;
+}
+
+
+/* RESULTADO FINAL */
+
+#resultadoFinalRuleta {
+    font-weight: bold;
+
+    min-height: 28px;
+
+    margin: 15px auto;
+}
+
+
+/* RETROCEDER */
+
+#btnAtrasReto3Mision3 {
+    background: #78909c;
+}
+
+
+#btnAtrasReto3Mision3:hover {
+    background: #607d8b;
+}
+
+
+/* ==========================================================
+   CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    #reto3Mision3 .contenedor {
+        padding: 20px 15px;
+    }
+
+    #reto3Mision3 .ruleta-contenedor,
+    #reto3Mision3 .ruleta {
+        width: 240px;
+        height: 240px;
+    }
+
+    #reto3Mision3 .segmento {
+        font-size: 0.62rem;
+    }
+
+    #reto3Mision3 .puntero-ruleta {
+        font-size: 1.7rem;
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN 1 — ENTRADA DE PANTALLAS
+========================================================== */
+
+@keyframes aparecerPantalla {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN 2 — BOTONES
+========================================================== */
+
+button {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================
+   ANIMACIÓN 3 — INSIGNIAS Y RECOMPENSAS
+========================================================== */
+
+#felicitacion h2:first-child,
+#finalMision2 h2:first-child,
+#finalMision3 h2:first-child,
+#trofeoFinal h1 {
+    animation: aparecerRecompensa 0.8s ease;
+}
+
+@keyframes aparecerRecompensa {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.75);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+/* ==========================================================
+   ANIMACIÓN 4 — MAPA
+========================================================== */
+
+.departamentos button {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.departamentos button:not(:disabled):hover {
+    transform: translateY(-4px) scale(1.02);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.16);
+}
+
+.departamentos button:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+/* ==========================================================
+   ANIMACIÓN 5 — TEMPORIZADOR DEL DESAFÍO FINAL
+========================================================== */
+
+#tiempoPregunta {
+    display: inline-block;
+
+    animation: pulsoTiempo 1.5s ease-in-out infinite;
+}
+
+@keyframes pulsoTiempo {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+/* ==========================================================
+   GUARDABARRO — PANTALLA DE INICIO
+========================================================== */
+
+#inicio {
+    position: relative;
+    overflow: hidden;
+}
+
+#inicio::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 110px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #66bb6a 0%,
+            #81c784 45%,
+            #f9a825 45%,
+            #ffb300 100%
+        );
+
+    opacity: 0.95;
+
+    z-index: 0;
+}
+
+#inicio .contenedor {
+    position: relative;
+    z-index: 1;
+}
+/* ==========================================================
+   ADAPTACIÓN PARA CELULAR
+========================================================== */
+
+@media (max-width: 600px) {
+
+    /* PANTALLAS */
+
+    .pantalla {
+        min-height: 100vh;
+        padding: 20px 12px;
+    }
+
+
+    /* CONTENEDOR PRINCIPAL */
+
+    .contenedor {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 22px 16px;
+    }
+
+
+    /* TÍTULOS */
+
+    h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        line-height: 1.25;
+    }
+
+    h3 {
+        font-size: 1.15rem;
+        line-height: 1.3;
+    }
+
+
+    /* TEXTOS */
+
+    p {
+        font-size: 0.98rem;
+        line-height: 1.55;
+    }
+
+
+    /* BOTONES */
+
+    button {
+        max-width: 100%;
+        box-sizing: border-box;
+        font-size: 0.95rem;
+        padding: 12px 16px;
+    }
+
+
+    /* MAPA */
+
+    .departamentos {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .departamentos button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+
+    /* LECTURAS */
+
+    .texto-lectura {
+        width: 100%;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .texto-lectura p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+
+    /* PREGUNTAS */
+
+    .pregunta {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 18px;
+    }
+
+    .pregunta label {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 9px;
+        line-height: 1.4;
+    }
+
+
+    /* CAMPOS */
+
+    input,
+    textarea {
+        max-width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+
+    /* CHAT */
+
+    .chat-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+
+    /* MEME */
+
+    .imagenesMeme {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .imagenMeme {
+        max-width: 120px;
+    }
+
+
+    /* DESAFÍO FINAL */
+
+    .barra-desafio {
+        width: 100%;
+        box-sizing: border-box;
+        gap: 8px;
+    }
+
+
+    .temporizador {
+        margin: 15px auto;
+    }
+
+
+    #opcionesDesafio {
+        width: 100%;
+    }
+
+    .opcionDesafio {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+
+    /* CLASIFICACIÓN */
+
+    #tablaClasificacion {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+}
+
+/* ==========================================================
+   MASCOTA GUARDABARRANCO - PANTALLA DE INICIO
+========================================================== */
+
+#inicio{
+    position:relative;
+    overflow:hidden;
+}
+
+#inicio::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    right:25px;
+    bottom:20px;
+
+    background-image: url("guardabbarnco.jpg");
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+
+    z-index:2;
+
+    pointer-events:none;
+
+    animation:entradaGuardabarranco 1s ease;
+}
+
+@keyframes entradaGuardabarranco{
+
+    from{
+
+        opacity:0;
+        transform:translateX(60px) translateY(20px) scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0) translateY(0) scale(1);
+
+    }
+
+}
+
+/* Adaptación para celular */
+
+@media (max-width:700px){
+
+    #inicio::after{
+
+        width:150px;
+        height:150px;
+
+        right:10px;
+        bottom:10px;
+
+    }
+
+}
+
+/* ==========================================================
+   CLASIFICACIÓN - DISEÑO PREMIUM
+========================================================== */
+
+#tablaClasificacion{
+
+    margin-top:25px;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#ffffff;
+
+    box-shadow:0 10px 28px rgba(0,0,0,.12);
+
+}
+
+/* Todas las filas */
+
+.fila-clasificacion{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:15px 18px;
+
+    border-bottom:1px solid #ececec;
+
+    transition:.25s;
+
+}
+
+/* Encabezado */
+
+.fila-clasificacion.encabezado{
+
+    background:#1d5fa7;
+
+    color:white;
+
+    font-weight:bold;
+
+    letter-spacing:.5px;
+
+}
+
+/* Última fila */
+
+.fila-clasificacion:last-child{
+
+    border-bottom:none;
+
+}
+
+/* Hover */
+
+.fila-clasificacion:hover{
+
+    background:#f7fbff;
+
+    transform:translateX(4px);
+
+}
+
+/* ==========================================================
+   🥇🥈🥉 PODIO - CLASIFICACIÓN
+   Solo diseño visual
+========================================================== */
+
+/* 🥇 PRIMER LUGAR */
+#tablaClasificacion .fila-clasificacion:nth-child(2) {
+    background: linear-gradient(135deg, #fff8d6, #f6d86b, #fff3b0);
+    border-left: 6px solid #d4a017;
+    font-weight: 700;
+    box-shadow: inset 0 0 12px rgba(212, 160, 23, 0.18);
+}
+
+/* 🥇 Brillo al pasar el cursor */
+#tablaClasificacion .fila-clasificacion:nth-child(2):hover {
+    background: linear-gradient(135deg, #fff4bd, #f4cf4e, #fff8d6);
+    transform: translateX(6px);
+}
+
+/* 🥈 SEGUNDO LUGAR */
+#tablaClasificacion .fila-clasificacion:nth-child(3) {
+    background: linear-gradient(135deg, #f4f4f4, #d5d8dc, #fafafa);
+    border-left: 6px solid #9da3a8;
+    font-weight: 600;
+    box-shadow: inset 0 0 10px rgba(120, 125, 130, 0.14);
+}
+
+/* 🥈 Hover */
+#tablaClasificacion .fila-clasificacion:nth-child(3):hover {
+    background: linear-gradient(135deg, #eeeeee, #cfd3d7, #ffffff);
+    transform: translateX(6px);
+}
+
+/* 🥉 TERCER LUGAR */
+#tablaClasificacion .fila-clasificacion:nth-child(4) {
+    background: linear-gradient(135deg, #f7dfc8, #c98b5b, #f3d2b5);
+    border-left: 6px solid #a86632;
+    font-weight: 600;
+    box-shadow: inset 0 0 10px rgba(150, 90, 45, 0.14);
+}
+
+/* 🥉 Hover */
+#tablaClasificacion .fila-clasificacion:nth-child(4):hover {
+    background: linear-gradient(135deg, #f2d1b1, #bd7848, #f7dfc8);
+    transform: translateX(6px);
+}
+
+/* ==========================================================
+   🔊 CONTROL DE SONIDO
+========================================================== */
+
+#controlSonido {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 9999;
+}
+
+#btnSonido {
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#btnSonido:hover {
+    transform: scale(1.08);
+
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.24);
+}
+
+#btnSonido:active {
+    transform: scale(0.94);
 }
