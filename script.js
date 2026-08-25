@@ -75,13 +75,13 @@ actualizarBotonSonido();
 
 const sonidos = {
 
-    campanita: new Audio("audio/CAMPANITA.wav"),
+    campanita: new Audio("audios/CAMPANITA.wav"),
 
-    error: new Audio("audio/ERROR.wav"),
+    error: new Audio("audios/ERROR.wav"),
 
-    logro: new Audio("audio/LOGRO.wav"),
+    logro: new Audio("audios/LOGRO.wav"),
 
-    insignia: new Audio("audio/INSIGNIA.wav")
+    insignia: new Audio("audios/INSIGNIA.wav")
 
 };
 
@@ -107,6 +107,158 @@ function reproducirSonido(nombre) {
     });
 
 }
+
+
+// ==========================================================
+// 🐦 VOZ DE GUARDI
+// ==========================================================
+
+function hablarGuardi(texto) {
+
+    if (!("speechSynthesis" in window)) {
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const mensaje = new SpeechSynthesisUtterance(texto);
+
+    mensaje.lang = "es-NI";
+    mensaje.rate = 0.9;
+    mensaje.pitch = 1.15;
+    mensaje.volume = 1;
+
+    speechSynthesis.speak(mensaje);
+}
+
+
+// ==========================================================
+// 🔊 SONIDOS AUTOMÁTICOS DE RESPUESTAS
+// ==========================================================
+
+(function activarSonidosAutomaticos() {
+
+    const textosCorrectos = [
+        "¡Excelente!",
+        "Excelente",
+        "correctamente",
+        "correcto",
+        "correcta",
+        "acertaste",
+        "felicidades",
+        "muy bien",
+        "¡Muy bien!",
+        "logrado",
+        "perfecto",
+        "5 de 5"
+    ];
+
+    const textosIncorrectos = [
+        "❌",
+        "incorrecto",
+        "incorrecta",
+        "revisa",
+        "inténtalo",
+        "intenta nuevamente",
+        "error",
+        "no es correcto",
+        "no es correcta"
+    ];
+
+    const resultadosDetectados = new WeakMap();
+
+    const observador = new MutationObserver(function(cambios) {
+
+        cambios.forEach(function(cambio) {
+
+            let elemento = cambio.target;
+
+            if (
+                elemento.nodeType !== 1 &&
+                elemento.parentElement
+            ) {
+                elemento = elemento.parentElement;
+            }
+
+            if (!elemento) return;
+
+            let resultado = elemento.closest(
+                '[id*="resultado" i]'
+            );
+
+            if (!resultado) {
+
+                if (
+                    elemento.id &&
+                    elemento.id.toLowerCase().includes("resultado")
+                ) {
+                    resultado = elemento;
+                }
+
+            }
+
+            if (!resultado) return;
+
+            const texto =
+                resultado.textContent
+                    .trim()
+                    .toLowerCase();
+
+            if (texto === "") return;
+
+            if (
+                resultadosDetectados.get(resultado) === texto
+            ) {
+                return;
+            }
+
+            resultadosDetectados.set(resultado, texto);
+
+            const esIncorrecto =
+                textosIncorrectos.some(function(palabra) {
+
+                    return texto.includes(
+                        palabra.toLowerCase()
+                    );
+
+                });
+
+            if (esIncorrecto) {
+
+                reproducirSonido("error");
+
+                return;
+            }
+
+            const esCorrecto =
+                textosCorrectos.some(function(palabra) {
+
+                    return texto.includes(
+                        palabra.toLowerCase()
+                    );
+
+                });
+
+            if (esCorrecto) {
+
+                reproducirSonido("campanita");
+
+            }
+
+        });
+
+    });
+
+    observador.observe(document.body, {
+
+        childList: true,
+        subtree: true,
+        characterData: true
+
+    });
+
+})();
+
 
 // ==========================================================
 // 1. PANTALLAS
@@ -160,11 +312,33 @@ const saludoJugador =
 
 conectarBoton("btnComenzar", function() {
 
+    hablarGuardi(
+        "¡Excelente, explorador! Escribe tu nombre para comenzar nuestra aventura por Nicaragua."
+    );
+
     mostrarPantalla("registro");
 
 });
 
+// ==========================================================
+// BOTÓN CRÉDITOS
+// ==========================================================
 
+conectarBoton("btnCreditos", function() {
+
+    mostrarPantalla("creditos");
+
+});
+
+// ==========================================================
+// BOTÓN VOLVER DE CRÉDITOS
+// ==========================================================
+
+conectarBoton("btnAtrasCreditos", function() {
+
+    mostrarPantalla("inicio");
+
+});
 conectarBoton("btnEntrar", function() {
 
     const nombre = nombreJugador
@@ -776,7 +950,6 @@ conectarBoton(
 
         }
 
-
         alert(
             "😂 ¡Tu meme está listo!"
         );
@@ -1090,69 +1263,45 @@ for (let i = 1; i <= 5; i++) {
 
 }
 
-
 conectarBoton(
     "btnComprobarReto1Mision2",
     function() {
 
         let puntos = 0;
+alert("Las respuestas se están comprobando");
 
+        for (let i = 1; i <= 5; i++) {
 
-        for (
-            let i = 1;
-            i <= 5;
-            i++
-        ) {
-
-            const respuesta =
-                document.querySelector(
-                    'input[name="p' +
-                    i +
-                    '"]:checked'
-                );
-
+            const respuesta = document.querySelector(
+                'input[name="p' + i + '"]:checked'
+            );
 
             if (
                 respuesta &&
-                respuesta.value ===
-                respuestasMision2[
-                    "p" + i
-                ]
+                respuesta.value === respuestasMision2["p" + i]
             ) {
-
                 puntos++;
-
             }
-
         }
 
+       if (puntos === 5) {
 
-        if (puntos < 5) {
+    alert("🎉 ¡Reto 1 completado!");
 
+    mostrarPantalla("reto2Mision2");
+        } else {
+
+           
             alert(
-                "Obtuviste " +
+                "❌ Obtuviste " +
                 puntos +
                 " de 5. Lee nuevamente el cuento y vuelve a intentarlo."
             );
 
-            return;
-
         }
-
-
-        alert(
-            "🎉 ¡Reto 1 completado!"
-        );
-
-
-        mostrarPantalla(
-            "reto2Mision2"
-        );
 
     }
 );
-
-
 conectarBoton(
     "btnGuardarDiario",
     function() {
