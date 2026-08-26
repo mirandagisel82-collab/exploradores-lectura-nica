@@ -914,8 +914,6 @@ if (memeInferior) {
     );
 
 }
-
-
 conectarBoton(
     "btnCrearMeme",
     function() {
@@ -950,15 +948,43 @@ conectarBoton(
 
         }
 
+
+        // ==================================================
+        // MOSTRAR EL MEME CREADO
+        // ==================================================
+
+        const vistaMeme =
+            document.querySelector(
+                ".vistaMeme"
+            );
+
+        if (vistaMeme) {
+
+            vistaMeme.style.display =
+                "block";
+
+vistaMeme.innerHTML =
+    '<p id="textoMemeSuperior">' +
+    superior +
+    '</p>' +
+
+    '<div class="imagenMemeCreada">' +
+    imagen +
+    '</div>' +
+
+    '<p id="textoMemeInferior">' +
+    inferior +
+    '</p>';
+        }
+
+
         alert(
             "😂 ¡Tu meme está listo!"
         );
-
-
-        mostrarPantalla("reto3");
-
+mostrarPantalla("reto3");
     }
 );
+
 // ==========================================================
 // RETO 3 MISIÓN 1 — ORDENAR LA HISTORIA
 // ==========================================================

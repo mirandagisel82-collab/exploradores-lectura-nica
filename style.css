@@ -4480,3 +4480,83 @@ button:active {
 #btnSonido:active {
     transform: scale(0.94);
 }
+
+/* ==========================================================
+   MEME CREADO — VISTA FINAL
+========================================================== */
+
+.vistaMeme {
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #111;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    text-align: center;
+    overflow: hidden;
+}
+
+
+/* Imagen grande del meme */
+
+.imagenMemeCreada {
+    font-size: 150px;
+    line-height: 1.1;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+
+/* Texto superior e inferior */
+
+.vistaMeme #textoMemeSuperior,
+.vistaMeme #textoMemeInferior {
+    margin: 15px 5px;
+    color: white;
+    font-size: 28px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.2;
+    text-shadow:
+        3px 3px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000;
+}
+
+
+/* Texto superior */
+
+.vistaMeme #textoMemeSuperior {
+    margin-bottom: 10px;
+}
+
+
+/* Texto inferior */
+
+.vistaMeme #textoMemeInferior {
+    margin-top: 10px;
+}
+
+
+/* Adaptación para celular */
+
+@media (max-width: 600px) {
+
+    .vistaMeme {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    .imagenMemeCreada {
+        font-size: 110px;
+    }
+
+    .vistaMeme #textoMemeSuperior,
+    .vistaMeme #textoMemeInferior {
+        font-size: 21px;
+    }
+
+}
